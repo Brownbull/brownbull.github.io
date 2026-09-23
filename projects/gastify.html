@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gastify — case study · Gabriel Cárcamo</title>
+  <meta name="description" content="Gastify: an expense tracker that reads receipts and credit-card statements and reconciles them. FastAPI, PostgreSQL row-level security, Gemini output typed through PydanticAI.">
+  <meta property="og:title" content="Gastify — case study · Gabriel Cárcamo">
+  <meta property="og:description" content="Receipts and card statements reconciled by a FastAPI + PostgreSQL backend: typed LLM output checked by arithmetic, a plain-code PDF parser first, explainable matching.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/gastify.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/gastify.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/gastify.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/gastify.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/gastify.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case">
+    <div class="wrap">
+      <a class="back" href="../index.html#work">← All work</a>
+
+      <div class="case-head">
+        <div class="chips">
+          <span class="chip progress"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></svg>Side project · rebuild in progress</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Private repo · walkthrough on request</span>
+        </div>
+        <h1>Gastify</h1>
+        <p class="lede">An expense tracker for the Chilean market. It reads receipt photos and credit-card statement PDFs, matches each statement line to a receipt, and flags what is missing or needs a look.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="media"><img src="../assets/img/gastify-reconciled.webp" width="1200" height="1126" alt="The reconciliation screen in the app: tabs reading matched 18, statement only 0, app only 0, ambiguous 0, failed 0, over a table that pairs each statement line with a saved transaction and gives the reason for the verdict — exact amount, same date. The lines, verdicts and reasons were written by a demo seed script, not by a run of the matcher."></div>
+        <figcaption>Reconciliation screen on the test deployment. The statement lines, the 18 matched verdicts and their reasons were written by a demo seed script in the format the matcher produces; this is not a live run of the matcher.</figcaption>
+      </figure>
+
+      <dl class="facts">
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Role</dt><dd>Solo. Claude Code as my main coding tool, under a test-first, review-gated workflow.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Timeline</dt><dd>Firebase prototype, November 2025 to May 2026. FastAPI + PostgreSQL rebuild since April 2026.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>Built so far</dt><dd>Receipt scan, ledger, statement import with reconciliation, a spending dashboard and shared groups, on a web app and an Android app. 84 API route handlers and 52 database migrations (September 2026).</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Runs on a hosted test deployment (sign-in required, disposable data). Not launched; no payments. Rebuild repo is private; the Firebase prototype is live at <a href="https://boletapp-d609f.web.app">boletapp-d609f.web.app</a>.</dd></div>
+      </dl>
+    </div>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problem</h2>
+        <p>A Chilean card statement lists one line per purchase: merchant, date, amount. The items are only on the paper receipt. Reconciling the two by hand every month is slow.</p>
+        <p>Once each receipt is tagged with its card, Gastify does that match itself and shows which lines have no receipt.</p>
+        <h3 style="margin-top:28px">Why a rebuild</h3>
+        <p>The first version ran on Firebase, with most of the logic in Cloud Functions triggered by database writes. As features grew, those triggers started firing on each other's writes and colliding, and the order of operations became hard to follow or test. I rebuilt it as a FastAPI and PostgreSQL backend, where each operation is an explicit endpoint or background task that can be tested on its own.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <figure class="diagram" data-fx="flow-gastify" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 430" role="img" aria-labelledby="gx-title gx-desc">
+            <title id="gx-title">Gastify: receipt flow and statement flow</title>
+            <desc id="gx-desc">Receipt flow: a receipt photo goes to the FastAPI app, which runs a background task that calls Gemini through PydanticAI for typed extraction, then a math check; the receipt is saved, with a review flag when the totals do not add up. Statement flow: a statement PDF with a named card and an AI consent box goes to a plain-code PDF parser for three known layouts; at confidence 0.80 or more it goes straight to reconciliation, below that Gemini returns a layout profile from row evidence that code applies to the rows. Reconciliation compares statement lines with saved transactions and produces verdicts in four buckets with reasons. Data lives in PostgreSQL 16, with row-level security on the ledger and statement tables.</desc>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+            </defs>
+
+            <text class="group-label" x="20" y="26">Receipt</text>
+            <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">Receipt photo</text><text class="sub" x="32" y="80">web or Android app</text></g>
+            <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">FastAPI</text><text class="sub" x="220" y="80">stores the image,</text><text class="sub" x="220" y="95">background task</text></g>
+            <g class="node ai"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Gemini</text><text class="sub" x="408" y="80">via PydanticAI,</text><text class="sub" x="408" y="95">typed output schema</text></g>
+            <g class="node"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">Math check</text><text class="sub" x="596" y="80">items + tax</text><text class="sub" x="596" y="95">− discount = total</text></g>
+            <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Saved</text><text class="sub" x="784" y="80">review flag if</text><text class="sub" x="784" y="95">totals differ</text></g>
+            <path class="edge" d="M180 69 H206"/>
+            <path class="edge" d="M368 69 H394"/>
+            <path class="edge" d="M556 69 H582"/>
+            <path class="edge" d="M744 69 H770"/>
+
+            <text class="group-label" x="20" y="176">Statement</text>
+            <g class="node"><rect x="20" y="186" width="160" height="66" rx="8"/><text x="32" y="210">Statement PDF</text><text class="sub" x="32" y="230">named card +</text><text class="sub" x="32" y="245">AI consent box</text></g>
+            <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">PDF parser</text><text class="sub" x="220" y="230">3 known layouts,</text><text class="sub" x="220" y="245">PyMuPDF, no AI</text></g>
+            <g class="node"><rect x="584" y="186" width="160" height="66" rx="8"/><text x="596" y="210">Reconciliation</text><text class="sub" x="596" y="230">same card, 3 days,</text><text class="sub" x="596" y="245">1% amount, name</text></g>
+            <g class="node"><rect x="772" y="186" width="160" height="66" rx="8"/><text x="784" y="210">Verdicts</text><text class="sub" x="784" y="230">4 buckets, reasons</text><text class="sub" x="784" y="245">coverage ratio</text></g>
+            <g class="node ai"><rect x="396" y="296" width="160" height="66" rx="8"/><text x="408" y="320">Gemini</text><text class="sub" x="408" y="340">layout profile from</text><text class="sub" x="408" y="355">row evidence only</text></g>
+            <path class="edge" d="M180 219 H206"/>
+            <path class="edge" d="M368 219 H582"/>
+            <text class="edge-label" x="410" y="211">confidence ≥ 0.80</text>
+            <path class="edge dashed" d="M288 252 V329 H394"/>
+            <text class="edge-label" x="296" y="284">below 0.80</text>
+            <path class="edge dashed" d="M556 329 H664 V254"/>
+            <text class="edge-label" x="672" y="300">rows parsed by code</text>
+            <path class="edge" d="M744 219 H770"/>
+            <path class="edge" d="M852 102 V144 H664 V184"/>
+            <text class="edge-label" x="700" y="138">saved transactions</text>
+
+            <g class="band"><rect x="20" y="384" width="912" height="36" rx="8"/><text x="36" y="407">PostgreSQL 16 · row-level security on ledger and statement tables · SQLAlchemy 2.0 async · Alembic</text></g>
+          </svg>
+          <figcaption>Simplified. Both flows run as background tasks inside the API process. Firebase ID tokens are verified by the API. Web (React 19) and Android (Expo) clients use API types generated from the FastAPI OpenAPI schema.</figcaption>
+        </figure>
+
+        <ul class="points prose">
+          <li><strong>Receipt scanning.</strong> The API stores the photo and hands it to a background task. Gemini, called through PydanticAI with a typed output schema, extracts merchant, items and totals; a second typed call assigns item categories. Amounts are normalized per currency in integer minor units (the Chilean peso has no decimals).</li>
+          <li><strong>Statement import.</strong> Uploading a statement needs a named card and an explicit consent box for AI processing. Encrypted PDFs ask for the password. For three known Chilean card layouts, a PyMuPDF parser reads the lines from word positions without calling any model.</li>
+          <li><strong>Reconciliation.</strong> Each statement line is compared with the user's saved transactions, scanned or typed in. Lines end up matched, statement only or ambiguous; transactions that no line claims end up receipt only. The run reports a coverage ratio and the reasons behind each verdict.</li>
+          <li><strong>Data isolation.</strong> Each request sets the user's ownership scope (personal or a shared group) in Postgres, and row-level security on the ledger, statement and reconciliation tables filters by it; scan records are scoped in application code. The API refuses to start if its database role can bypass row-level security, and CI fails if the isolation tests on real Postgres 16 were skipped.</li>
+        </ul>
+
+        <div class="shots prose">
+          <figure>
+            <img src="../assets/img/gastify-dashboard.webp" width="1200" height="938" alt="The app dashboard: spend for the month, a six-month trend chart, categories above the three-month average, and the latest transactions — all seeded demo data." loading="lazy">
+            <figcaption>Dashboard with seeded demo data: month total, six-month trend and the categories above average.</figcaption>
+          </figure>
+          <figure>
+            <img src="../assets/img/gastify-needs-review.webp" width="1200" height="844" alt="A receipt draft with a review banner saying the items do not add up to the printed total; four items and their prices are listed below. Seeded test data." loading="lazy">
+            <figcaption>The review banner the math check raises, shown on a test draft: the items and the review flag were set by a test script, not produced by a scan. App shown in Spanish.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M18 6a2 2 0 0 1 1.387.56l2.307 2.22a1 1 0 0 1 0 1.44l-2.307 2.22A2 2 0 0 1 18 13H6a2 2 0 0 1-1.387-.56l-2.306-2.22a1 1 0 0 1 0-1.44l2.306-2.22A2 2 0 0 1 6 6z"/></svg>Decisions</h2>
+        <ol class="decisions prose">
+          <li>
+            <h3>Typed LLM output, with arithmetic as the final check</h3>
+            <p>I did not trust a valid schema to mean a correct receipt. After extraction, a math check compares items + tax − discount with the printed total in integer minor units. A gap of more than one unit marks the scan as needs-review and stores the review signal on the transaction, so the user sees the mismatch instead of a silent save.</p>
+            <p class="tradeoff"><strong>Cost:</strong> the check only flags a mismatch; the user still has to open the receipt and fix it.</p>
+          </li>
+          <li>
+            <h3>Plain code first, AI only as a consented fallback</h3>
+            <p>I made plain code the default path: a statement in one of the three known layouts that parses with confidence 0.80 or more never reaches a model. The upload is rejected unless the consent box is checked, and the consent applies only when the parser cannot handle the file. Below 0.80, Gemini receives compact row evidence (text, row order, coordinates), not the PDF, and returns a typed layout profile that plain code applies to the rows. Each result records which path ran and why.</p>
+            <p class="tradeoff"><strong>Cost:</strong> three layouts are parsed by hand-written code; every other statement depends on the fallback.</p>
+          </li>
+          <li>
+            <h3>Reconciliation that explains itself</h3>
+            <p>I kept matching deterministic. A transaction is a candidate only if it carries the statement's card, has the same currency, a date within 3 days, an amount within 1% and a merchant-name similarity of at least 0.72. Candidates are scored 0.4 merchant + 0.3 amount + 0.2 date + 0.1 card; if the top two are within 0.05 of each other, the line is marked ambiguous rather than guessed. Every verdict stores its reasons, such as <span class="mono">exact_amount</span> or <span class="mono">date_tolerance:2d</span>.</p>
+            <p class="tradeoff"><strong>Cost:</strong> hand-set values (the tolerances are settings, the weights and the 0.05 margin are constants in code), and scanned receipts start tagged as cash, so the user picks the card before they can match.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Limits</h2>
+        <div class="limits">
+          <ul class="points">
+            <li>Not launched. The only deployment holds disposable test data; billing enforcement is off by default and no payment provider is connected.</li>
+            <li>No durable job queue. Scans and statements run as FastAPI background tasks inside the API process, so a restart can drop an in-flight job. Re-uploading the same PDF restarts a statement that had not started extracting; one caught mid-extraction has to be deleted and uploaded again.</li>
+            <li>The Android app is tested on one physical phone with Maestro. iOS is deferred.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</h2>
+        <dl class="facts" style="margin-top:0">
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>Backend</dt><dd>Python 3.12, FastAPI, SQLAlchemy 2.0 (async), Alembic, PostgreSQL 16, PydanticAI, Gemini (2.5 Flash-Lite by default), PyMuPDF, Firebase Auth</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-3.96 3.15"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></svg>Clients</dt><dd>React 19, TypeScript, Vite, TanStack Query, React Native + Expo, types generated from the OpenAPI schema</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Quality</dt><dd>pytest, ruff, mypy (strict), Vitest, Jest, Playwright, Maestro; GitHub Actions with an 80% backend coverage floor, gitleaks and pip-audit</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#work">← All work</a>
+        <a href="triage-agent.html">Next: SRE Triage Agent →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

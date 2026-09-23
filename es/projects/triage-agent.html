@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SRE Triage Agent — caso de estudio · Gabriel Cárcamo</title>
+  <meta name="description" content="Una app de triage de incidentes construida en solitario con Claude Code durante el AgentX Hackathon: guardrails deterministas, un solo esquema de salida estructurada para tres motores LLM, verificación de que existan los archivos citados y trazas en Langfuse.">
+  <meta property="og:title" content="SRE Triage Agent — caso de estudio · Gabriel Cárcamo">
+  <meta property="og:description" content="Guardrails deterministas antes del LLM, un solo esquema de salida para tres motores, una verificación de que existan los archivos que cita el modelo y trazas self-hosted.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:url" content="https://brownbull.github.io/es/projects/triage-agent.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Ingeniero Backend Senior, Python e IA">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/es/projects/triage-agent.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/triage-agent.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/triage-agent.html">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Principal">
+        <a href="../index.html#work">Trabajo</a>
+        <a href="../index.html#experience">Experiencia</a>
+        <a href="../index.html#contact">Contacto</a>
+        <a href="../../cv.pdf">CV (PDF, en inglés)</a>
+        <span class="lang" role="group" aria-label="Idioma"><a href="../../projects/triage-agent.html" hreflang="en" lang="en">EN</a><span aria-current="true">ES</span></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case">
+    <div class="wrap">
+      <a class="back" href="../index.html#work">← Todos los trabajos</a>
+
+      <div class="case-head">
+        <div class="chips">
+          <span class="chip hack"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>Proyecto personal · hecho en un hackathon, abril de 2026</span>
+          <span class="chip public"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>Repo público (MIT)</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/></svg>Corre en local · sin hosting</span>
+        </div>
+        <h1>SRE Triage Agent</h1>
+        <p class="lede">Una app de triage de incidentes que construí en solitario, con Claude Code, durante el AgentX Hackathon. Quien reporta envía un incidente; la app lo filtra, le pide a un LLM un triage estructurado usando notas curadas sobre la base de código de e-commerce de Solidus, verifica que existan los archivos que cita el modelo y registra un ticket y una notificación al equipo, ambos simulados.</p>
+      </div>
+
+      <figure class="demo video">
+        <div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/ZRyWRLTfNWo" title="Video demo de Triagista" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+        <figcaption>Video demo del AgentX Hackathon (en YouTube). <a href="https://www.youtube.com/watch?v=ZRyWRLTfNWo">Abrir en YouTube</a></figcaption>
+      </figure>
+
+      <figure class="demo">
+        <div class="media"><img src="../../assets/img/triage-result.webp" width="1200" height="750" alt="Un incidente después del triage: la barra del pipeline va de enviado a guardrail, triage y despachado; severidad P1, confianza 92%, categoría procesamiento de pagos, equipo de pagos; la fila del motor indica Claude Haiku 4.5 con 4.699 tokens de entrada y 1.241 de salida; abajo, la descripción, un chequeo de inyección sin hallazgos y la hipótesis de causa raíz."></div>
+        <figcaption>Un incidente después del triage: severidad, confianza, el motor y su conteo de tokens, y la hipótesis de causa raíz. Captura tomada por la suite de pruebas end-to-end el 9 de abril de 2026, desde el stack local de Docker Compose. Solo datos de ejemplo.</figcaption>
+      </figure>
+
+      <dl class="facts">
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Rol</dt><dd>En solitario; todos los commits son míos. Hecho con Claude Code.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Período</dt><dd>AgentX Hackathon, 7–9 de abril de 2026. Los commits de desarrollo abarcan unas 46 horas y terminan antes del plazo de entrega; un commit posterior (julio de 2026) solo agrega un archivo de configuración local.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Estado</dt><dd>Corre en local con Docker Compose; sin hosting. Incluye 18 incidentes de ejemplo precargados: 15 con resultados de triage guardados, 2 rechazos del guardrail y 1 a la espera de triage.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/></svg>Código</dt><dd>A solicitud</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Demo</dt><dd><a href="https://www.youtube.com/watch?v=ZRyWRLTfNWo">Video en YouTube</a></dd></div>
+      </dl>
+    </div>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problema</h2>
+        <p>Cuando alguien reporta un incidente, una persona tiene que leerlo, evaluar la severidad, encontrar el código involucrado y avisar al equipo correcto.</p>
+        <p>El hackathon pedía un agente que cubriera ese ciclo para una base de código de e-commerce: recepción, triage, ticket, notificación y resolución. Cada equipo eligió su propia base de código open source; yo elegí Solidus, una tienda open source hecha en Rails, de la lista sugerida por los organizadores.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Cómo funciona</h2>
+        <figure class="diagram" data-fx="flow-triage-agent" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animación"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Reproducir</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pausar</button></div>
+          <svg viewBox="0 0 952 440" role="img" aria-labelledby="tx-title tx-desc">
+            <title id="tx-title">Pipeline del SRE Triage Agent</title>
+            <desc id="tx-desc">Un reporte de incidente pasa por guardrails deterministas; los reportes con un puntaje de inyección de 0,90 o más se rechazan sin llamar al LLM. Los reportes aceptados reciben contexto curado sobre la base de código de Solidus, con una sección de dominio elegida por palabra clave, y luego un motor de triage devuelve un único esquema estructurado; hay tres motores disponibles: Claude Haiku 4.5, Gemini mediante LangChain y Anthropic Managed Agents. Cada ruta de archivo que cita el modelo se verifica contra el repositorio. Se guardan un ticket simulado y filas de notificación; luego el incidente se reconoce y se resuelve, y se guarda una fila de notificación para quien lo reportó. PostgreSQL guarda los incidentes y tickets, Redis mantiene el rate limit y un Langfuse self-hosted registra una traza por triage.</desc>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+            </defs>
+
+            <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">Aviso de incidente</text><text class="sub" x="32" y="80">formulario + log o</text><text class="sub" x="32" y="95">capturas de pantalla</text></g>
+            <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">Guardrails</text><text class="sub" x="220" y="80">24 patrones regex,</text><text class="sub" x="220" y="95">PII, rate limit</text></g>
+            <g class="node"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Contexto</text><text class="sub" x="408" y="80">notas curadas sobre</text><text class="sub" x="408" y="95">Solidus + 1 dominio</text></g>
+            <g class="node ai"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">Motor de triage</text><text class="sub" x="596" y="80">un solo esquema,</text><text class="sub" x="596" y="95">cadena de fallback</text></g>
+            <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Chequeo de citas</text><text class="sub" x="784" y="80">¿existen las rutas</text><text class="sub" x="784" y="95">citadas en el repo?</text></g>
+            <path class="edge" d="M180 69 H206"/>
+            <path class="edge" d="M368 69 H394"/>
+            <path class="edge" d="M556 69 H582"/>
+            <path class="edge" d="M744 69 H770"/>
+
+            <g class="node"><rect x="208" y="176" width="160" height="66" rx="8"/><text x="220" y="200">Rechazado</text><text class="sub" x="220" y="220">inyección ≥ 0,90,</text><text class="sub" x="220" y="235">sin llamada al LLM</text></g>
+            <path class="edge dashed" d="M288 102 V174"/>
+
+            <g class="node ai"><rect x="584" y="176" width="160" height="82" rx="8"/><text x="596" y="200">Motores</text><text class="sub" x="596" y="220">Claude Haiku 4.5</text><text class="sub" x="596" y="235">Gemini (LangChain)</text><text class="sub" x="596" y="250">Managed Agents</text></g>
+            <path class="edge dashed" d="M664 102 V174"/>
+
+            <g class="node"><rect x="772" y="176" width="160" height="66" rx="8"/><text x="784" y="200">Despacho simulado</text><text class="sub" x="784" y="220">ticket, correo, chat</text><text class="sub" x="784" y="235">filas; nada se envía</text></g>
+            <path class="edge" d="M852 102 V174"/>
+
+            <g class="node"><rect x="772" y="290" width="160" height="66" rx="8"/><text x="784" y="314">Resolución</text><text class="sub" x="784" y="334">reconocer, resolver</text><text class="sub" x="784" y="349">fila de notificación</text></g>
+            <path class="edge" d="M852 242 V288"/>
+
+            <g class="band"><rect x="20" y="388" width="912" height="36" rx="8"/><text x="36" y="411">PostgreSQL 16 (incidentes, tickets) · Redis 7 (rate limit) · Langfuse self-hosted (una traza por triage) · Docker Compose</text></g>
+          </svg>
+          <figcaption>Los motores de Claude y Gemini leen notas curadas sobre Solidus, no su código fuente. Solo el motor experimental de Managed Agents, cuando hay un agente configurado, explora el propio repositorio.</figcaption>
+        </figure>
+
+        <ul class="points prose">
+          <li><strong>Guardrails antes de cualquier llamada al modelo.</strong> 24 patrones regex ponderados para prompt injection, inyección SQL y XSS, con rechazo a partir de un puntaje de 0,90. Los datos personales (PII) se marcan, no se bloquean; los emails, números de teléfono, números de tarjeta y RUT chilenos se enmascaran en la salida del modelo. Un rate limit en Redis permite 10 reportes por hora por email.</li>
+          <li><strong>Tres motores detrás de una misma interfaz.</strong> Claude Haiku 4.5 mediante el SDK de Anthropic con tool use forzado; Gemini 2.5 Flash mediante LangChain, con Groq Llama 3.3 como fallback; y una sesión experimental de Anthropic Managed Agents que explora el repo. Ese motor necesita un agente configurado fuera del repo (su configuración no está publicada); sin él, devuelve un resultado de relleno basado en palabras clave. Si el motor elegido falla, corre el siguiente que esté configurado; si todos fallan, el incidente vuelve al estado "submitted" para un reintento.</li>
+          <li><strong>Contexto por capas.</strong> Cada prompt recibe un mapa breve de la arquitectura y un índice de componentes de Solidus y, cuando el reporte coincide con una palabra clave de dominio, una sección en profundidad sobre ese dominio (pagos, inventario, pedidos, búsqueda, autenticación o envíos).</li>
+          <li><strong>Trazas desde un clon recién hecho.</strong> Langfuse corre self-hosted en el mismo stack de Compose. La app crea su cuenta, proyecto y claves al arrancar y precarga trazas de ejemplo, así que un clon nuevo muestra una traza por triage. El conteo de tokens solo se registra para el motor de Claude.</li>
+        </ul>
+
+        <div class="shots prose">
+          <figure>
+            <img src="../../assets/img/triage-list.webp" width="1200" height="546" alt="La lista de incidentes: incidentes precargados con estado, severidad, descripción, adjuntos, motor y el correo de quien reporta; las dos últimas filas fueron rechazadas por el guardrail: una es una inyección SQL y la otra un prompt injection." loading="lazy">
+            <figcaption>La lista de incidentes, con los incidentes de ejemplo precargados. Las dos filas rechazadas son una inyección SQL y un prompt injection, detenidos antes de cualquier llamada al modelo.</figcaption>
+          </figure>
+          <figure>
+            <img src="../../assets/img/triage-trace.webp" width="1200" height="532" alt="Una traza de Langfuse para un triage: la traza del pipeline con spans de guardrail, recuperación de contexto y despacho, y un paso de generación para el triage con 4.699 tokens de entrada y 1.241 de salida." loading="lazy">
+            <figcaption>Una traza por triage en el Langfuse self-hosted: guardrail, recuperación de contexto, la llamada al modelo con sus tokens y el despacho.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M18 6a2 2 0 0 1 1.387.56l2.307 2.22a1 1 0 0 1 0 1.44l-2.307 2.22A2 2 0 0 1 18 13H6a2 2 0 0 1-1.387-.56l-2.306-2.22a1 1 0 0 1 0-1.44l2.306-2.22A2 2 0 0 1 6 6z"/></svg>Decisiones</h2>
+        <ol class="decisions prose">
+          <li>
+            <h3>Un solo esquema de salida, tool use forzado</h3>
+            <p>Los tres motores devuelven el mismo <span class="mono">TriageResult</span> de Pydantic: severidad P1–P4, categoría, componente afectado, resumen, hipótesis de causa raíz, equipo, confianza, acciones y archivos relacionados. El motor de Claude fuerza la herramienta <span class="mono">submit_triage</span>, así que cada respuesta es una llamada a esa herramienta; aun así, el código repara las listas que llegan como strings JSON, y Pydantic valida el resultado. El motor de LangChain le pasa la misma clase <span class="mono">TriageResult</span> a <span class="mono">with_structured_output</span>, para Gemini y para el fallback de Groq.</p>
+            <p class="tradeoff"><strong>Costo:</strong> cada motor queda limitado a los campos que define el esquema.</p>
+          </li>
+          <li>
+            <h3>Guardrails deterministas antes del LLM</h3>
+            <p>La detección de inyecciones usa regex ponderadas en vez de una llamada a un modelo, así que es gratis y predecible. La PII se marca pero no se bloquea; cuando la entrada contenía PII, la salida del modelo se enmascara.</p>
+            <p class="tradeoff"><strong>Costo:</strong> las regex solo detectan los patrones que enumeran.</p>
+          </li>
+          <li>
+            <h3>Verificar los archivos que cita el modelo</h3>
+            <p>Después del triage, cada ruta citada se verifica contra el repo clonado de Solidus. Las rutas que no existen se muestran como <span class="mono">[UNVERIFIED]</span> en vez de presentarse como un hecho.</p>
+            <p class="tradeoff"><strong>Costo:</strong> prueba que un archivo existe, no que sea el archivo correcto.</p>
+          </li>
+          <li>
+            <h3>Claude Haiku 4.5 en vez de Sonnet 4</h3>
+            <p>Mi primer commit de triage llamaba a Claude Sonnet 4. Unos 40 minutos después cambié a Claude Haiku 4.5 para reducir costos.</p>
+            <p class="tradeoff"><strong>Costo:</strong> elegí por costo, no por calidad medida; no hay un set de prueba etiquetado para comparar ambos modelos.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Límites</h2>
+        <div class="limits">
+          <ul class="points">
+            <li>No hay evaluación de precisión. La severidad y la confianza son la propia salida del modelo; no hay un set de prueba etiquetado.</li>
+            <li>Los adjuntos se guardan y se muestran, pero el modelo solo recibe el nombre, el tipo y el tamaño de cada archivo, no su contenido.</li>
+            <li>El triage corre dentro de la solicitud HTTP, sin cola de trabajos. El motor experimental puede retener una solicitud durante minutos.</li>
+            <li>El despacho es simulado: los tickets y las notificaciones son filas en la base de datos. La app no tiene autenticación.</li>
+            <li>En tres ejecuciones registradas, un triage con Claude tardó 12–15 segundos. Es una observación, no un benchmark.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</h2>
+        <dl class="facts" style="margin-top:0">
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>Backend</dt><dd>Python 3.12, FastAPI, SQLAlchemy 2.0 (async), Alembic, PostgreSQL 16, Redis 7, Pydantic v2</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>LLM</dt><dd>SDK de Anthropic (Claude Haiku 4.5, el motor por defecto), LangChain (motor opcional: Gemini 2.5 Flash con fallback a Groq Llama 3.3), API de Anthropic Managed Agents (beta)</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Observabilidad</dt><dd>Langfuse (self-hosted, trazas vía SDK), spans de OpenTelemetry a la consola</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/></svg>Otros</dt><dd>Jinja2 + JavaScript vanilla, Docker Compose, pytest, Playwright, GitHub Actions</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="gastify.html">← Gastify</a>
+        <a href="../index.html#more">Otros proyectos →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Ingeniero Backend, Python e IA</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Correo</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

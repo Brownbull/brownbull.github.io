@@ -1,0 +1,455 @@
+/* Portfolio — Gabriel Cárcamo
+   One stylesheet, no build step. Tokens on :root, dark theme via prefers-color-scheme. */
+
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --ink: #1c1c1a;
+  --muted: #5b5953;
+  --line: #e2dfd8;
+  --line-strong: #8a867d;
+  --accent: #0e6b61;
+  --accent-ink: #ffffff;
+  --accent-soft: #e1efec;
+
+  --chip-public-fg: #0e6b61;   --chip-public-bg: #e1efec;
+  --chip-progress-fg: #7a4f00; --chip-progress-bg: #f8ecd4;
+  --chip-internal-fg: #394556; --chip-internal-bg: #e6e9ee;
+  --chip-hack-fg: #54389a;     --chip-hack-bg: #ece6f7;
+  --chip-oss-fg: #1f5a8a;      --chip-oss-bg: #e2edf7;
+
+  --font-sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --radius: 10px;
+  --wrap: 1040px;
+  --gutter: 20px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121413;
+    --surface: #1a1d1c;
+    --ink: #ebeae6;
+    --muted: #a5a39c;
+    --line: #2d3130;
+    --line-strong: #6f7572;
+    --accent: #5cc0b2;
+    --accent-ink: #0c1a18;
+    --accent-soft: #163631;
+
+    --chip-public-fg: #7fd3c7;   --chip-public-bg: #163631;
+    --chip-progress-fg: #f0c475; --chip-progress-bg: #3a2c12;
+    --chip-internal-fg: #b8c3d3; --chip-internal-bg: #262d37;
+    --chip-hack-fg: #c7b4f5;     --chip-hack-bg: #2c2344;
+    --chip-oss-fg: #9cc8ef;      --chip-oss-bg: #1b2d3f;
+    color-scheme: dark;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+img, video, svg { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+.skip {
+  position: absolute; left: -999px; top: 8px;
+  background: var(--accent); color: var(--accent-ink);
+  padding: 8px 14px; border-radius: 6px; z-index: 10;
+}
+.skip:focus { left: 8px; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
+.prose { max-width: 68ch; }
+.wrap.prose { max-width: var(--wrap); }
+.wrap.prose > * { max-width: 68ch; }
+
+/* ---------- Header ---------- */
+/* Anchors land below the sticky header */
+html { scroll-padding-top: 76px; }
+@media (max-width: 640px) { html { scroll-padding-top: 108px; } }
+
+.site-header {
+  position: sticky; top: 0; z-index: 30;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+@supports (backdrop-filter: blur(8px)) {
+  .site-header {
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: saturate(1.3) blur(10px);
+    backdrop-filter: saturate(1.3) blur(10px);
+  }
+}
+.site-header .wrap {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; min-height: 60px; flex-wrap: wrap;
+}
+.brand { font-weight: 600; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+.nav { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; font-size: 15px; }
+@media (max-width: 640px) {
+  .site-header .wrap { gap: 6px 16px; padding-top: 8px; padding-bottom: 8px; }
+  .nav { gap: 6px 14px; font-size: 14px; }
+}
+
+/* Language switcher */
+.lang {
+  display: inline-flex; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 999px;
+  font-family: var(--font-mono); font-size: 12.5px; line-height: 1.4;
+}
+.lang > * { padding: 2px 9px; border-radius: 999px; }
+.lang a { color: var(--muted); text-decoration: none; }
+.lang a:hover { color: var(--ink); }
+.lang [aria-current] { background: var(--accent); color: var(--accent-ink); }
+
+/* Contact: a compact card; it flashes briefly when reached through the nav link */
+.contact-card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 26px 26px 28px;
+}
+.contact-card .section-head { margin-bottom: 12px; }
+.contact-card .lede { margin-bottom: 22px; }
+#contact:target .contact-card { animation: contact-flash 1.8s ease-out 1; }
+@keyframes contact-flash {
+  0%   { box-shadow: 0 0 0 4px var(--accent); border-color: var(--accent); }
+  100% { box-shadow: 0 0 0 0 transparent;     border-color: var(--line); }
+}
+@media (prefers-reduced-motion: reduce) {
+  #contact:target .contact-card { animation: none; border-color: var(--accent); }
+}
+.nav a { color: var(--muted); text-decoration: none; }
+.nav a:hover { color: var(--ink); }
+
+/* ---------- Type ---------- */
+h1, h2, h3 { line-height: 1.2; letter-spacing: -0.015em; margin: 0; }
+h1 { font-size: clamp(2.1rem, 5vw, 3.1rem); font-weight: 600; }
+h2 { font-size: 1.55rem; font-weight: 600; }
+h3 { font-size: 1.12rem; font-weight: 600; }
+p { margin: 0 0 1em; }
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 10px;
+}
+.lede { font-size: 1.18rem; color: var(--ink); max-width: 62ch; }
+.muted { color: var(--muted); }
+.mono { font-family: var(--font-mono); font-size: 0.92em; }
+
+/* ---------- Sections ---------- */
+section { padding: 56px 0; }
+section + section { border-top: 1px solid var(--line); }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 26px; flex-wrap: wrap; }
+
+/* ---------- Hero ---------- */
+.hero { padding: 64px 0 52px; }
+.hero .role { font-family: var(--font-mono); color: var(--accent); font-size: 15px; margin: 14px 0 18px; }
+.hero .lede { margin-bottom: 26px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border-radius: 8px; font-size: 15px; font-weight: 500;
+  border: 1px solid var(--line); background: var(--surface); color: var(--ink); text-decoration: none;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.meta-line { margin-top: 18px; font-size: 14px; color: var(--muted); }
+
+/* ---------- Chips ---------- */
+.chip {
+  display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12.5px; line-height: 1.4;
+  padding: 3px 10px 3px 8px; border-radius: 999px; max-width: 100%;
+}
+.chip.public   { color: var(--chip-public-fg);   background: var(--chip-public-bg); }
+.chip.progress { color: var(--chip-progress-fg); background: var(--chip-progress-bg); }
+.chip.internal { color: var(--chip-internal-fg); background: var(--chip-internal-bg); }
+.chip.hack     { color: var(--chip-hack-fg);     background: var(--chip-hack-bg); }
+.chip.oss      { color: var(--chip-oss-fg);      background: var(--chip-oss-bg); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 12px 0 0; }
+.tags li {
+  font-family: var(--font-mono); font-size: 12.5px; color: var(--muted);
+  border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px;
+}
+
+/* ---------- Featured work ---------- */
+.featured { display: grid; gap: 28px; }
+.feature {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 22px; align-items: start;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 18px;
+}
+@media (min-width: 860px) {
+  .feature { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); padding: 22px; gap: 30px; }
+}
+.feature h3 { font-size: 1.35rem; margin: 10px 0 8px; }
+.feature h3 a { color: var(--ink); text-decoration: none; }
+.feature h3 a:hover { color: var(--accent); }
+.feature p { color: var(--muted); }
+.feature .more { font-weight: 500; margin: 16px 0 0; }
+
+.media {
+  border-radius: 8px; overflow: hidden; border: 1px solid var(--line);
+  background: var(--bg); aspect-ratio: 16 / 10; display: block; text-decoration: none;
+}
+.media img, .media video { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+
+/* Placeholder for media not captured yet. scripts/check_site.py fails the build while any remain. */
+.pending {
+  display: grid; place-items: center; text-align: center; padding: 20px;
+  background: repeating-linear-gradient(135deg, var(--bg) 0 12px, var(--surface) 12px 24px);
+  color: var(--muted); font-family: var(--font-mono); font-size: 13px;
+}
+
+/* ---------- Card grid ---------- */
+.cards { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.card {
+  display: flex; flex-direction: column; gap: 8px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px;
+}
+.media img.fit-left { object-position: left center; }
+.card .media {
+  margin: -18px -18px 6px; border: 0; border-bottom: 1px solid var(--line);
+  border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+}
+.card h3 { font-size: 1.05rem; }
+.card p { color: var(--muted); font-size: 15px; margin: 0; }
+.card .more { margin: 0; font-weight: 500; font-size: 14.5px; }
+.card .links { margin-top: auto; padding-top: 8px; display: flex; gap: 14px; flex-wrap: wrap; font-size: 14.5px; }
+
+/* ---------- Experience ---------- */
+.timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+.timeline li { display: grid; gap: 6px; }
+@media (min-width: 760px) {
+  .timeline li { grid-template-columns: 170px minmax(0, 1fr); gap: 24px; }
+}
+.timeline .when { font-family: var(--font-mono); font-size: 14px; color: var(--muted); padding-top: 3px; }
+.timeline h3 { margin-bottom: 2px; }
+.timeline .org { color: var(--muted); margin-bottom: 8px; }
+.timeline ul { margin: 0; padding-left: 20px; }
+.timeline ul li { display: list-item; margin-bottom: 4px; }
+
+/* ---------- Case study ---------- */
+.back { display: inline-block; margin: 28px 0 0; font-size: 15px; text-decoration: none; }
+.case-head { padding: 26px 0 34px; }
+.case-head h1 { margin: 12px 0 14px; }
+.case-head .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+
+.demo { margin: 0 0 8px; }
+.demo .media { aspect-ratio: auto; }
+.demo .media.pending { aspect-ratio: 16 / 9; }
+.demo figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+
+.facts {
+  display: grid; gap: 14px 28px; margin: 30px 0 0; padding: 20px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+@media (min-width: 760px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.facts div { min-width: 0; }
+.facts dt { font-family: var(--font-mono); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+.facts dd { margin: 3px 0 0; }
+
+.num { font-family: var(--font-mono); color: var(--accent); font-size: 14px; margin-right: 10px; }
+.case section h2 { margin-bottom: 18px; }
+.case ul.points { padding-left: 20px; margin: 0; }
+.case ul.points li { margin-bottom: 8px; }
+
+.diagram {
+  margin: 8px 0 26px; padding: 18px; overflow-x: auto;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+/* 952 = the diagrams' viewBox width: 1:1 at the minimum, so SVG text sizes are rendered sizes
+   and the 962px desktop frame holds it without a 2px scrollbar. Narrower screens still scroll. */
+.diagram > svg { min-width: 952px; width: 100%; }
+.diagram figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+.diagram .node rect { fill: var(--bg); stroke: var(--line-strong); stroke-width: 1.5; }
+.diagram .node.ai rect { fill: var(--accent-soft); stroke: var(--accent); }
+.diagram .node text { fill: var(--ink); font-family: var(--font-sans); font-size: 14px; }
+.diagram .node text.sub { fill: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+.diagram .edge { stroke: var(--muted); stroke-width: 1.5; fill: none; marker-end: url(#arrow); }
+.diagram .edge-label { fill: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+.diagram .group-label { fill: var(--muted); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; }
+.diagram .group { fill: none; stroke: var(--line); stroke-dasharray: 4 4; }
+.diagram marker path { fill: var(--muted); }
+.diagram .edge.dashed { stroke-dasharray: 5 4; }
+.diagram .band rect { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; }
+.diagram .band text { fill: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+.diagram .flag circle { fill: var(--chip-progress-bg); stroke: var(--chip-progress-fg); stroke-width: 1.5; }
+.diagram .flag text { fill: var(--chip-progress-fg); font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+
+.decisions.lessons li { padding-left: 18px; }
+.decisions.lessons li::before { content: none; }
+.lessons .now { color: var(--ink); font-size: 15px; }
+.lessons .now strong { font-weight: 500; color: var(--accent); }
+.flag-ref {
+  display: inline-grid; place-items: center; width: 22px; height: 22px; margin-right: 6px;
+  border-radius: 50%; font-family: var(--font-mono); font-size: 12px; vertical-align: 2px;
+  color: var(--chip-progress-fg); background: var(--chip-progress-bg); border: 1.5px solid var(--chip-progress-fg);
+}
+.pending-copy {
+  border: 1.5px dashed var(--chip-progress-fg); border-radius: 8px; padding: 12px 14px;
+  color: var(--chip-progress-fg); font-family: var(--font-mono); font-size: 13px;
+}
+
+.decisions { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; counter-reset: d; }
+.decisions li {
+  counter-increment: d; padding: 18px 18px 16px 58px; position: relative;
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.decisions li::before {
+  content: counter(d, decimal-leading-zero); position: absolute; left: 18px; top: 18px;
+  font-family: var(--font-mono); color: var(--accent); font-size: 14px;
+}
+.decisions h3 { margin-bottom: 6px; }
+.decisions p { color: var(--muted); margin: 0 0 6px; }
+.decisions p:last-child { margin-bottom: 0; }
+.decisions .tradeoff { font-size: 15px; }
+.decisions .tradeoff strong { color: var(--ink); font-weight: 500; }
+
+.limits { border-left: 3px solid var(--chip-progress-fg); padding: 4px 0 4px 18px; }
+
+.shots { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); margin-top: 18px; }
+.shots figure { margin: 0; }
+.shots img { border: 1px solid var(--line); border-radius: 8px; }
+.shots figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+
+.next-case { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- Footer ---------- */
+.site-footer { border-top: 1px solid var(--line); padding: 40px 0 56px; font-size: 15px; }
+.site-footer .wrap { display: flex; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 18px; flex-wrap: wrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
+
+@media print {
+  .site-header .nav, .skip, .actions, video { display: none !important; }
+  body { background: #fff; color: #000; }
+  section { padding: 20px 0; }
+}
+
+/* ---------- Icons (Lucide, inlined; ISC) ---------- */
+.i {
+  width: 1.05em; height: 1.05em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+  vertical-align: -0.17em;
+}
+h2 { display: flex; align-items: center; gap: 10px; }
+.i-title { width: 0.95em; height: 0.95em; color: var(--accent); stroke-width: 2.2; }
+.facts dt { display: flex; align-items: center; gap: 6px; }
+.facts dt .i { width: 14px; height: 14px; color: var(--accent); }
+.btn .i { width: 16px; height: 16px; }
+
+/* ---------- A little life: hover (transitions, not loops) ---------- */
+.feature, .card { transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.feature:hover, .card:hover { transform: translateY(-2px); border-color: var(--line-strong); box-shadow: 0 8px 22px rgba(0, 0, 0, .07); }
+.media img { transition: transform .35s ease; }
+.feature:hover .media img, .card:hover .media img { transform: scale(1.02); }
+.btn { transition: border-color .15s ease, transform .15s ease; }
+.btn:hover { transform: translateY(-1px); }
+
+/* ---------- Diagram motion (Gabe Suite H4: flows move, pausable, reduced-motion safe) ---------- */
+.diagram { position: relative; }
+.fx-bar {
+  position: absolute; top: 10px; right: 10px; z-index: 2; display: inline-flex; gap: 2px; padding: 2px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 999px;
+  font-family: var(--font-mono); font-size: 12px;
+}
+.fx-bar .af-opt {
+  display: inline-flex; align-items: center; gap: 5px; border: 0; background: transparent; cursor: pointer;
+  color: var(--muted); font: inherit; padding: 3px 10px; border-radius: 999px;
+}
+.fx-bar .af-opt .i { width: 12px; height: 12px; }
+.fx-bar .af-opt[aria-checked="true"] { background: var(--accent-soft); color: var(--accent); }
+.diagram > svg { margin-top: 30px; }
+.diagram .packet { fill: var(--accent); stroke: var(--surface); stroke-width: 1.5; }
+.diagram .packet.alt { fill: var(--chip-progress-fg); }
+:root[data-motion="off"] *, :root[data-motion="off"] *::before, :root[data-motion="off"] *::after { animation-play-state: paused !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .feature, .card, .media img, .btn { transition: none; }
+  .feature:hover, .card:hover, .btn:hover, .feature:hover .media img, .card:hover .media img { transform: none; }
+  .fx-bar { display: none; }
+}
+
+/* Visible provenance line under a card image (e.g. a design render, not the deployed app) */
+.card .media-note { font-size: 13px; margin-top: -2px; }
+
+/* ---------- Carousel (screens per project) ----------
+   Scroll-snap track, no visible scrollbar: arrows, dots and swipe move it. No autoplay,
+   so there is nothing to pause; under reduced motion slides jump instead of gliding. */
+.carousel { position: relative; }
+.car-track {
+  display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth;
+  scrollbar-width: none; -ms-overflow-style: none; border-radius: 8px;
+}
+.car-track::-webkit-scrollbar { display: none; }
+.car-track:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.car-slide { flex: 0 0 100%; min-width: 0; margin: 0; scroll-snap-align: start; }
+.car-img {
+  aspect-ratio: 16 / 10; overflow: hidden; background: var(--bg);
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.car-img img { width: 100%; height: 100%; object-fit: contain; object-position: top center; }
+.car-slide figcaption { font-size: 14px; color: var(--muted); margin-top: 10px; }
+.car-nav { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; }
+.car-btn {
+  display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; cursor: pointer;
+  border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  transition: background .2s ease, border-color .2s ease, opacity .2s ease;
+}
+.car-btn:hover { border-color: var(--accent); color: var(--accent); }
+.car-btn:disabled { opacity: .35; cursor: default; }
+.car-btn .i { width: 16px; height: 16px; }
+.car-dots { display: flex; gap: 6px; }
+.car-dot {
+  width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--line-strong); transition: width .2s ease, background .2s ease;
+}
+.car-dot[aria-current="true"] { width: 20px; background: var(--accent); }
+.car-count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); min-width: 3.2em; text-align: center; }
+
+/* Compact variant inside index cards: the image fills the card top, caption clamps to two lines. */
+.card .carousel { margin: -18px -18px 6px; }
+.card .car-track { border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0; }
+.card .car-img { border: 0; border-bottom: 1px solid var(--line); border-radius: 0; }
+.card .car-img img { object-fit: cover; }
+.card .car-slide figcaption {
+  font-size: 13px; margin: 8px 18px 0; display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+}
+.card .car-nav { margin: 6px 18px 0; justify-content: flex-start; }
+.card .car-btn { width: 28px; height: 28px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .car-track { scroll-behavior: auto; }
+  .car-btn, .car-dot { transition: none; }
+}
+.feature .car-img img { object-fit: cover; }
+.feature .car-slide figcaption { font-size: 13px; }
+.car-img img.fit-left { object-position: left center; }
+/* Project pages: the screens carousel sits right under the lede, not a full section below it. */
+.project .project-screens { padding: 0 0 8px; border-top: 0; }
+
+/* Embedded demo video: 16:9 frame, no autoplay (nothing moves until the viewer presses play). */
+.video-frame { aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #000; }
+.video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+.demo.video { margin-bottom: 22px; }

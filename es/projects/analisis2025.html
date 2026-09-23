@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pipeline de documentos de política pública — post-mortem · Gabriel Cárcamo</title>
+  <meta name="description" content="Un pipeline con LLM que convirtió los ocho programas presidenciales chilenos de 2025 en 2.469 medidas numeradas, y lo que me enseñó sobre verificar la salida de un LLM. Aquí no se muestran puntajes ni rankings de candidatos.">
+  <meta property="og:title" content="Pipeline de documentos de política pública — post-mortem · Gabriel Cárcamo">
+  <meta property="og:description" content="Dónde falló un pipeline de extracción con LLM: autocalificación, saltos de página perdidos, autochequeos que certificaron citas incorrectas y una tabla generada con un script ejecutado a mano. Los chequeos que construiría ahora.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:url" content="https://brownbull.github.io/es/projects/analisis2025.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/analisis2025-measures.webp">
+  <meta property="og:image:alt" content="Una tabla de medidas de política pública numeradas, cada una con su página de origen">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/es/projects/analisis2025.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/analisis2025.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/analisis2025.html">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Principal">
+        <a href="../index.html#work">Trabajo</a>
+        <a href="../index.html#experience">Experiencia</a>
+        <a href="../index.html#contact">Contacto</a>
+        <a href="../../cv.pdf">CV (PDF, en inglés)</a>
+        <span class="lang" role="group" aria-label="Idioma"><a href="../../projects/analisis2025.html" hreflang="en" lang="en">EN</a><span aria-current="true">ES</span></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Otros proyectos</a>
+
+      <div class="case-head">
+        <div class="chips">
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Proyecto personal · septiembre–octubre de 2025</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>Ya no se mantiene</span>
+        </div>
+        <h1>Pipeline de extracción de documentos de política pública</h1>
+        <p class="lede">Un pipeline con LLM, ejecutado con Claude Code, que convirtió los ocho programas presidenciales chilenos de 2025 en 2.469 medidas numeradas con referencias a la fuente, más un sitio estático que las publica con tres cuestionarios que corren en el navegador. Esta página es un post-mortem: dónde la salida del modelo estaba equivocada y los chequeos que construiría ahora.</p>
+        <p class="muted">Esta página no toma partido político y no muestra puntajes ni rankings de candidatos.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="media"><img src="../../assets/img/analisis2025-measures.webp" alt="La página de un programa en el sitio: una tabla con las columnas Medida, Descripción y Página, que lista medidas numeradas, como reformas a la forma en que se evalúan los programas del Estado, cada una con la página de la que proviene." width="1200" height="454"></div>
+        <figcaption>La salida del pipeline tal como se publicó: medidas numeradas, cada una con su página de origen. Los números de página de este programa coinciden con su PDF; los de otros dos programas no (ver la lección 2).</figcaption>
+      </figure>
+
+      <dl class="facts">
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Rol</dt><dd>Con Claude Code escribí los estándares y los comandos (incluido el ciclo de autorrevisión), ejecuté las pasadas de normalización, de tabla maestra y de evaluación, y construí el sitio. Un compañero de universidad ejecutó mi comando de extracción y su autorrevisión para seis de los ocho programas con su propia suscripción, sobre la versión de octubre de los PDF, y me devolvió los resultados. También usé DeepSeek y ChatGPT en el camino.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Período</dt><dd>Septiembre–octubre de 2025, antes de la elección.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>Modelo</dt><dd>Claude, a través de Claude Code. Las notas del proyecto dicen Sonnet 4.5, pero el modelo no se registró por ejecución, y los primeros extractos (28 de septiembre de 2025) son anteriores al lanzamiento de ese modelo.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Estado</dt><dd>Sitio estático en español, ya no se mantiene. Los principales problemas conocidos se detallan más abajo.</dd></div>
+      </dl>
+    </div>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problema</h2>
+        <p>Los ocho programas presidenciales chilenos de 2025 eran PDF de 36 a 201 páginas. Son largos, y compararlos por tema es lento.</p>
+        <p>Quería probar si un pipeline con LLM podía convertirlos en medidas numeradas que un lector pudiera contrastar con la fuente, y hacer que perfiles ficticios de votantes evaluaran cada programa.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Cómo funciona</h2>
+        <figure class="diagram" data-fx="flow-analisis2025" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animación"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Reproducir</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pausar</button></div>
+          <svg viewBox="0 0 952 350" role="img" aria-labelledby="ax-title ax-desc">
+            <title id="ax-title">Pipeline de documentos de política pública, con los cuatro puntos donde falló</title>
+            <desc id="ax-desc">Ocho PDF de programas se convierten a texto con pypdf (problema 2: se perdieron los saltos de página). Un comando de Claude Code extrae las medidas siguiendo un estándar escrito, con un ciclo de autorrevisión en el que el modelo le pone nota de 1 a 10 a su extracto y lo corrige si la nota es menor que 8 (problema 1: revisaba el formato, no los hechos). Un segundo comando de Claude Code normaliza las medidas con numeración global y referencias de página en una tabla maestra por programa, 2.469 medidas en total. 28 perfiles ficticios de votantes y las tablas maestras alimentan 224 evaluaciones, que el modelo chequea contra la tabla maestra y devuelve para corregir (problema 3: esos autochequeos certificaron citas que no existen). El sitio estático se construye con Eleventy; su tabla comparativa salió de un script ejecutado a mano (problema 4: le faltaban 70 de 224 puntajes).</desc>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+            </defs>
+
+            <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">8 PDF de programas</text><text class="sub" x="32" y="80">fuente oficial,</text><text class="sub" x="32" y="95">36–201 páginas</text></g>
+            <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">PDF a texto</text><text class="sub" x="220" y="80">notebook de pypdf</text></g>
+            <g class="node ai"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Extraer medidas</text><text class="sub" x="408" y="80">comando Claude Code</text><text class="sub" x="408" y="95">+ estándar escrito</text></g>
+            <g class="node ai"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">Normalizar</text><text class="sub" x="596" y="80">Medida 1..N,</text><text class="sub" x="596" y="95">cada una con página</text></g>
+            <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Tablas maestras</text><text class="sub" x="784" y="80">una por programa,</text><text class="sub" x="784" y="95">2.469 medidas</text></g>
+            <path class="edge" d="M180 69 H206"/>
+            <path class="edge" d="M368 69 H394"/>
+            <path class="edge" d="M556 69 H582"/>
+            <path class="edge" d="M744 69 H770"/>
+
+            <g class="node ai"><rect x="396" y="150" width="160" height="66" rx="8"/><text x="408" y="174">Autorrevisión</text><text class="sub" x="408" y="194">se pone nota 1–10,</text><text class="sub" x="408" y="209">corrige si baja de 8</text></g>
+            <path class="edge" d="M456 102 V148"/>
+            <text class="edge-label" x="450" y="130" text-anchor="end">borrador</text>
+            <path class="edge" d="M496 150 V104"/>
+            <text class="edge-label" x="504" y="130">corregir</text>
+
+            <g class="node"><rect x="584" y="150" width="160" height="66" rx="8"/><text x="596" y="174">Perfiles ficticios</text><text class="sub" x="596" y="194">28 votantes</text><text class="sub" x="596" y="209">top-5 de prioridades</text></g>
+
+            <g class="node ai"><rect x="772" y="264" width="160" height="66" rx="8"/><text x="784" y="288">Evaluaciones</text><text class="sub" x="784" y="308">28 perfiles × 8</text><text class="sub" x="784" y="323">= 224 documentos</text></g>
+            <path class="edge" d="M852 102 V262"/>
+            <path class="edge" d="M744 183 H810 V262"/>
+
+            <g class="node ai"><rect x="584" y="264" width="160" height="66" rx="8"/><text x="596" y="288">Revisar coherencia</text><text class="sub" x="596" y="308">el modelo se chequea</text><text class="sub" x="596" y="323">vs. tabla maestra</text></g>
+            <path class="edge" d="M772 285 H746"/>
+            <path class="edge dashed" d="M746 312 H770"/>
+
+            <g class="node"><rect x="396" y="264" width="160" height="66" rx="8"/><text x="408" y="288">Sitio estático</text><text class="sub" x="408" y="308">build con Eleventy,</text><text class="sub" x="408" y="323">tabla: script a mano</text></g>
+            <path class="edge" d="M584 297 H558"/>
+
+            <g class="flag"><circle cx="556" cy="150" r="11"/><text x="556" y="154" text-anchor="middle">1</text></g>
+            <g class="flag"><circle cx="368" cy="36" r="11"/><text x="368" y="40" text-anchor="middle">2</text></g>
+            <g class="flag"><circle cx="744" cy="264" r="11"/><text x="744" y="268" text-anchor="middle">3</text></g>
+            <g class="flag"><circle cx="556" cy="264" r="11"/><text x="556" y="268" text-anchor="middle">4</text></g>
+          </svg>
+          <figcaption>Las cajas verdes son pasos del modelo. Los marcadores numerados indican dónde falló; cada uno se explica más abajo. Los comandos se ejecutaron a mano, un programa a la vez, no como una aplicación que llama a la API.</figcaption>
+        </figure>
+
+        <ul class="points prose">
+          <li><strong>Estándares escritos en vez de prompts sueltos.</strong> Cada etapa (extraer, normalizar, evaluar) tiene un documento de estándares y un comando de Claude Code que lo lee, así que cada programa y cada perfil partió de reglas escritas y no de un prompt suelto, aunque los resultados no siempre las siguieron.</li>
+          <li><strong>Una numeración por programa.</strong> Un segundo comando numera las medidas del 1 al N, sin saltos, cada una con una referencia a la fuente, para que una evaluación pueda apuntar a "Medida 283" en vez de parafrasear.</li>
+          <li><strong>Markdown como base de datos.</strong> Sin backend: Eleventy lee el Markdown generado durante el build y GitHub Actions hace el despliegue en GitHub Pages.</li>
+          <li><strong>Advertencias y fuentes oficiales.</strong> Los perfiles están identificados como ficticios, cada página dice que el sitio no es una recomendación de voto y cada programa enlaza a su PDF oficial. Aun así, en tres lugares del sitio se presenta un ranking de candidatos; ver Límites.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg>Qué salió mal y qué haría ahora</h2>
+        <p class="prose muted">Las cifras de esta sección salen de una nueva auditoría del repositorio con Claude Code, en septiembre de 2026.</p>
+        <ol class="decisions lessons prose">
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">1</span>La autocalificación revisaba el formato, no los hechos</h3>
+            <p>Los seis extractos que se calificaron obtuvieron 9,5–10; dos archivos de calificación están vacíos. Dos de los extractos con nota 10 citan números de línea del texto como números de página.</p>
+            <p class="now"><strong>Ahora:</strong> un chequeo factual separado contra el texto fuente, en vez de que el modelo califique su propia salida.</p>
+          </li>
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">2</span>La conversión a texto perdió los saltos de página</h3>
+            <p>pypdf unió las páginas sin marcadores, así que en 2 de 8 extractos el modelo citó números de línea del texto como números de página. Un programa de 84 páginas entregó texto de solo 1 de sus páginas (35 líneas); nada lo detectó, y su extracto provenía de una versión anterior.</p>
+            <p class="now"><strong>Ahora:</strong> conservar los marcadores de página durante la conversión, hacer fallar la conversión cuando vuelvan páginas sin texto y hacer fallar la ejecución cuando una página citada supere el número de páginas.</p>
+          </li>
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">3</span>La solución a las contradicciones fue otro autochequeo</h3>
+            <p>En la primera ronda, un perfil decía que una medida existía y otro decía que no. Definí una tabla maestra por programa como la única referencia y volví a ejecutar las evaluaciones contra ella, con un archivo de chequeo de coherencia para 27 de los 28 perfiles. Esos chequeos eran, otra vez, el modelo revisando su propio trabajo: al menos 18 evaluaciones rehechas todavía citan números de medida que no existen en la tabla de ese programa, y sus archivos de chequeo las marcan como verificadas.</p>
+            <p class="now"><strong>Ahora:</strong> partir de la tabla compartida y verificar cada número de medida citado contra ella con código, no con el modelo.</p>
+          </li>
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">4</span>La tabla comparativa perdió puntajes</h3>
+            <p>La tabla comparativa salió de un script de Node que ejecuté a mano, no del build del sitio. El script no asoció los nombres con guion de dos candidatos a sus archivos, y lo ejecuté por última vez antes de que se agregaran las evaluaciones de los tres últimos perfiles, así que la página de comparación muestra 154 de 224 puntajes. Aparte, 4 evaluaciones no tienen un puntaje que el sitio pueda leer.</p>
+            <p class="now"><strong>Ahora:</strong> generar la tabla dentro del build a partir de los archivos de evaluación, y hacer fallar el build cuando una celda esté vacía o un puntaje no se pueda leer.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Límites</h2>
+        <div class="limits">
+          <ul class="points">
+            <li>El estándar de evaluación le preguntaba a cada perfil ficticio si votaría por cada candidato, así que, pese a sus advertencias, el sitio presenta un ranking de candidatos en tres lugares: un titular en la portada que pregunta por quién votaría la IA, promedios por candidato en la página de comparación y un recuadro con los 3 candidatos principales en los resultados del cuestionario.</li>
+            <li>La portada muestra un conteo fijo en el código que no coincide con ningún dato (1.547; los datos tienen 2.469).</li>
+            <li>Las etiquetas de partido de dos candidatos están mal en el sitio: están fijas en el archivo de datos del sitio, y una de ellas además entró a los datos en la pasada de normalización.</li>
+            <li>Los 28 perfiles fueron diseñados, no muestreados, así que los promedios entre ellos no dicen nada sobre los votantes reales. El modelo, el uso de tokens y el costo no se registraron por ejecución.</li>
+          </ul>
+        </div>
+        <div class="shots">
+          <figure>
+            <img src="../../assets/img/analisis2025-limits.webp" alt="La sección de limitaciones del sitio: indica que el análisis no es una recomendación de voto, ni un juicio de factibilidad, ni una encuesta a votantes reales, y que es un ejercicio educativo con perfiles ficticios." width="1000" height="590" loading="lazy">
+            <figcaption>La propia sección de limitaciones del sitio: no es una recomendación de voto y los perfiles son ficticios.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack y enlaces</h2>
+        <dl class="facts" style="margin-top:0">
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Pipeline</dt><dd>Comandos personalizados de Claude Code, estándares escritos, pypdf (Jupyter)</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Sitio</dt><dd>Eleventy, Nunjucks, markdown-it, JavaScript vanilla, GitHub Actions, GitHub Pages</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="triage-agent.html">← SRE Triage Agent</a>
+        <a href="../index.html#more">Otros proyectos →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Ingeniero Backend, Python e IA</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Correo</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

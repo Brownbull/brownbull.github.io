@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archie — proyecto · Gabriel Cárcamo</title>
+  <meta name="description" content="Archie es una app web para aprender diseño de sistemas: conectas componentes en un canvas, les pasas una curva de tráfico simulada y ves cómo responden el uptime, la latencia p99, las solicitudes atendidas y el costo mensual.">
+  <meta property="og:title" content="Archie — proyecto · Gabriel Cárcamo">
+  <meta property="og:description" content="Archie es una app web para aprender diseño de sistemas: conectas componentes en un canvas, les pasas una curva de tráfico simulada y ves cómo responden el uptime, la latencia p99, las solicitudes atendidas y el costo mensual.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/es/projects/archie.html">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/es/projects/archie.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/archie.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/archie.html">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Principal">
+        <a href="../index.html#work">Trabajo</a>
+        <a href="../index.html#experience">Experiencia</a>
+        <a href="../index.html#contact">Contacto</a>
+        <a href="../../cv.pdf">CV (PDF, en inglés)</a>
+        <span class="lang" role="group" aria-label="Idioma"><a href="../../projects/archie.html" hreflang="en" lang="en">EN</a><span aria-current="true">ES</span></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case project">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Otros proyectos</a>
+
+      <div class="case-head">
+        <div class="chips"><span class="chip public"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Proyecto personal · desplegado públicamente</span></div>
+        <h1>Archie</h1>
+        <p class="lede">Archie es una app web para aprender diseño de sistemas: conectas componentes en un canvas, les pasas una curva de tráfico simulada y ves cómo responden el uptime, la latencia p99, las solicitudes atendidas y el costo mensual. Los puntajes y las sugerencias salen de motores deterministas en TypeScript (un simulador de tráfico por pasos, una rúbrica de estrellas, una nota de diseño por reglas y un motor de sugerencias que vuelve a correr la simulación), sin ningún modelo de IA de por medio. La desarrollé solo, con Claude Code, como proyecto personal entre febrero y julio de 2026.</p>
+      </div>
+
+      <section class="project-screens" aria-label="Pantallas">
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Archie: pantallas"><div class="car-track" tabindex="0"><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="1 de 4"><div class="car-img"><img src="../../assets/img/archie-overload.webp" width="1200" height="750" alt="Archie en modo invitado, en pausa a mitad de una corrida simulada. El canvas muestra dos bloques conectados, una fuente de tráfico con un peak de 3.000 solicitudes por segundo y un bloque de cómputo, con puntos que avanzan por la conexión entre ambos. Un panel de estadísticas a la derecha muestra el uptime, la latencia promedio y p99, las solicitudes atendidas frente a la meta con las que fallaron, y el costo mensual frente a un presupuesto de 80 dólares. Abajo, una línea de tiempo de la corrida muestra en rojo las solicitudes que se perdieron. El chip de cuenta, arriba a la derecha, dice Guest. (Revisar este texto contra la captura real.)"></div><figcaption>Modo invitado, peak simulado sobre la capacidad: se descartan solicitudes y cae el uptime.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="2 de 4"><div class="car-img"><img src="../../assets/img/archie-quest.webp" width="1200" height="750" alt="Pantalla de armado de Archie en modo invitado. Un panel de misión titulado First Service muestra un enunciado breve en forma de historia, una barra de presupuesto contra 80 dólares al mes, una línea de bloques obligatorios que queda oculta hasta desbloquear una pista y un contador de pistas. En el canvas, una fuente de tráfico está conectada a un bloque de cómputo, con un botón Start Challenge debajo. A la izquierda está la caja de bloques y abajo una franja con la nota de diseño general y su categoría más débil. (Revisar contra la captura real.)" loading="lazy"></div><figcaption>Primera misión, sin cuenta: enunciado breve, tope de US$80/mes y dos bloques por conectar.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="3 de 4"><div class="car-img"><img src="../../assets/img/archie-results.webp" width="1200" height="750" alt="Diálogo de resultados de Archie tras una corrida simulada de la misión First Service: tres estrellas y luego una lista con las reglas de puntaje y los valores medidos frente a las metas: uptime y latencia p99, bloques obligatorios, no pasarse del presupuesto y un grafo bien armado. (Revisar contra la captura real y agregar el texto exacto de la tarjeta de sugerencia solo si aparece.)" loading="lazy"></div><figcaption>Una rúbrica fija puntúa la corrida: metas de uptime y p99, presupuesto y conexiones.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="4 de 4"><div class="car-img"><img src="../../assets/img/archie-grade.webp" width="1200" height="750" alt="Diálogo Architecture Scores de Archie: una nota general con letra y una barra por cada categoría con datos, como rendimiento, escalabilidad, simplicidad operativa y costo, cada una con los bloques que más la suben o la bajan. (Revisar contra la captura las categorías que aparecen.)" loading="lazy"></div><figcaption>Nota de diseño: métricas del catálogo promediadas por categoría; no sale de la simulación.</figcaption></figure></div><div class="car-nav"><button type="button" class="car-btn car-prev" aria-label="Pantalla anterior"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button><div class="car-dots"><button type="button" class="car-dot" aria-label="Ir a la pantalla 1" aria-current="true"></button><button type="button" class="car-dot" aria-label="Ir a la pantalla 2" aria-current="false"></button><button type="button" class="car-dot" aria-label="Ir a la pantalla 3" aria-current="false"></button><button type="button" class="car-dot" aria-label="Ir a la pantalla 4" aria-current="false"></button></div><span class="car-count" aria-hidden="true">1 / 4</span><button type="button" class="car-btn car-next" aria-label="Pantalla siguiente"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>Cómo está construido</h2>
+        <figure class="diagram" data-fx="flow-archie" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animación"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Reproducir</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pausar</button></div>
+          <svg viewBox="0 0 952 506" role="img" aria-labelledby="d-archie-dt d-archie-dd">
+          <title id="d-archie-dt">Cómo está construido</title>
+          <desc id="d-archie-dd">La arquitectura de Archie en tres filas. Fila del medio, de izquierda a derecha: el catálogo de componentes (116 definiciones YAML, de solo lectura en Firestore) entrega bloques al canvas, un grafo de React Flow cuyo estado vive en Zustand. El canvas alimenta la simulación de tráfico, que calcula 50 pasos de carga contra la capacidad de cada bloque. La corrida pasa a la rúbrica de estrellas (metas de uptime y p99, presupuesto y conexiones); después de una corrida puntuada, «Try this next» vuelve a simular cada cambio de una sola palanca y muestra el mejor. Fila de arriba: con cada cambio, el canvas también alimenta una nota de diseño por reglas que promedia por categoría las métricas del catálogo, aparte de la simulación. Fila de abajo: un camino opcional, punteado, importa un archivo YAML, guardado desde Archie o escrito en un chat con un LLM externo, validado con Zod; la app no llama a ninguna IA. Una misión, una de las 64 empaquetadas como YAML, le entrega a la simulación su curva de carga y a la rúbrica sus metas y su tope de presupuesto. Ningún componente llama a un modelo de IA. Banda inferior: todo corre en el navegador, sobre Firebase Hosting y Auth; Firestore guarda el catálogo y el progreso de las cuentas, y las corridas de un invitado no se guardan.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <text class="group-label" x="20" y="26">Nota por reglas</text>
+          <text class="group-label" x="20" y="176">Armar, simular, puntuar</text>
+          <text class="group-label" x="20" y="326">Entradas</text>
+          <g class="node"><rect x="20" y="186" width="160" height="66" rx="8"/><text x="32" y="210">Catálogo</text><text class="sub" x="32" y="230">116 YAML, Firestore</text><text class="sub" x="32" y="245">de solo lectura</text></g>
+          <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">Canvas</text><text class="sub" x="220" y="230">grafo React Flow</text><text class="sub" x="220" y="245">estado en Zustand</text></g>
+          <g class="node"><rect x="396" y="186" width="160" height="66" rx="8"/><text x="408" y="210">Simulación</text><text class="sub" x="408" y="230">50 pasos: carga vs</text><text class="sub" x="408" y="245">capacidad por bloque</text></g>
+          <g class="node"><rect x="584" y="186" width="160" height="66" rx="8"/><text x="596" y="210">Estrellas</text><text class="sub" x="596" y="230">uptime y p99 ok,</text><text class="sub" x="596" y="245">costo y conexiones</text></g>
+          <g class="node"><rect x="772" y="186" width="160" height="66" rx="8"/><text x="784" y="210">«Try this next»</text><text class="sub" x="784" y="230">re-simula cada</text><text class="sub" x="784" y="245">cambio de 1 palanca</text></g>
+          <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">Nota de diseño</text><text class="sub" x="220" y="80">promedio de métricas</text><text class="sub" x="220" y="95">por categoría</text></g>
+          <g class="node"><rect x="20" y="336" width="160" height="66" rx="8"/><text x="32" y="360">Importar YAML</text><text class="sub" x="32" y="380">guardado o de un LLM</text><text class="sub" x="32" y="395">sin llamadas a IA</text></g>
+          <g class="node"><rect x="396" y="336" width="160" height="66" rx="8"/><text x="408" y="360">Misión</text><text class="sub" x="408" y="380">64 YAML en la app</text><text class="sub" x="408" y="395">curva, metas, tope</text></g>
+          <path class="edge" d="M180 219 H206"/>
+          <path class="edge dashed" d="M100 336 V286 H288 V254"/>
+          <text class="edge-label" x="194" y="280" text-anchor="middle">validado con Zod</text>
+          <path class="edge" d="M288 186 V104"/>
+          <text class="edge-label" x="280" y="149" text-anchor="end">en cada cambio</text>
+          <path class="edge" d="M368 219 H394"/>
+          <path class="edge" d="M476 336 V254"/>
+          <text class="edge-label" x="468" y="299" text-anchor="end">curva de carga</text>
+          <path class="edge" d="M476 336 V296 H664 V254"/>
+          <text class="edge-label" x="570" y="290" text-anchor="middle">metas y tope</text>
+          <path class="edge" d="M556 219 H582"/>
+          <path class="edge" d="M744 219 H770"/>
+          <g class="band"><rect x="20" y="432" width="912" height="44" rx="8"/><text x="36" y="459">En el navegador · Firebase Hosting y Auth · Firestore: catálogo y progreso de cuentas · el invitado no guarda</text></g>
+          </svg>
+          
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Cómo funciona</h2>
+        <ul class="points"><li><strong>El catálogo son datos.</strong> Las 116 definiciones de componentes (conteo al 22-09-2026) son archivos YAML, validados con Zod y cargados en Firestore con un script de administración. El navegador solo los lee (los clientes no pueden escribir en el catálogo) y, en visitas siguientes, revisa un único documento de metadatos y reutiliza el catálogo guardado mientras la versión de la carga no cambie.</li><li><strong>La simulación es determinista.</strong> Cada corrida toma 50 puntos de la curva de carga, recorre el grafo en orden topológico, reparte las solicitudes en partes iguales en cada bifurcación y descarta lo que un bloque no alcanza a atender; la latencia sube con la utilización según una curva tipo M/M/1. La corrida completa se calcula de una vez y después se reproduce, y la variación del tráfico «realista» sale de un generador con semilla: el mismo diseño con la misma configuración siempre da la misma corrida.</li><li><strong>Las misiones se puntúan con reglas.</strong> Las 64 misiones vienen como YAML dentro del bundle de la app, cada una con curva de carga, metas y presupuesto. La primera estrella exige cumplir las metas de uptime y p99 con los bloques obligatorios en el camino del tráfico; solo entonces el diseño suma una estrella por no pasarse del presupuesto y otra por un grafo bien armado (sin bloques sueltos ni inalcanzables). La nota de diseño es aparte: promedia por categoría las métricas de catálogo de los bloques y se recalcula con cada cambio, no con la simulación.</li><li><strong>«Try this next» re-simula en vez de adivinar.</strong> Después de una corrida puntuada, el motor toma el diseño actual y la curva de carga de la propia misión, mueve una sola palanca a la vez en cada bloque (una réplica más o una menos, una variante más barata o una más grande del mismo componente), vuelve a correr la simulación para cada candidato y muestra el mejor cambio con sus deltas de uptime, p99 y costo. Si el diseño ya aprueba, solo cuenta un ahorro que lo mantenga aprobado; si ningún cambio califica, avisa que ningún cambio individual mejora el diseño. Sin azar y sin LLM.</li><li><strong>El invitado no escribe nada.</strong> La primera misión se juega en el navegador sin usuario de Firebase; cada store que escribe en Firestore se detiene si no hay id de usuario, y una prueba end-to-end entra como invitado, llega a la misión y verifica que no salió ninguna escritura a Firestore. En las reglas de Firestore del repo, los datos de una cuenta solo los escribe su dueño, los campos están en una lista permitida y se rechazan actualizaciones con menos de un segundo de diferencia. El menú «AI Prompt» solo entrega un prompt para pegar en un LLM externo; el YAML que devuelve vuelve a entrar por la misma importación validada.</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack y enlaces</h2>
+        <dl class="facts" style="margin-top:0"><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Estado</dt><dd>Proyecto personal, desplegado públicamente (el build de junio de 2026). Desarrollo individual con Claude Code, febrero–julio de 2026.</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</dt><dd>TypeScript · React 19 + Vite · React Flow (@xyflow/react) · Zustand + Zod · Firebase Auth, Firestore, Hosting · Vitest + Playwright, GitHub Actions</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Enlaces</dt><dd><a href="https://archie-2a560.web.app/login">App en línea (modo invitado)</a></dd></div></dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#more">← Otros proyectos</a>
+        <a href="nitoagua.html">NitoAgua →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Ingeniero Backend, Python e IA</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Correo</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

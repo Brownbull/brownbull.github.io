@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gabe Suite — project · Gabriel Cárcamo</title>
+  <meta name="description" content="Gabe Suite is the Claude Code toolkit I build my own projects with.">
+  <meta property="og:title" content="Gabe Suite — project · Gabriel Cárcamo">
+  <meta property="og:description" content="Gabe Suite is the Claude Code toolkit I build my own projects with.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/gabe-suite.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/gabe-suite.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/gabe-suite.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/gabe-suite.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/gabe-suite.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case project">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Other projects</a>
+
+      <div class="case-head">
+        <div class="chips"><span class="chip oss"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>Side project · public repo</span></div>
+        <h1>Gabe Suite</h1>
+        <p class="lede">Gabe Suite is the Claude Code toolkit I build my own projects with. Its skills are Markdown playbooks, some with helper scripts, that walk the model through plan, failing test, code, review, commit and push, and keep the project&#x27;s state in plain files under .kdbp/. In a project set up with /gabe-init, nine hook scripts watch the session. Seven only print reminders. Two can block: one when a plan step is marked done without its proof, and one when a push to the final environment skipped the release check.</p>
+      </div>
+
+      <section class="project-screens" aria-label="Screens">
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Gabe Suite: screens"><div class="car-track" tabindex="0"><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="1 of 4"><div class="car-img"><img src="../assets/img/gs-loop.webp" width="1280" height="800" alt="Section 01, &#x27;The lifecycle, beat by beat&#x27;, of Gabe Suite&#x27;s command reference page. It was rendered locally from the HTML committed on the public graft-adoption branch, with the sidebar collapsed to icons. A table lists each step of the loop with its command, its job and the file it leaves behind. Scope (/gabe-scope) writes SCOPE.md. Plan (/gabe-plan) writes PLAN.md and PLAN.json. Red (/gabe-red) commits the failing test cases before any source is written. Execute (/gabe-execute) turns them green with checkpoint commits and proof files. Review (/gabe-review) prices each finding and writes deferred ones to PENDING.md. Commit (/gabe-commit), which the page calls the quality gate, adds a LEDGER.md row. Push (/gabe-push) handles the PR, CI and promotion, recorded in DEPLOYMENTS.md."></div><figcaption>The loop, from the suite&#x27;s own docs: each command and the file it leaves behind</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="2 of 4"><div class="car-img"><img src="../assets/img/gs-hooks.webp" width="1280" height="800" alt="The table section of Gabe Suite&#x27;s hooks page, rendered locally from the committed HTML of 11 September 2026, with the sidebar collapsed to icons. Under the heading &#x27;9 Shipped hooks&#x27;, a note explains that a hook running before a tool call can stop it with exit 2, while a hook running after a write can only send back an error, not prevent the write. The table lists the nine hook scripts with their event, matcher, verdict and exit codes. plan-proof-guard, which runs after a write, is marked BLOCKS. push-gate-guard shows exit codes 0 and 2 and is marked unprobed, as are red-entry-guard and direction-guard, because the suite&#x27;s hand probe of July 2026 predates them. The other hooks are marked as announcing or warning." loading="lazy"></div><figcaption>Hooks page: the 9 hook scripts, the event each runs on, and what its exit code does</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="3 of 4"><div class="car-img"><img src="../assets/img/gs-enforcement.webp" width="1280" height="800" alt="Gabe Suite&#x27;s enforcement ledger page, rendered locally from the HTML committed on the public graft-adoption branch on 11 September 2026, with the sidebar collapsed to icons. The rule classification behind the page is a written audit dated July 2026. The heading says every rule the suite asserts goes into one of four buckets: enforced, hardenable, prompt-only, or falsely claimed. Four tiles read 119 rules catalogued, 19 hard-enforced, 68 payable (hardenable plus broken claims) and 32 prompt-only. Below the filters, the first section lists 22 broken claims: rules the suite&#x27;s documents state but no code enforces. The first one is marked critical: gabe-assess describes an automatic checkpoint hook that does not exist." loading="lazy"></div><figcaption>Enforcement ledger from a July 2026 audit: 119 stated rules, 19 with a check that runs</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="4 of 4"><div class="car-img"><img src="../assets/img/gs-testing.webp" width="1280" height="800" alt="Gabe Suite&#x27;s testing page, rendered locally from the committed HTML of 11 September 2026, with the sidebar collapsed to icons. Four tiles read 47 test batteries; 2,679 assertions, recorded by the suite&#x27;s own run at a stated commit over a working tree with uncommitted changes; 0 red; and 13 checks with no test battery yet. Below them is a table of shell fixture batteries such as arch-graph, artifact-chrome and board. Each row shows its assertion count, its status and whether it proves its check can both fire and stay silent." loading="lazy"></div><figcaption>Testing page, self-recorded 11 Sep 2026: test batteries, and 13 checks with none yet</figcaption></figure></div><div class="car-nav"><button type="button" class="car-btn car-prev" aria-label="Previous screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button><div class="car-dots"><button type="button" class="car-dot" aria-label="Go to screen 1" aria-current="true"></button><button type="button" class="car-dot" aria-label="Go to screen 2" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 3" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 4" aria-current="false"></button></div><span class="car-count" aria-hidden="true">1 / 4</span><button type="button" class="car-btn car-next" aria-label="Next screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
+        <figure class="diagram" data-fx="flow-gabe-suite" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 506" role="img" aria-labelledby="d-gabe-suite-dt d-gabe-suite-dd">
+          <title id="d-gabe-suite-dt">How it is built</title>
+          <desc id="d-gabe-suite-dd">Diagram of Gabe Suite in three rows. Session row: your prompt, either a /gabe-* command or plain text, goes to Claude Code, the only part that uses an AI model. The model reads a lifecycle skill (plan, red, execute, review, commit, push), makes tool calls, and the result is kept in plain state files under .kdbp/: PLAN.md with its PLAN.json mirror, PENDING and DECISIONS. Hooks row: Claude Code&#x27;s session and tool events trigger 9 hook scripts on 5 events. Seven only print text. Two can block with exit 2: one when a plan step is marked done without its proof, and one when a push to the final environment has no release scan for the current commit. Build row: a Python generator reads the .kdbp/ files, git and the test results, and writes a static docs site for the project with a board, test pages and a ledger. The screenshots below show the suite&#x27;s own docs site, built by a fork of that generator from the suite&#x27;s skills, hooks and test batteries. Bottom band: install.sh copies everything into ~/.claude, and the hooks act only in projects that have a .kdbp/ folder.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <text class="group-label" x="20" y="26">Session · only Claude is AI</text>
+          <text class="group-label" x="20" y="176">Hooks · Bash + Python, no AI</text>
+          <text class="group-label" x="20" y="326">Build · Python, no AI</text>
+          <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">Your prompt</text><text class="sub" x="32" y="80">a /gabe-* command</text><text class="sub" x="32" y="95">or plain text</text></g>
+          <g class="node ai"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">Claude Code</text><text class="sub" x="220" y="80">reads the skill,</text><text class="sub" x="220" y="95">makes tool calls</text></g>
+          <g class="node"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Lifecycle skills</text><text class="sub" x="408" y="80">plan→red→execute</text><text class="sub" x="408" y="95">review→commit→push</text></g>
+          <g class="node"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">.kdbp/ state files</text><text class="sub" x="596" y="80">PLAN.md + PLAN.json</text><text class="sub" x="596" y="95">PENDING · DECISIONS</text></g>
+          <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">9 hook scripts</text><text class="sub" x="220" y="230">on 5 events;</text><text class="sub" x="220" y="245">7 only print text</text></g>
+          <g class="node"><rect x="396" y="186" width="160" height="66" rx="8"/><text x="408" y="210">2 can block</text><text class="sub" x="408" y="230">done without proof</text><text class="sub" x="408" y="245">final push, no scan</text></g>
+          <g class="node"><rect x="584" y="336" width="160" height="66" rx="8"/><text x="596" y="360">Site generator</text><text class="sub" x="596" y="380">reads .kdbp/, git</text><text class="sub" x="596" y="395">and test results</text></g>
+          <g class="node"><rect x="772" y="336" width="160" height="66" rx="8"/><text x="784" y="360">Project docs site</text><text class="sub" x="784" y="380">static HTML: board,</text><text class="sub" x="784" y="395">tests, ledger</text></g>
+          <path class="edge" d="M180 69 H206"/>
+          <path class="edge" d="M368 69 H394"/>
+          <path class="edge" d="M556 69 H582"/>
+          <path class="edge" d="M288 102 V184"/>
+          <text class="edge-label" x="280" y="147" text-anchor="end">session + tool events</text>
+          <path class="edge" d="M368 219 H394"/>
+          <path class="edge" d="M664 102 V334"/>
+          <text class="edge-label" x="672" y="222" text-anchor="start">read at build time</text>
+          <path class="edge" d="M744 369 H770"/>
+          <g class="band"><rect x="20" y="432" width="912" height="44" rx="8"/><text x="36" y="459">install.sh copies into ~/.claude · hooks act only in projects with .kdbp/ · Markdown, Bash, Python 3</text></g>
+          </svg>
+          
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <ul class="points"><li><strong>Each step of the loop is a skill:</strong> a Markdown playbook (SKILL.md, sometimes with helper scripts) such as /gabe-plan, /gabe-red or /gabe-commit. Claude Code loads a skill&#x27;s full text only when it is called, either by its slash command or when the model picks it for the task. Five skills can only be started by hand. As of 22 September 2026 the public main branch has 28 skills and the working branch has 30.</li><li><strong>Project state lives in plain files under .kdbp/:</strong> PLAN.md with a JSON mirror, PENDING.md for deferred work, DECISIONS.md, and LEDGER.md as a session index. A new session picks up from these files, not from chat history.</li><li><strong>/gabe-init adds 9 hook scripts to Claude Code&#x27;s user settings, spread over 5 events:</strong> session start, prompt, before a tool call, after a tool call, and stop. In a folder without .kdbp/ they do nothing. Seven of them only add context or a warning. For example, editing source code before the failing tests exist gets a warning, not a block.</li><li><strong>Two hooks can block with exit 2.</strong> plan-proof-guard runs after a plan edit and rejects a step marked done when its proof file or its red/green commit is missing. The edit has already been written by then, so the model gets back an error it has to fix. push-gate-guard only acts in projects that declare more than one environment. It stops a push to the final environment, and any push it cannot prove is safe, unless /gabe-push recorded a health scan and a &#x27;proceed&#x27; answer for the current commit. An emergency flag lets a push through with a warning.</li><li><strong>All 9 hooks have shell fixture tests that check each one fires when it should and stays silent when it should not.</strong> A Python generator builds the static docs site shown in the screenshots. On that site, the enforcement ledger sorts the 119 rules the suite states. The ledger is a written audit from July 2026, not a computed result, and at that point it found 19 rules with a check that actually runs. The same site lists 13 checkers that still have no tests.</li><li><strong>Two small MCP servers of mine ship with it:</strong> gabe-map exposes a project&#x27;s committed code map as 18 query tools, and gabe-kdbp exposes the workflow state in .kdbp/ as 7 read-only tools. Both are Python standard library over stdio, share one JSON-RPC layer and are registered once per user. Their tools are listed to the agent in every session, so it uses the map instead of falling back to grep.</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <dl class="facts" style="margin-top:0"><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Side project, public repo. In use on my own projects since February 2026; 28 skills on main as of September 2026.</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</dt><dd>Claude Code (skills + hooks) · Markdown · Bash · Python 3 · Node.js · Static HTML + Mermaid</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</dt><dd><span class="muted">Repository link coming soon</span></dd></div></dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#more">← Other projects</a>
+        <a href="archie.html">Archie →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+{
+ "slug": "gustify",
+ "name": "Gustify",
+ "order": 10,
+ "card": {
+  "id": "gustify",
+  "h3_en": "Gustify",
+  "h3_es": "Gustify"
+ },
+ "chips": [
+  {
+   "kind": "progress",
+   "en": "Side project · in development",
+   "es": "Proyecto personal · en desarrollo"
+  }
+ ],
+ "lede_en": "Gustify is a cooking app for Chile. It ranks a curated recipe catalog by what is already in your pantry and leaves out recipes that conflict with an allergy you declared. The backend is FastAPI on PostgreSQL, and the match score is plain weighted arithmetic. I also built a Gemini recipe generator, but it is switched off in the deployed app.",
+ "lede_es": "Gustify es una app de cocina para Chile. Ordena un catálogo curado de recetas según lo que ya tienes en la despensa y deja fuera las que chocan con una alergia que declaraste. El backend es FastAPI sobre PostgreSQL, y el porcentaje de coincidencia sale de una aritmética ponderada simple. También construí un generador de recetas con Gemini, pero está apagado en la app desplegada.",
+ "how_it_works_en": [
+  "Match score without a model. Each recipe card shows how many of its ingredients you already have, plus a 0–100 score for the lens you pick (Para ti, Confort, Aventura, Skill, Reposado or Rápido). Each lens is a fixed weighted formula over pantry coverage, your cooking history, active filters and cooking time. Pantry coverage counts in every lens.",
+  "Allergen wall in SQL. Declared allergies are applied in the query's WHERE clause, before any scoring. A recipe is excluded if its allergen codes or any of its ingredients conflict with one of them, and opening an excluded recipe directly by its id returns 403. The allergen codes are derived from the ingredients, never typed by hand.",
+  "Curated catalog as code. Recipes are JSON files in the repo, written offline in AI-assisted development sessions (Claude) and never generated at request time. CI checks them (unique slugs, known ingredient codes, complete steps). On each deploy the API syncs the database to the files by slug, under a Postgres advisory lock. A search with no results can be saved as a request (one per user per hour), and a script turns pending requests into a brief for the next authoring session.",
+  "Cooking sessions saved on the server. Checked steps, the step timer and the cook's photos are stored per cooking session; photos are compressed in the browser and stored in Postgres. A reload or navigating away resumes the session where it was left.",
+  "Gemini generator: built, switched off. A recipe generator using Gemini through google-genai, with a Pydantic response schema, is in the code. RECIPE_CREATION_ENABLED is False, so its routes answer 403. The only override is for the test lane, and the deployed app's config refuses to boot with it on."
+ ],
+ "how_it_works_es": [
+  "Coincidencia sin modelo. Cada tarjeta de receta muestra cuántos de sus ingredientes ya tienes y un puntaje de 0 a 100 según la lente que elijas (Para ti, Confort, Aventura, Skill, Reposado o Rápido). Cada lente es una fórmula ponderada fija sobre la cobertura de tu despensa, tu historial de cocina, los filtros activos y el tiempo de preparación. La cobertura de la despensa cuenta en todas las lentes.",
+  "Muro de alérgenos en SQL. Las alergias declaradas se aplican en el WHERE de la consulta, antes de cualquier puntaje. Una receta queda fuera si sus códigos de alérgenos o alguno de sus ingredientes chocan con alguna de ellas, y abrir una receta excluida directamente por su id responde 403. Los códigos de alérgenos se derivan de los ingredientes; nunca se escriben a mano.",
+  "Catálogo curado como código. Las recetas son archivos JSON en el repositorio, escritas offline en sesiones de desarrollo asistidas por IA (Claude), y nunca se generan al momento de la consulta. CI las valida (slugs únicos, códigos de ingredientes conocidos, pasos completos). En cada deploy, la API sincroniza la base de datos con los archivos por slug, bajo un advisory lock de Postgres. Una búsqueda sin resultados se puede guardar como pedido (uno por usuario por hora), y un script convierte los pedidos pendientes en una pauta para la siguiente sesión de escritura de recetas.",
+  "Sesiones de cocina guardadas en el servidor. Los pasos marcados, el temporizador y las fotos quedan guardados por sesión de cocina; las fotos se comprimen en el navegador y se guardan en Postgres. Si recargas o navegas a otra parte, la sesión sigue donde quedó.",
+  "Generador con Gemini: construido y apagado. El código incluye un generador de recetas que usa Gemini vía google-genai, con esquema de respuesta Pydantic. RECIPE_CREATION_ENABLED está en False, así que sus rutas responden 403. El único override es para el carril de pruebas, y la configuración de la app desplegada no arranca si está activo."
+ ],
+ "stack": [
+  "Python 3.12 · FastAPI · Pydantic v2 · pyright strict",
+  "PostgreSQL · SQLAlchemy 2.0 async · Alembic",
+  "React 18 · Vite · TypeScript · TanStack Query",
+  "Firebase Auth (ID tokens verified by the API with firebase-admin)",
+  "Docker services on Railway (API and web)",
+  "pytest · Playwright journeys · GitHub Actions"
+ ],
+ "status_en": "Side project in development. Private repo; walkthrough on request.",
+ "status_es": "Proyecto personal en desarrollo. Repositorio privado; recorrido guiado a solicitud.",
+ "architecture": {
+  "desc_en": "Top row, the request path: the React web app calls the FastAPI API with a Firebase ID token. The API applies the allergen wall inside the SQL query. It then counts how many of each remaining recipe's ingredients are in the user's pantry and scores each recipe from 0 to 100 for the chosen lens with fixed formulas, without calling any model. Middle row: a Gemini recipe generator hangs off the API on a dashed line. It is switched off in the deployed app, and its routes return 403, so no model is called. Bottom row: recipes live as JSON files in the repository, written offline and validated in CI. When a commit is deployed, the API syncs them into the database by slug at boot, which gives the allergen wall the recipes and their derived allergen codes. Bottom band: PostgreSQL with async SQLAlchemy and Alembic migrations run at boot. The API and the web app run as Docker services on Railway.",
+  "desc_es": "Fila superior, la ruta de una consulta: la app web en React llama a la API FastAPI con un token de Firebase. La API aplica el muro de alérgenos dentro de la consulta SQL. Después cuenta cuántos ingredientes de cada receta restante hay en la despensa del usuario y le asigna a cada receta un puntaje de 0 a 100 para la lente elegida, con fórmulas fijas y sin llamar a ningún modelo. Fila del medio: un generador de recetas con Gemini cuelga de la API con una línea punteada. Está apagado en la app desplegada y sus rutas responden 403, así que no se llama a ningún modelo. Fila inferior: las recetas viven como archivos JSON en el repositorio, escritas offline y validadas en CI. Cuando se despliega un commit, la API las sincroniza por slug con la base de datos al arrancar, y así el muro de alérgenos recibe las recetas y sus códigos de alérgenos derivados. Banda inferior: PostgreSQL con SQLAlchemy async y migraciones Alembic que corren al arrancar. La API y la app web corren como servicios Docker en Railway.",
+  "groups": [
+   {
+    "row": 0,
+    "label_en": "Request path",
+    "label_es": "Ruta de una consulta"
+   },
+   {
+    "row": 1,
+    "label_en": "Built, switched off",
+    "label_es": "Construido, apagado"
+   },
+   {
+    "row": 2,
+    "label_en": "Curated catalog",
+    "label_es": "Catálogo curado"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "web",
+    "col": 0,
+    "row": 0,
+    "ai": false,
+    "title_en": "Web app",
+    "title_es": "App web",
+    "sub_en": [
+     "React 18 · Vite",
+     "TypeScript"
+    ],
+    "sub_es": [
+     "React 18 · Vite",
+     "TypeScript"
+    ]
+   },
+   {
+    "id": "api",
+    "col": 1,
+    "row": 0,
+    "ai": false,
+    "title_en": "FastAPI",
+    "title_es": "FastAPI",
+    "sub_en": [
+     "/api/v1, async",
+     "Firebase ID token"
+    ],
+    "sub_es": [
+     "/api/v1, async",
+     "token de Firebase"
+    ]
+   },
+   {
+    "id": "wall",
+    "col": 2,
+    "row": 0,
+    "ai": false,
+    "title_en": "Allergen wall",
+    "title_es": "Muro de alérgenos",
+    "sub_en": [
+     "in the SQL WHERE,",
+     "before ranking"
+    ],
+    "sub_es": [
+     "en el WHERE de SQL,",
+     "antes de ordenar"
+    ]
+   },
+   {
+    "id": "coverage",
+    "col": 3,
+    "row": 0,
+    "ai": false,
+    "title_en": "Pantry coverage",
+    "title_es": "Cobertura",
+    "sub_en": [
+     "ingredients you",
+     "already have"
+    ],
+    "sub_es": [
+     "ingredientes que",
+     "ya tienes"
+    ]
+   },
+   {
+    "id": "score",
+    "col": 4,
+    "row": 0,
+    "ai": false,
+    "title_en": "Match score",
+    "title_es": "% de coincidencia",
+    "sub_en": [
+     "6 lenses, 0-100",
+     "formulas, no model"
+    ],
+    "sub_es": [
+     "6 lentes, 0-100",
+     "fórmulas, sin modelo"
+    ]
+   },
+   {
+    "id": "gemini",
+    "col": 1,
+    "row": 1,
+    "ai": false,
+    "title_en": "Gemini generator",
+    "title_es": "Generador Gemini",
+    "sub_en": [
+     "off: flag = False",
+     "routes return 403"
+    ],
+    "sub_es": [
+     "apagado: flag False",
+     "rutas responden 403"
+    ]
+   },
+   {
+    "id": "files",
+    "col": 0,
+    "row": 2,
+    "ai": false,
+    "title_en": "Recipe JSON files",
+    "title_es": "Recetas en JSON",
+    "sub_en": [
+     "written offline,",
+     "validated in CI"
+    ],
+    "sub_es": [
+     "escritas offline,",
+     "validadas en CI"
+    ]
+   },
+   {
+    "id": "sync",
+    "col": 2,
+    "row": 2,
+    "ai": false,
+    "title_en": "Deploy reconcile",
+    "title_es": "Sincronización",
+    "sub_en": [
+     "on API boot, by",
+     "slug, advisory lock"
+    ],
+    "sub_es": [
+     "al arrancar la API,",
+     "por slug, con lock"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "web",
+    "to": "api",
+    "dashed": false
+   },
+   {
+    "from": "api",
+    "to": "wall",
+    "dashed": false
+   },
+   {
+    "from": "wall",
+    "to": "coverage",
+    "dashed": false
+   },
+   {
+    "from": "coverage",
+    "to": "score",
+    "dashed": false
+   },
+   {
+    "from": "api",
+    "to": "gemini",
+    "dashed": true,
+    "label_en": "off in deployed app",
+    "label_es": "apagado en la app"
+   },
+   {
+    "from": "files",
+    "to": "sync",
+    "dashed": false,
+    "label_en": "commit, then deploy",
+    "label_es": "commit y deploy"
+   },
+   {
+    "from": "sync",
+    "to": "wall",
+    "dashed": false,
+    "label_en": "recipes + allergens",
+    "label_es": "recetas y alérgenos"
+   }
+  ],
+  "band_en": "PostgreSQL · SQLAlchemy 2.0 async · Alembic at boot · API and web as Docker services on Railway",
+  "band_es": "PostgreSQL · SQLAlchemy 2.0 async · Alembic al arrancar · API y web como servicios Docker en Railway"
+ },
+ "links": [],
+ "shots": [
+  {
+   "file": "gustify-cover.webp",
+   "caption_en": "Pantry, recipes scored by match %, and cook mode. Staging test accounts; app in Spanish.",
+   "caption_es": "Despensa, recetas con % de coincidencia y modo cocina. Cuentas de prueba en staging.",
+   "alt_en": "Three phone screenshots of Gustify, in Spanish, with test data. Left: a pantry list of ingredients such as tomato, lettuce, avocado, Chilean breads, eggs and lemon, each with a quantity and the days left before it expires; one says 2 days. Center: the recipes screen with six scoring lenses (For you, Comfort, Adventure, Skill, Slow, Quick), a banner saying recipes are filtered by the user's diet and allergies, and a cilantro green-sauce card at 89% match with all 6 of its ingredients on hand and a 10-minute time, above a card for hallulla bread with avocado. Right: cook mode for fried egg on bread, on step 3 of 4, frying the eggs, with a timer running at 3 minutes 55 seconds.",
+   "alt_es": "Tres capturas de celular de Gustify con datos de prueba. Izquierda: la despensa, con ingredientes como tomate, lechuga, palta, hallulla, marraqueta, huevos y limón, cada uno con su cantidad y los días que le quedan antes de vencer; uno marca 2 días. Centro: la pantalla de recetas con seis lentes de puntaje (Para ti, Confort, Aventura, Skill, Reposado, Rápido), un aviso de que las recetas se filtran según la dieta y las alergias del usuario, y la tarjeta de Salsa Verde de Cilantro para Untar con 89% de coincidencia, sus 6 ingredientes disponibles y 10 minutos, sobre la tarjeta de Hallulla con Palta. Derecha: el modo cocina de Pan con Huevo Frito en el paso 3 de 4, freír los huevos, con un temporizador corriendo en 3 minutos 55 segundos.",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "gustify-lenses.webp",
+   "caption_en": "Same list, two lenses: Risotto de Hongos is 67% in Aventura, 33% in Confort. Test data.",
+   "caption_es": "Dos lentes: Risotto de Hongos marca 67% en Aventura y 33% en Confort. Datos de prueba.",
+   "alt_en": "Two phone screenshots of the same recipe list, in Spanish, with test data. Left: the Adventure lens is active ('cook what you have not tried'), and the list is led by a mushroom risotto at 67% match, followed by a Colombian hen stew and a Peruvian chicken soup at 58%. Right: the Comfort lens is active ('the familiar, no risk'), and the same mushroom risotto scores 33%, as do a Spanish omelette and a corn pie.",
+   "alt_es": "Dos capturas de celular de la misma lista de recetas, con datos de prueba. Izquierda: la lente Aventura está activa ('Cocina que no probaste') y la lista parte con un Risotto de Hongos con 67% de coincidencia, seguido de Sancocho de Gallina y Aguadito de Pollo con 58%. Derecha: la lente Confort está activa ('Lo conocido, sin riesgo') y el mismo Risotto de Hongos marca 33%, igual que una Tortilla Española y un Pastel de Choclo.",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "gustify-home.webp",
+   "caption_en": "Desktop home on staging, sandbox account: suggestions and pantry summary. Test data.",
+   "caption_es": "Inicio de escritorio en staging, cuenta sandbox: sugerencias y despensa. Datos de prueba.",
+   "alt_en": "The Gustify home screen on a desktop browser, in Spanish, signed in as a sandbox test account. A greeting asks what we are cooking today, above two suggested dishes, a fresh salad and a vegetable soup, both at 100% match because every ingredient is in the pantry. Both are test fixtures and are shown with a placeholder icon. Below, a summary says the pantry holds 29 ingredients and how many recipes can be cooked, counting only recipes that are safe for this account's allergies.",
+   "alt_es": "La pantalla de inicio de Gustify en un navegador de escritorio, con sesión iniciada en una cuenta sandbox de prueba. Un saludo pregunta qué cocinamos hoy, sobre dos platos sugeridos, una ensalada fresca y una sopa de verduras, ambos con 100% de coincidencia porque todos sus ingredientes están en la despensa. Los dos son datos de prueba y se muestran con un ícono genérico. Más abajo, un resumen indica que la despensa tiene 29 ingredientes y cuántas recetas se pueden cocinar, contando solo las recetas seguras para las alergias de esta cuenta.",
+   "w": 1200,
+   "h": 750
+  }
+ ],
+ "no_links_en": "Private repo · walkthrough on request",
+ "no_links_es": "Repositorio privado · recorrido guiado a solicitud"
+}

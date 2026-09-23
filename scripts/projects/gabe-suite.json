@@ -1,0 +1,280 @@
+{
+ "slug": "gabe-suite",
+ "name": "Gabe Suite",
+ "order": 13,
+ "card": {
+  "id": "gabe-suite",
+  "h3_en": "Gabe Suite",
+  "h3_es": "Gabe Suite"
+ },
+ "chips": [
+  {
+   "kind": "oss",
+   "en": "Side project · public repo",
+   "es": "Proyecto personal · repositorio público"
+  }
+ ],
+ "lede_en": "Gabe Suite is the Claude Code toolkit I build my own projects with. Its skills are Markdown playbooks, some with helper scripts, that walk the model through plan, failing test, code, review, commit and push, and keep the project's state in plain files under .kdbp/. In a project set up with /gabe-init, nine hook scripts watch the session. Seven only print reminders. Two can block: one when a plan step is marked done without its proof, and one when a push to the final environment skipped the release check.",
+ "lede_es": "Gabe Suite es el kit de Claude Code con el que desarrollo mis propios proyectos. Sus skills son instructivos en Markdown, algunos con scripts de apoyo, que llevan al modelo por plan, test que falla, código, revisión, commit y push, y dejan el estado del proyecto en archivos planos dentro de .kdbp/. En un proyecto configurado con /gabe-init, nueve scripts de hook vigilan la sesión. Siete solo imprimen avisos. Dos pueden bloquear: uno cuando un paso del plan se marca como terminado sin su prueba, y otro cuando un push al ambiente final no pasó por la revisión previa.",
+ "how_it_works_en": [
+  "Each step of the loop is a skill: a Markdown playbook (SKILL.md, sometimes with helper scripts) such as /gabe-plan, /gabe-red or /gabe-commit. Claude Code loads a skill's full text only when it is called, either by its slash command or when the model picks it for the task. Five skills can only be started by hand. As of 22 September 2026 the public main branch has 28 skills and the working branch has 30.",
+  "Project state lives in plain files under .kdbp/: PLAN.md with a JSON mirror, PENDING.md for deferred work, DECISIONS.md, and LEDGER.md as a session index. A new session picks up from these files, not from chat history.",
+  "/gabe-init adds 9 hook scripts to Claude Code's user settings, spread over 5 events: session start, prompt, before a tool call, after a tool call, and stop. In a folder without .kdbp/ they do nothing. Seven of them only add context or a warning. For example, editing source code before the failing tests exist gets a warning, not a block.",
+  "Two hooks can block with exit 2. plan-proof-guard runs after a plan edit and rejects a step marked done when its proof file or its red/green commit is missing. The edit has already been written by then, so the model gets back an error it has to fix. push-gate-guard only acts in projects that declare more than one environment. It stops a push to the final environment, and any push it cannot prove is safe, unless /gabe-push recorded a health scan and a 'proceed' answer for the current commit. An emergency flag lets a push through with a warning.",
+  "All 9 hooks have shell fixture tests that check each one fires when it should and stays silent when it should not. A Python generator builds the static docs site shown in the screenshots. On that site, the enforcement ledger sorts the 119 rules the suite states. The ledger is a written audit from July 2026, not a computed result, and at that point it found 19 rules with a check that actually runs. The same site lists 13 checkers that still have no tests.",
+  "Two small MCP servers of mine ship with it: gabe-map exposes a project's committed code map as 18 query tools, and gabe-kdbp exposes the workflow state in .kdbp/ as 7 read-only tools. Both are Python standard library over stdio, share one JSON-RPC layer and are registered once per user. Their tools are listed to the agent in every session, so it uses the map instead of falling back to grep."
+ ],
+ "how_it_works_es": [
+  "Cada paso del ciclo es una skill: un instructivo en Markdown (SKILL.md, a veces con scripts de apoyo) como /gabe-plan, /gabe-red o /gabe-commit. Claude Code carga el texto completo de una skill solo cuando se la llama, ya sea con su comando o porque el modelo la elige para la tarea. Cinco skills solo se pueden iniciar a mano. Al 22 de septiembre de 2026, la rama pública main tiene 28 skills y la rama de trabajo tiene 30.",
+  "El estado del proyecto vive en archivos planos dentro de .kdbp/: PLAN.md con su espejo en JSON, PENDING.md para el trabajo diferido, DECISIONS.md y LEDGER.md como índice de sesiones. Una sesión nueva retoma desde esos archivos, no desde el historial del chat.",
+  "/gabe-init agrega 9 scripts de hook a la configuración de usuario de Claude Code, repartidos en 5 eventos: inicio de sesión, prompt, antes de usar una herramienta, después de usarla y cierre. En una carpeta sin .kdbp/ no hacen nada. Siete de ellos solo agregan contexto o un aviso. Por ejemplo, editar código antes de que existan los tests que fallan genera un aviso, no un bloqueo.",
+  "Dos hooks pueden bloquear con exit 2. plan-proof-guard corre después de editar el plan y rechaza un paso marcado como terminado si falta su archivo de prueba o su commit red/green. Para entonces la edición ya quedó escrita, así que el modelo recibe un error que tiene que corregir. push-gate-guard solo actúa en proyectos que declaran más de un ambiente. Detiene un push al ambiente final, y cualquier push que no pueda probar que es seguro, salvo que /gabe-push haya registrado un escaneo de salud y la respuesta de continuar para el commit actual. Una variable de emergencia deja pasar el push con una advertencia.",
+  "Los 9 hooks tienen tests de fixtures en shell que verifican que cada uno se dispara cuando corresponde y se queda callado cuando no. Un generador en Python arma el sitio estático de documentación que muestran las capturas. En ese sitio, el ledger de cumplimiento clasifica las 119 reglas que declara la suite. Ese ledger es una auditoría escrita de julio de 2026, no un cálculo, y en ese momento encontró 19 reglas con un control que realmente se ejecuta. El mismo sitio lista 13 verificadores que todavía no tienen tests.",
+  "Trae dos servidores MCP propios: gabe-map expone el mapa versionado del código como 18 herramientas de consulta, y gabe-kdbp expone el estado del ciclo en .kdbp/ como 7 herramientas de solo lectura. Los dos usan solo la biblioteca estándar de Python por stdio, comparten una capa JSON-RPC y se registran una vez por usuario. Sus herramientas se le muestran al agente en cada sesión, así que consulta el mapa en vez de volver al grep."
+ ],
+ "stack": [
+  "Claude Code (skills + hooks)",
+  "Markdown",
+  "Bash",
+  "Python 3",
+  "Node.js",
+  "Static HTML + Mermaid"
+ ],
+ "status_en": "Side project, public repo. In use on my own projects since February 2026; 28 skills on main as of September 2026.",
+ "status_es": "Proyecto personal, repositorio público. Lo uso en mis propios proyectos desde febrero de 2026; 28 skills en main a septiembre de 2026.",
+ "architecture": {
+  "desc_en": "Diagram of Gabe Suite in three rows. Session row: your prompt, either a /gabe-* command or plain text, goes to Claude Code, the only part that uses an AI model. The model reads a lifecycle skill (plan, red, execute, review, commit, push), makes tool calls, and the result is kept in plain state files under .kdbp/: PLAN.md with its PLAN.json mirror, PENDING and DECISIONS. Hooks row: Claude Code's session and tool events trigger 9 hook scripts on 5 events. Seven only print text. Two can block with exit 2: one when a plan step is marked done without its proof, and one when a push to the final environment has no release scan for the current commit. Build row: a Python generator reads the .kdbp/ files, git and the test results, and writes a static docs site for the project with a board, test pages and a ledger. The screenshots below show the suite's own docs site, built by a fork of that generator from the suite's skills, hooks and test batteries. Bottom band: install.sh copies everything into ~/.claude, and the hooks act only in projects that have a .kdbp/ folder.",
+  "desc_es": "Diagrama de Gabe Suite en tres filas. Fila de sesión: tu prompt, ya sea un comando /gabe-* o texto libre, llega a Claude Code, que es la única parte que usa un modelo de IA. El modelo lee una skill del ciclo (plan, red, execute, review, commit, push), usa herramientas, y el resultado queda en archivos de estado planos dentro de .kdbp/: PLAN.md con su espejo PLAN.json, PENDING y DECISIONS. Fila de hooks: los eventos de sesión y de herramientas de Claude Code disparan 9 scripts de hook, repartidos en 5 eventos. Siete solo imprimen texto. Dos pueden bloquear con exit 2: uno cuando un paso del plan se marca como terminado sin su prueba, y otro cuando un push al ambiente final no tiene escaneo de revisión para el commit actual. Fila de generación: un generador en Python lee los archivos de .kdbp/, git y los resultados de los tests, y arma un sitio estático de documentación del proyecto con tablero, páginas de tests y ledger. Las capturas de abajo muestran el sitio de la propia suite, armado por una copia adaptada de ese generador a partir de sus skills, hooks y baterías de tests. Franja inferior: install.sh copia todo a ~/.claude, y los hooks solo actúan en proyectos que tienen una carpeta .kdbp/.",
+  "groups": [
+   {
+    "row": 0,
+    "label_en": "Session · only Claude is AI",
+    "label_es": "Sesión · solo Claude es IA"
+   },
+   {
+    "row": 1,
+    "label_en": "Hooks · Bash + Python, no AI",
+    "label_es": "Hooks · Bash + Python, sin IA"
+   },
+   {
+    "row": 2,
+    "label_en": "Build · Python, no AI",
+    "label_es": "Generación · Python, sin IA"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "prompt",
+    "col": 0,
+    "row": 0,
+    "ai": false,
+    "title_en": "Your prompt",
+    "title_es": "Tu prompt",
+    "sub_en": [
+     "a /gabe-* command",
+     "or plain text"
+    ],
+    "sub_es": [
+     "un comando /gabe-*",
+     "o texto libre"
+    ]
+   },
+   {
+    "id": "claude",
+    "col": 1,
+    "row": 0,
+    "ai": true,
+    "title_en": "Claude Code",
+    "title_es": "Claude Code",
+    "sub_en": [
+     "reads the skill,",
+     "makes tool calls"
+    ],
+    "sub_es": [
+     "lee la skill y",
+     "usa herramientas"
+    ]
+   },
+   {
+    "id": "skills",
+    "col": 2,
+    "row": 0,
+    "ai": false,
+    "title_en": "Lifecycle skills",
+    "title_es": "Skills del ciclo",
+    "sub_en": [
+     "plan→red→execute",
+     "review→commit→push"
+    ],
+    "sub_es": [
+     "plan→red→execute",
+     "review→commit→push"
+    ]
+   },
+   {
+    "id": "state",
+    "col": 3,
+    "row": 0,
+    "ai": false,
+    "title_en": ".kdbp/ state files",
+    "title_es": "Estado en .kdbp/",
+    "sub_en": [
+     "PLAN.md + PLAN.json",
+     "PENDING · DECISIONS"
+    ],
+    "sub_es": [
+     "PLAN.md + PLAN.json",
+     "PENDING · DECISIONS"
+    ]
+   },
+   {
+    "id": "hooks",
+    "col": 1,
+    "row": 1,
+    "ai": false,
+    "title_en": "9 hook scripts",
+    "title_es": "9 scripts de hook",
+    "sub_en": [
+     "on 5 events;",
+     "7 only print text"
+    ],
+    "sub_es": [
+     "en 5 eventos;",
+     "7 solo imprimen"
+    ]
+   },
+   {
+    "id": "guards",
+    "col": 2,
+    "row": 1,
+    "ai": false,
+    "title_en": "2 can block",
+    "title_es": "2 pueden bloquear",
+    "sub_en": [
+     "done without proof",
+     "final push, no scan"
+    ],
+    "sub_es": [
+     "listo sin prueba",
+     "push final sin scan"
+    ]
+   },
+   {
+    "id": "gen",
+    "col": 3,
+    "row": 2,
+    "ai": false,
+    "title_en": "Site generator",
+    "title_es": "Generador de sitio",
+    "sub_en": [
+     "reads .kdbp/, git",
+     "and test results"
+    ],
+    "sub_es": [
+     "lee .kdbp/, git y",
+     "resultados de tests"
+    ]
+   },
+   {
+    "id": "site",
+    "col": 4,
+    "row": 2,
+    "ai": false,
+    "title_en": "Project docs site",
+    "title_es": "Sitio del proyecto",
+    "sub_en": [
+     "static HTML: board,",
+     "tests, ledger"
+    ],
+    "sub_es": [
+     "HTML: tablero,",
+     "tests y ledger"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "prompt",
+    "to": "claude",
+    "dashed": false
+   },
+   {
+    "from": "claude",
+    "to": "skills",
+    "dashed": false
+   },
+   {
+    "from": "skills",
+    "to": "state",
+    "dashed": false
+   },
+   {
+    "from": "claude",
+    "to": "hooks",
+    "label_en": "session + tool events",
+    "label_es": "sesión + herramientas",
+    "dashed": false
+   },
+   {
+    "from": "hooks",
+    "to": "guards",
+    "dashed": false
+   },
+   {
+    "from": "state",
+    "to": "gen",
+    "label_en": "read at build time",
+    "label_es": "se lee al generar",
+    "dashed": false
+   },
+   {
+    "from": "gen",
+    "to": "site",
+    "dashed": false
+   }
+  ],
+  "band_en": "install.sh copies into ~/.claude · hooks act only in projects with .kdbp/ · Markdown, Bash, Python 3",
+  "band_es": "install.sh copia a ~/.claude · los hooks solo actúan en proyectos con .kdbp/ · Markdown, Bash, Python 3"
+ },
+ "links": [],
+ "shots": [
+  {
+   "file": "gs-loop.webp",
+   "caption_en": "The loop, from the suite's own docs: each command and the file it leaves behind",
+   "caption_es": "El ciclo, según la propia documentación: cada comando y el archivo que deja",
+   "alt_en": "Section 01, 'The lifecycle, beat by beat', of Gabe Suite's command reference page. It was rendered locally from the HTML committed on the public graft-adoption branch, with the sidebar collapsed to icons. A table lists each step of the loop with its command, its job and the file it leaves behind. Scope (/gabe-scope) writes SCOPE.md. Plan (/gabe-plan) writes PLAN.md and PLAN.json. Red (/gabe-red) commits the failing test cases before any source is written. Execute (/gabe-execute) turns them green with checkpoint commits and proof files. Review (/gabe-review) prices each finding and writes deferred ones to PENDING.md. Commit (/gabe-commit), which the page calls the quality gate, adds a LEDGER.md row. Push (/gabe-push) handles the PR, CI and promotion, recorded in DEPLOYMENTS.md.",
+   "alt_es": "Sección 01, 'The lifecycle, beat by beat', de la página de referencia de comandos de Gabe Suite. Se renderizó en local desde el HTML versionado en la rama pública graft-adoption, con la barra lateral contraída a íconos. Una tabla lista cada paso del ciclo con su comando, su tarea y el archivo que deja. Scope (/gabe-scope) escribe SCOPE.md. Plan (/gabe-plan) escribe PLAN.md y PLAN.json. Red (/gabe-red) hace commit de los tests que fallan antes de escribir código. Execute (/gabe-execute) los pone en verde con commits de avance y archivos de prueba. Review (/gabe-review) pondera cada hallazgo y deja los diferidos en PENDING.md. Commit (/gabe-commit), que la página llama el control de calidad, agrega una fila a LEDGER.md. Push (/gabe-push) se encarga del PR, el CI y la promoción, registrados en DEPLOYMENTS.md.",
+   "w": 1280,
+   "h": 800
+  },
+  {
+   "file": "gs-hooks.webp",
+   "caption_en": "Hooks page: the 9 hook scripts, the event each runs on, and what its exit code does",
+   "caption_es": "Página de hooks: los 9 scripts, su evento y qué hace su código de salida",
+   "alt_en": "The table section of Gabe Suite's hooks page, rendered locally from the committed HTML of 11 September 2026, with the sidebar collapsed to icons. Under the heading '9 Shipped hooks', a note explains that a hook running before a tool call can stop it with exit 2, while a hook running after a write can only send back an error, not prevent the write. The table lists the nine hook scripts with their event, matcher, verdict and exit codes. plan-proof-guard, which runs after a write, is marked BLOCKS. push-gate-guard shows exit codes 0 and 2 and is marked unprobed, as are red-entry-guard and direction-guard, because the suite's hand probe of July 2026 predates them. The other hooks are marked as announcing or warning.",
+   "alt_es": "Sección de la tabla en la página de hooks de Gabe Suite, renderizada en local desde el HTML versionado del 11 de septiembre de 2026, con la barra lateral contraída a íconos. Bajo el título '9 Shipped hooks', una nota explica que un hook que corre antes de usar una herramienta puede detener la llamada con exit 2, mientras que uno que corre después de una escritura solo puede devolver un error, sin evitar la escritura. La tabla lista los nueve scripts de hook con su evento, su matcher, su veredicto y sus códigos de salida. plan-proof-guard, que corre después de una escritura, aparece marcado como BLOCKS. push-gate-guard muestra los códigos 0 y 2 y aparece como no probado, igual que red-entry-guard y direction-guard, porque la prueba manual de la suite, de julio de 2026, es anterior a ellos. Los demás hooks aparecen como anuncios o avisos.",
+   "w": 1280,
+   "h": 800
+  },
+  {
+   "file": "gs-enforcement.webp",
+   "caption_en": "Enforcement ledger from a July 2026 audit: 119 stated rules, 19 with a check that runs",
+   "caption_es": "Ledger de cumplimiento (auditoría de julio de 2026): 119 reglas, 19 con control efectivo",
+   "alt_en": "Gabe Suite's enforcement ledger page, rendered locally from the HTML committed on the public graft-adoption branch on 11 September 2026, with the sidebar collapsed to icons. The rule classification behind the page is a written audit dated July 2026. The heading says every rule the suite asserts goes into one of four buckets: enforced, hardenable, prompt-only, or falsely claimed. Four tiles read 119 rules catalogued, 19 hard-enforced, 68 payable (hardenable plus broken claims) and 32 prompt-only. Below the filters, the first section lists 22 broken claims: rules the suite's documents state but no code enforces. The first one is marked critical: gabe-assess describes an automatic checkpoint hook that does not exist.",
+   "alt_es": "Página del ledger de cumplimiento de Gabe Suite, renderizada en local desde el HTML versionado en la rama pública graft-adoption el 11 de septiembre de 2026, con la barra lateral contraída a íconos. La clasificación de reglas detrás de la página es una auditoría escrita de julio de 2026. El título dice que cada regla que declara la suite cae en uno de cuatro grupos: con control, endurecible, solo en el prompt o declarada en falso. Cuatro recuadros muestran 119 reglas catalogadas, 19 con control efectivo, 68 pendientes (endurecibles más declaraciones falsas) y 32 solo en el prompt. Bajo los filtros, la primera sección lista 22 declaraciones falsas: reglas que los documentos de la suite afirman pero que ningún código hace cumplir. La primera está marcada como crítica: gabe-assess describe un hook automático de control que no existe.",
+   "w": 1280,
+   "h": 800
+  },
+  {
+   "file": "gs-testing.webp",
+   "caption_en": "Testing page, self-recorded 11 Sep 2026: test batteries, and 13 checks with none yet",
+   "caption_es": "Página de testing (registro propio, 11 sep 2026): baterías y 13 controles aún sin tests",
+   "alt_en": "Gabe Suite's testing page, rendered locally from the committed HTML of 11 September 2026, with the sidebar collapsed to icons. Four tiles read 47 test batteries; 2,679 assertions, recorded by the suite's own run at a stated commit over a working tree with uncommitted changes; 0 red; and 13 checks with no test battery yet. Below them is a table of shell fixture batteries such as arch-graph, artifact-chrome and board. Each row shows its assertion count, its status and whether it proves its check can both fire and stay silent.",
+   "alt_es": "Página de testing de Gabe Suite, renderizada en local desde el HTML versionado del 11 de septiembre de 2026, con la barra lateral contraída a íconos. Cuatro recuadros muestran 47 baterías de tests; 2.679 aserciones, registradas por la propia ejecución de la suite en un commit indicado y sobre un árbol de trabajo con cambios sin commit; 0 en rojo; y 13 controles que aún no tienen batería. Abajo hay una tabla de baterías de fixtures en shell, como arch-graph, artifact-chrome y board. Cada fila muestra su número de aserciones, su estado y si demuestra que su control se dispara y también se queda callado.",
+   "w": 1280,
+   "h": 800
+  }
+ ],
+ "no_links_en": "Repository link coming soon",
+ "no_links_es": "Enlace al repositorio próximamente"
+}

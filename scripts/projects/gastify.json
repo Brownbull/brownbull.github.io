@@ -1,0 +1,40 @@
+{
+ "slug": "gastify",
+ "name": "Gastify",
+ "page": false,
+ "order": 1,
+ "card": {
+  "id": "gastify",
+  "h3_en": "Gastify",
+  "h3_es": "Gastify"
+ },
+ "shots": [
+  {
+   "file": "gastify-dashboard.webp",
+   "w": 1200,
+   "h": 938,
+   "caption_en": "Dashboard with seeded demo data: month total, six-month trend, categories above average.",
+   "caption_es": "Dashboard con datos demo precargados: total del mes, tendencia de seis meses y categorías sobre el promedio.",
+   "alt_en": "The app dashboard: spend for the month, a six-month trend chart, categories above the three-month average, and the latest transactions — all seeded demo data.",
+   "alt_es": "El dashboard de la app: gasto del mes, un gráfico de tendencia de seis meses, las categorías por sobre el promedio de tres meses y las últimas transacciones, todo con datos de demostración precargados."
+  },
+  {
+   "file": "gastify-needs-review.webp",
+   "w": 1200,
+   "h": 844,
+   "caption_en": "The math check's review banner on a test draft set up by a script, not by a scan.",
+   "caption_es": "El aviso del chequeo aritmético sobre un borrador de prueba cargado por script, no por escaneo.",
+   "alt_en": "A receipt draft with a review banner saying the items do not add up to the printed total; four items and their prices are listed below. Seeded test data.",
+   "alt_es": "Borrador de boleta con un aviso de revisión: los ítems no suman el total impreso; abajo se listan cuatro ítems con sus precios. Datos de prueba precargados."
+  },
+  {
+   "file": "gastify-reconciled.webp",
+   "w": 1200,
+   "h": 1126,
+   "caption_en": "Reconciliation view. The 18 matches were written by a demo seed, not a live run.",
+   "caption_es": "Vista de conciliación. Los 18 cruces los escribió un script demo, no una corrida real.",
+   "alt_en": "The reconciliation screen: tabs reading matched 18, statement only 0, app only 0, ambiguous 0, failed 0, over a table pairing each statement line with a saved transaction and the reason for the verdict. Demo data written by a seed script.",
+   "alt_es": "La pantalla de conciliación: pestañas con emparejadas 18, solo en la cartola 0, solo en la app 0, ambiguas 0 y fallidas 0, sobre una tabla que empareja cada línea de la cartola con una transacción y el motivo del veredicto. Datos demo escritos por un script."
+  }
+ ]
+}

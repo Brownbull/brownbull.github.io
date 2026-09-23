@@ -1,0 +1,34 @@
+{
+ "slug": "analisis2025",
+ "name": "Policy-document extraction pipeline",
+ "name_es": "Pipeline de extracción de documentos de política pública",
+ "page": false,
+ "order": 90,
+ "card": {
+  "id": "analisis2025",
+  "h3_en": "Policy-document extraction pipeline",
+  "h3_es": "Pipeline de extracción de documentos de política pública"
+ },
+ "shots": [
+  {
+   "file": "analisis2025-measures.webp",
+   "w": 1200,
+   "h": 454,
+   "fit": "left",
+   "caption_en": "The pipeline's published output: numbered measures, each with a source page. Site in Spanish.",
+   "caption_es": "La salida publicada del pipeline: medidas numeradas, cada una con su página de origen.",
+   "alt_en": "A program page on the site (in Spanish): a table with columns Measure, Description and Page, listing numbered measures, each with the page it came from.",
+   "alt_es": "La página de un programa en el sitio: una tabla con las columnas Medida, Descripción y Página, que lista medidas numeradas, cada una con la página de la que proviene."
+  },
+  {
+   "file": "analisis2025-limits.webp",
+   "w": 1000,
+   "h": 590,
+   "fit": "left",
+   "caption_en": "The site's own limitations section: not voting advice, fictional profiles.",
+   "caption_es": "La sección de limitaciones del sitio: no es recomendación de voto y los perfiles son ficticios.",
+   "alt_en": "The site's limitations section (in Spanish): it states the analysis is not a voting recommendation, not a feasibility judgment and not a poll of real voters, and that it is an educational exercise using fictional profiles.",
+   "alt_es": "La sección de limitaciones del sitio: indica que el análisis no es una recomendación de voto, ni un juicio de factibilidad, ni una encuesta a votantes reales, y que es un ejercicio educativo con perfiles ficticios."
+  }
+ ]
+}

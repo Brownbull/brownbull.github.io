@@ -1,0 +1,321 @@
+{
+ "slug": "cifra",
+ "name": "Cifra · Chile",
+ "order": 11,
+ "card": {
+  "id": "cifra",
+  "h3_en": "Cifra · Chile",
+  "h3_es": "Cifra · Chile"
+ },
+ "chips": [
+  {
+   "kind": "public",
+   "en": "Side project · publicly deployed",
+   "es": "Proyecto personal · desplegado públicamente"
+  }
+ ],
+ "lede_en": "Cifra · Chile is a Spanish-language data magazine that explains complex Chilean public-interest cases step by step, linking its figures to their sources and tagging estimates 'ia'. I built it with Claude Code in June 2026 (last update 3 July). AI researched and drafted the threads, checked their sources and ran a legal red-team on six sensitive pages, with me as editor. The deployed site runs no AI. It is a Next.js app with Google sign-in and a small PostgreSQL backend for votes, moderated comments and a newsletter.",
+ "lede_es": "Cifra · Chile es una revista de datos en español que explica paso a paso casos complejos de interés público en Chile, con enlaces a las fuentes de sus cifras y las estimaciones marcadas como «ia». La construí con Claude Code en junio de 2026 (última actualización: 3 de julio). La IA investigó y redactó los hilos, chequeó sus fuentes e hizo una revisión legal adversarial de seis páginas sensibles, conmigo como editor. El sitio desplegado no ejecuta IA. Es una app Next.js con inicio de sesión con Google y un backend chico en PostgreSQL para votos, comentarios moderados y un boletín.",
+ "how_it_works_en": [
+  "Each thread is a React page in TypeScript, with its figures kept as typed data in the code. Figures link either to a shared registry of 234 sources (as of September 2026), ranked from the Central Bank down to the press (84 of them), or straight to a document. Estimates carry an 'ia' tag.",
+  "AI works while the pages are made, not in the running site. The threads were researched and drafted with Claude Code, and a source-check skill stamps each of the 48 published threads with the agent, model and date of its pass. The first site-wide pass (7 June 2026, 37 of the 48 stamps) checked that links were live and pointed to the primary document. On 10 June the skill added a check that each key figure appears in the cited document.",
+  "Six pages that name people or companies got an adversarial legal review from an AI agent in June 2026. It builds the strongest defamation or privacy claim against the page, then argues the defense, and only the claims that survive become fixes that I approve. It is an editorial check, not legal advice.",
+  "The backend is small. Reading needs no account. Votes and comments need a Google sign-in: those routes verify the Firebase ID token on the server, and unique constraints in PostgreSQL (through Prisma) allow one vote and one comment per reader per article. The newsletter (double opt-in), the contact form and comment reports work without an account, behind a cooldown or a honeypot and rate limit.",
+  "Comments are moderated before they appear. A reader's note stays private until they ask to publish it. It then waits as pending until I approve it, either from a local pipeline where an AI flag suggests a verdict or from an admin page limited to an allowlist. Editing a published comment sends it back to pending."
+ ],
+ "how_it_works_es": [
+  "Cada hilo es una página React en TypeScript, con sus cifras como datos tipados en el código. Las cifras enlazan a un registro común de 234 fuentes (a septiembre de 2026), ordenadas desde el Banco Central hasta la prensa (84 de ellas), o directo a un documento. Las estimaciones llevan la marca «ia».",
+  "La IA trabaja al hacer las páginas, no en el sitio en línea. Los hilos se investigaron y redactaron con Claude Code, y una skill de chequeo de fuentes sella cada uno de los 48 hilos publicados con el agente, el modelo y la fecha de su revisión. La primera pasada general (7 de junio de 2026, 37 de los 48 sellos) comprobó que los enlaces estuvieran vivos y apuntaran al documento primario. El 10 de junio la skill sumó una revisión de que cada cifra clave esté en el documento citado.",
+  "Seis páginas que nombran a personas o empresas pasaron en junio de 2026 por una revisión legal adversarial hecha por un agente de IA. El agente arma la acusación más fuerte por injurias o datos personales, después arma la defensa, y solo lo que sobrevive se convierte en correcciones que apruebo yo. Es un control editorial, no asesoría legal.",
+  "El backend es chico. Leer no requiere cuenta. Para votar o comentar hay que entrar con Google: esas rutas verifican el token de Firebase en el servidor, y las restricciones únicas de PostgreSQL (vía Prisma) permiten un voto y un comentario por lector y por artículo. El boletín (con doble confirmación), el formulario de contacto y los reportes de comentarios funcionan sin cuenta, con un tiempo de espera o con un campo trampa y un límite de envíos.",
+  "Los comentarios se moderan antes de aparecer. La nota de un lector es privada hasta que pide publicarla. Ahí queda pendiente hasta que la apruebo, ya sea desde un flujo local donde una marca de IA sugiere un veredicto o desde un panel de administración con lista de acceso. Si se edita un comentario publicado, vuelve a quedar pendiente."
+ ],
+ "stack": [
+  "Next.js 15 (App Router), React 19, TypeScript",
+  "PostgreSQL through Prisma 6",
+  "Firebase Auth (Google sign-in, ID token checked on the server)",
+  "Railway hosting, auto-deploy from main (since 15 Jun 2026)",
+  "Resend (double opt-in newsletter)",
+  "Claude Code skills (authoring only, not in the running site)"
+ ],
+ "status_en": "Side project, publicly deployed. Built with Claude Code in June 2026 (last update 3 July).",
+ "status_es": "Proyecto personal, desplegado públicamente. Construido con Claude Code en junio de 2026 (última actualización: 3 de julio).",
+ "architecture": {
+  "desc_en": "Three rows. The top row is authoring, done locally, and publishing. Public sources (DIPRES, the Central Bank, laws and court rulings, plus some press) feed an AI drafting step in Claude Code that writes a thread as a React page with its figures as typed data. An AI source-check step re-fetches the cited links and stamps the page with the agent, model and date. A push to the main branch makes Railway rebuild the Next.js site, whose prerendered pages tag figures with their source or as 'ia'. The middle row holds review steps where the editor decides. A dashed branch from the source check leads to an AI legal red-team, run on six sensitive pages in June 2026: the agent argues the plaintiff's case and then the defense, and the editor approves the fixes. Next to it is comment moderation. Pending comments come up from the database on a dashed path, the editor decides, optionally helped by an AI flag from a local pipeline, and approved comments appear on the site. The bottom row is for readers and runs on Railway. A reader reads without an account and signs in with Google to vote or comment. The API routes check the Firebase ID token on the server for votes and comments and write to PostgreSQL through Prisma, which also stores newsletter sign-ups. The bottom band lists the platform: Railway, Next.js 15, React 19, TypeScript, PostgreSQL with Prisma 6, Firebase Auth and Resend. No AI runs in the deployed site.",
+  "desc_es": "Tres filas. La de arriba es la redacción, hecha en local, y la publicación. Las fuentes públicas (DIPRES, Banco Central, leyes y fallos, además de algo de prensa) alimentan una etapa de redacción con IA en Claude Code, que escribe el hilo como página React con sus cifras como datos tipados. Luego una etapa de chequeo con IA vuelve a abrir los enlaces citados y sella la página con el agente, el modelo y la fecha. Un push a la rama main hace que Railway reconstruya el sitio Next.js, cuyas páginas prerenderizadas marcan las cifras con su fuente o como «ia». La fila del medio reúne las revisiones donde decide el editor. Desde el chequeo sale una rama punteada hacia una revisión legal adversarial con IA, hecha en junio de 2026 sobre seis páginas sensibles: el agente arma la acusación y después la defensa, y el editor aprueba las correcciones. Al lado está la moderación de comentarios. Los pendientes suben desde la base de datos por un camino punteado, decide el editor, con la ayuda opcional de una marca de IA de un flujo local, y los aprobados aparecen en el sitio. La fila de abajo es la de los lectores, en Railway. El lector lee sin cuenta y entra con Google para votar o comentar. Las rutas API verifican el token de Firebase en el servidor para votos y comentarios, y escriben en PostgreSQL vía Prisma, que también guarda las suscripciones al boletín. La banda inferior lista la plataforma: Railway, Next.js 15, React 19, TypeScript, PostgreSQL con Prisma 6, Firebase Auth y Resend. El sitio desplegado no ejecuta IA.",
+  "band_en": "Railway · Next.js 15, React 19, TypeScript · PostgreSQL + Prisma 6 · Firebase Auth · Resend · no AI at runtime",
+  "band_es": "Railway · Next.js 15, React 19, TypeScript · PostgreSQL + Prisma 6 · Firebase Auth · Resend · sitio sin IA",
+  "groups": [
+   {
+    "row": 0,
+    "label_en": "Local authoring → publishing",
+    "label_es": "Redacción local → publicación"
+   },
+   {
+    "row": 1,
+    "label_en": "Review · the editor decides",
+    "label_es": "Revisión · decide el editor"
+   },
+   {
+    "row": 2,
+    "label_en": "Readers · API on Railway",
+    "label_es": "Lectores · API en Railway"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "sources",
+    "col": 0,
+    "row": 0,
+    "ai": false,
+    "title_en": "Public sources",
+    "title_es": "Fuentes públicas",
+    "sub_en": [
+     "DIPRES, BCCh, laws,",
+     "courts; also press"
+    ],
+    "sub_es": [
+     "DIPRES, BCCh, leyes,",
+     "fallos y prensa"
+    ]
+   },
+   {
+    "id": "draft",
+    "col": 1,
+    "row": 0,
+    "ai": true,
+    "title_en": "Draft a thread",
+    "title_es": "Redactar un hilo",
+    "sub_en": [
+     "Claude Code, local",
+     "page + typed data"
+    ],
+    "sub_es": [
+     "Claude Code, local",
+     "página + datos"
+    ]
+   },
+   {
+    "id": "verify",
+    "col": 2,
+    "row": 0,
+    "ai": true,
+    "title_en": "Source check",
+    "title_es": "Chequeo de fuentes",
+    "sub_en": [
+     "re-fetches links,",
+     "stamps model, date"
+    ],
+    "sub_es": [
+     "reabre los enlaces,",
+     "sella modelo y fecha"
+    ]
+   },
+   {
+    "id": "site",
+    "col": 4,
+    "row": 0,
+    "ai": false,
+    "title_en": "Next.js site",
+    "title_es": "Sitio Next.js",
+    "sub_en": [
+     "prerendered pages,",
+     "source or ia tags"
+    ],
+    "sub_es": [
+     "páginas estáticas,",
+     "fuente o marca ia"
+    ]
+   },
+   {
+    "id": "legal",
+    "col": 2,
+    "row": 1,
+    "ai": true,
+    "title_en": "Legal red-team",
+    "title_es": "Revisión legal",
+    "sub_en": [
+     "attack vs defense,",
+     "editor approves"
+    ],
+    "sub_es": [
+     "ataque vs defensa,",
+     "el editor aprueba"
+    ]
+   },
+   {
+    "id": "review",
+    "col": 3,
+    "row": 1,
+    "ai": false,
+    "title_en": "Comment review",
+    "title_es": "Moderación",
+    "sub_en": [
+     "editor decides;",
+     "optional AI flag"
+    ],
+    "sub_es": [
+     "decide el editor;",
+     "marca IA opcional"
+    ]
+   },
+   {
+    "id": "reader",
+    "col": 1,
+    "row": 2,
+    "ai": false,
+    "title_en": "Reader",
+    "title_es": "Lector",
+    "sub_en": [
+     "reads, no account;",
+     "Google to write"
+    ],
+    "sub_es": [
+     "lee sin cuenta;",
+     "Google para escribir"
+    ]
+   },
+   {
+    "id": "api",
+    "col": 2,
+    "row": 2,
+    "ai": false,
+    "title_en": "API routes",
+    "title_es": "Rutas API",
+    "sub_en": [
+     "server checks token",
+     "for votes, comments"
+    ],
+    "sub_es": [
+     "token verificado en",
+     "votos y comentarios"
+    ]
+   },
+   {
+    "id": "db",
+    "col": 3,
+    "row": 2,
+    "ai": false,
+    "title_en": "PostgreSQL",
+    "title_es": "PostgreSQL",
+    "sub_en": [
+     "Prisma: votes,",
+     "comments, newsletter"
+    ],
+    "sub_es": [
+     "Prisma: votos,",
+     "comentarios, boletín"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "sources",
+    "to": "draft",
+    "dashed": false
+   },
+   {
+    "from": "draft",
+    "to": "verify",
+    "dashed": false
+   },
+   {
+    "from": "verify",
+    "to": "site",
+    "dashed": false,
+    "label_en": "push to main, deploy",
+    "label_es": "push a main y deploy"
+   },
+   {
+    "from": "verify",
+    "to": "legal",
+    "dashed": true,
+    "label_en": "6 sensitive pages",
+    "label_es": "6 páginas sensibles"
+   },
+   {
+    "from": "reader",
+    "to": "api",
+    "dashed": false
+   },
+   {
+    "from": "api",
+    "to": "db",
+    "dashed": false
+   },
+   {
+    "from": "db",
+    "to": "review",
+    "dashed": true,
+    "label_en": "pending comments",
+    "label_es": "comentarios pendientes"
+   },
+   {
+    "from": "review",
+    "to": "site",
+    "dashed": false,
+    "label_en": "approved comments",
+    "label_es": "comentarios aprobados"
+   }
+  ]
+ },
+ "links": [
+  {
+   "label_en": "Live site (Spanish)",
+   "label_es": "Sitio en línea",
+   "url": "https://cifrachile.cl"
+  },
+  {
+   "label_en": "How figures are verified",
+   "label_es": "Cómo se verifica cada cifra",
+   "url": "https://cifrachile.cl/metodologia"
+  },
+  {
+   "label_en": "Source registry",
+   "label_es": "Registro de fuentes",
+   "url": "https://cifrachile.cl/fuentes"
+  }
+ ],
+ "shots": [
+  {
+   "file": "cifra-home.webp",
+   "caption_en": "Home page (in Spanish), Sep 2026: the site's own counters show 48 published threads.",
+   "caption_es": "Portada, septiembre de 2026: los contadores del sitio marcan 48 hilos publicados.",
+   "alt_en": "Cifra Chile home page, in Spanish. A dark navigation bar lists the site's sections. The large headline reads 'Las cuentas claras del país' (the country's accounts, made clear), with the tagline 'to understand complex Chile, without politics or beliefs' and a paragraph about tracing each figure to its official source. Four counters show 48 published threads (plus 5 in preparation), 4 editorial topics, 13 data topics and 6 hub sections.",
+   "alt_es": "Portada de Cifra Chile. Una barra de navegación oscura lista las secciones del sitio. El titular grande dice «Las cuentas claras del país», con la bajada «Para entender el Chile complejo, sin políticas ni creencias» y un párrafo sobre trazar cada cifra hasta su fuente oficial. Cuatro contadores muestran 48 hilos publicados (más 5 en preparación), 4 temas editoriales, 13 tópicos de datos y 6 secciones.",
+   "w": 1200,
+   "h": 569,
+   "fit": "left"
+  },
+  {
+   "file": "cifra-pib.webp",
+   "caption_en": "GDP thread, step 1: key figures and the page's note on what is verified and what is 'ia'.",
+   "caption_es": "Hilo del PIB, paso 1: cifras clave y la nota que separa lo verificado de lo «ia».",
+   "alt_en": "Step 1 of the Cifra thread 'El PIB de Chile, por dentro' (Chile's GDP, inside out), in Spanish. A left sidebar lists the thread's eight steps. The main column shows a large '01', the title 'La cifra que lo resume todo' (the number that sums it all up), a short paragraph explaining GDP, and three cards: the economy's size at about US$330 billion, GDP per person at about US$18,600, and 2.6% growth in 2024. Below, a dashed box headed 'Cómo leer esto' (how to read this) says the totals and growth are verified against the Central Bank and the World Bank, while sector shares and country comparisons are marked 'ia' because they are approximations.",
+   "alt_es": "Paso 1 del hilo de Cifra «El PIB de Chile, por dentro». Una barra lateral a la izquierda lista los ocho pasos del hilo. La columna principal muestra un «01» grande, el título «La cifra que lo resume todo», un párrafo que explica el PIB y tres tarjetas: tamaño de la economía cerca de US$330 mil millones, PIB por persona cerca de US$18.600 y crecimiento de 2,6% en 2024. Abajo, un recuadro punteado titulado «Cómo leer esto» dice que los totales y el crecimiento están verificados con el Banco Central y el Banco Mundial, y que las participaciones por sector y los comparados por país van marcados «ia» por ser aproximados.",
+   "w": 1200,
+   "h": 551,
+   "fit": "left"
+  },
+  {
+   "file": "cifra-gasto.webp",
+   "caption_en": "Spending explorer: Chile's 2025 total, with DIPRES and Central Bank source chips.",
+   "caption_es": "Explorador del gasto: el total de 2025, con sus fuentes DIPRES y Banco Central.",
+   "alt_en": "Cifra's public-spending explorer, in Spanish. A very large headline says the Chilean state spent US$89.4 billion in 2025. A short paragraph says that is about US$4,500 per person, that the money comes from taxes, copper and debt, and that it goes to pensions, health and education. Two small source chips below cite DIPRES 2025 and the Central Bank 2025.",
+   "alt_es": "Explorador del gasto público de Cifra. Un titular muy grande dice que el Estado chileno gastó US$ 89,4 mil millones en 2025. Un párrafo corto dice que eso es cerca de US$ 4.500 por habitante, que la plata sale de impuestos, cobre y deuda, y que se gasta en pensiones, salud y educación. Abajo, dos etiquetas de fuente citan a DIPRES 2025 y al Banco Central 2025.",
+   "w": 1200,
+   "h": 612,
+   "fit": "left"
+  },
+  {
+   "file": "cifra-fuentes.webp",
+   "caption_en": "Source registry: 234 entries (Sep 2026), ranked from the Central Bank down to press.",
+   "caption_es": "Registro de fuentes: 234 entradas (sept. 2026), del Banco Central hasta la prensa.",
+   "alt_en": "Cifra's source registry page, in Spanish. A ladder of source tiers shows counts from the Central Bank (17) and official fiscal sources (46) down to press (84). Filter chips by topic and tier and a search box sit above a table labeled 'showing 234 of 234 figures'. The first rows list Central Bank series, such as gross public debt, nominal GDP and the observed exchange rate, each with its period, release date, update cadence and a link to the official source.",
+   "alt_es": "Página del registro de fuentes de Cifra. Una escala de niveles de fuente muestra cuántas hay, desde el Banco Central (17) y las fuentes fiscales oficiales (46) hasta la prensa (84). Sobre una tabla rotulada «Mostrando 234 de 234 cifras» hay filtros por tópico y nivel, y un buscador. Las primeras filas son series del Banco Central, como la deuda bruta, el PIB nominal y el tipo de cambio observado, cada una con su período, fecha de publicación, cadencia y enlace a la fuente oficial.",
+   "w": 1200,
+   "h": 750,
+   "fit": "left"
+  }
+ ]
+}

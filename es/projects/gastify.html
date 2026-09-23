@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gastify — caso de estudio · Gabriel Cárcamo</title>
+  <meta name="description" content="Gastify: una app de control de gastos que lee boletas y estados de cuenta de tarjetas de crédito y los concilia. FastAPI, seguridad a nivel de fila (RLS) en PostgreSQL, salida de Gemini tipada con PydanticAI.">
+  <meta property="og:title" content="Gastify — caso de estudio · Gabriel Cárcamo">
+  <meta property="og:description" content="Boletas y estados de cuenta de tarjetas conciliados por un backend FastAPI + PostgreSQL: salida tipada del LLM verificada con aritmética, un parser de PDF en código convencional primero y un cruce explicable.">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:url" content="https://brownbull.github.io/es/projects/gastify.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Ingeniero Backend Senior, Python e IA">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/es/projects/gastify.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/gastify.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/gastify.html">
+  <link rel="icon" href="../../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Saltar al contenido</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Principal">
+        <a href="../index.html#work">Trabajo</a>
+        <a href="../index.html#experience">Experiencia</a>
+        <a href="../index.html#contact">Contacto</a>
+        <a href="../../cv.pdf">CV (PDF, en inglés)</a>
+        <span class="lang" role="group" aria-label="Idioma"><a href="../../projects/gastify.html" hreflang="en" lang="en">EN</a><span aria-current="true">ES</span></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case">
+    <div class="wrap">
+      <a class="back" href="../index.html#work">← Todos los trabajos</a>
+
+      <div class="case-head">
+        <div class="chips">
+          <span class="chip progress"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></svg>Proyecto personal · reconstrucción en curso</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Repo privado · recorrido guiado a solicitud</span>
+        </div>
+        <h1>Gastify</h1>
+        <p class="lede">Una app de control de gastos para el mercado chileno. Lee fotos de boletas y PDF de estados de cuenta de tarjetas de crédito, cruza cada línea del estado de cuenta con una boleta y marca lo que falta o necesita revisión.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="media"><img src="../../assets/img/gastify-reconciled.webp" width="1200" height="1126" alt="La pantalla de conciliación en la app: pestañas que indican emparejadas 18, solo en el estado de cuenta 0, solo en la app 0, ambiguas 0 y fallidas 0, sobre una tabla que empareja cada línea del estado de cuenta con una transacción guardada y da el motivo del veredicto: monto exacto, misma fecha. Las líneas, los veredictos y los motivos los escribió un script de datos de demostración; no vienen de una ejecución del motor de cruce."></div>
+        <figcaption>Pantalla de conciliación en el despliegue de prueba. Las líneas del estado de cuenta, los 18 veredictos de emparejamiento y sus motivos los escribió un script de datos de demostración, en el formato que produce el motor de cruce; no corresponde a una ejecución real del motor. App en inglés.</figcaption>
+      </figure>
+
+      <dl class="facts">
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Rol</dt><dd>En solitario. Claude Code como mi principal herramienta de programación, bajo un flujo de trabajo test-first con revisiones obligatorias.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Período</dt><dd>Prototipo en Firebase, de noviembre de 2025 a mayo de 2026. Reconstrucción en FastAPI + PostgreSQL desde abril de 2026.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M12 22V12"/><polyline points="3.29 7 12 12 20.71 7"/><path d="m7.5 4.27 9 5.15"/></svg>Construido hasta ahora</dt><dd>Escaneo de boletas, registro de movimientos, importación de estados de cuenta con conciliación, un dashboard de gastos y grupos compartidos, en una app web y una app Android. 84 handlers de rutas de la API y 52 migraciones de base de datos (septiembre de 2026).</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Estado</dt><dd>Corre en un despliegue de prueba alojado (requiere iniciar sesión, datos desechables). No lanzado; sin pagos. El repo de la reconstrucción es privado; el prototipo en Firebase está en línea en <a href="https://boletapp-d609f.web.app">boletapp-d609f.web.app</a>.</dd></div>
+      </dl>
+    </div>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problema</h2>
+        <p>El estado de cuenta de una tarjeta chilena muestra una línea por compra: comercio, fecha y monto. Los ítems solo aparecen en la boleta en papel. Conciliar ambos a mano cada mes es lento.</p>
+        <p>Una vez que cada boleta tiene asignada su tarjeta, Gastify hace ese cruce por su cuenta y muestra qué líneas no tienen boleta.</p>
+        <h3 style="margin-top:28px">Por qué una reconstrucción</h3>
+        <p>La primera versión corría en Firebase, con casi toda la lógica en Cloud Functions que se disparaban con cada escritura en la base. A medida que crecía, esos disparadores empezaron a activarse con las escrituras de otros y a chocar entre sí, y el orden de las operaciones se volvió difícil de seguir y de probar. La reconstruí como un backend en FastAPI y PostgreSQL, donde cada operación es un endpoint o una tarea en segundo plano explícita que se puede probar por separado.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Cómo funciona</h2>
+        <figure class="diagram" data-fx="flow-gastify" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animación"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Reproducir</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pausar</button></div>
+          <svg viewBox="0 0 952 430" role="img" aria-labelledby="gx-title gx-desc">
+            <title id="gx-title">Gastify: flujo de boletas y flujo de estados de cuenta</title>
+            <desc id="gx-desc">Flujo de boletas: una foto de boleta llega a la app FastAPI, que ejecuta una tarea en background que llama a Gemini a través de PydanticAI para una extracción tipada, y luego un chequeo aritmético; la boleta se guarda, con una marca de revisión cuando los totales no cuadran. Flujo de estados de cuenta: un PDF de estado de cuenta, con la tarjeta indicada y una casilla de consentimiento para IA, pasa a un parser de PDF en código convencional para tres formatos conocidos; con una confianza de 0,80 o más va directo a la conciliación; bajo ese umbral, Gemini devuelve un perfil de formato a partir de la evidencia de las filas, que el código aplica a las filas. La conciliación compara las líneas del estado de cuenta con las transacciones guardadas y produce veredictos en cuatro grupos, con sus motivos. Los datos viven en PostgreSQL 16, con seguridad a nivel de fila (RLS) en las tablas de movimientos y de estados de cuenta.</desc>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+            </defs>
+
+            <text class="group-label" x="20" y="26">Boleta</text>
+            <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">Foto de boleta</text><text class="sub" x="32" y="80">app web o Android</text></g>
+            <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">FastAPI</text><text class="sub" x="220" y="80">guarda la imagen,</text><text class="sub" x="220" y="95">tarea en background</text></g>
+            <g class="node ai"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Gemini</text><text class="sub" x="408" y="80">vía PydanticAI,</text><text class="sub" x="408" y="95">salida tipada</text></g>
+            <g class="node"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">Chequeo aritmético</text><text class="sub" x="596" y="80">ítems + impuesto</text><text class="sub" x="596" y="95">− descuento = total</text></g>
+            <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Guardada</text><text class="sub" x="784" y="80">marca de revisión</text><text class="sub" x="784" y="95">si totales difieren</text></g>
+            <path class="edge" d="M180 69 H206"/>
+            <path class="edge" d="M368 69 H394"/>
+            <path class="edge" d="M556 69 H582"/>
+            <path class="edge" d="M744 69 H770"/>
+
+            <text class="group-label" x="20" y="176">Estado de cuenta</text>
+            <g class="node"><rect x="20" y="186" width="160" height="66" rx="8"/><text x="32" y="210">PDF estado cuenta</text><text class="sub" x="32" y="230">tarjeta indicada +</text><text class="sub" x="32" y="245">consentimiento IA</text></g>
+            <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">Parser de PDF</text><text class="sub" x="220" y="230">3 formatos conocidos</text><text class="sub" x="220" y="245">PyMuPDF, sin IA</text></g>
+            <g class="node"><rect x="584" y="186" width="160" height="66" rx="8"/><text x="596" y="210">Conciliación</text><text class="sub" x="596" y="230">misma tarjeta, 3 d,</text><text class="sub" x="596" y="245">1% monto, nombre</text></g>
+            <g class="node"><rect x="772" y="186" width="160" height="66" rx="8"/><text x="784" y="210">Veredictos</text><text class="sub" x="784" y="230">4 grupos, motivos</text><text class="sub" x="784" y="245">índice de cobertura</text></g>
+            <g class="node ai"><rect x="396" y="296" width="160" height="66" rx="8"/><text x="408" y="320">Gemini</text><text class="sub" x="408" y="340">perfil de formato</text><text class="sub" x="408" y="355">solo datos de filas</text></g>
+            <path class="edge" d="M180 219 H206"/>
+            <path class="edge" d="M368 219 H582"/>
+            <text class="edge-label" x="410" y="211">confianza ≥ 0,80</text>
+            <path class="edge dashed" d="M288 252 V329 H394"/>
+            <text class="edge-label" x="296" y="284">bajo 0,80</text>
+            <path class="edge dashed" d="M556 329 H664 V254"/>
+            <text class="edge-label" x="672" y="300">filas leídas por código</text>
+            <path class="edge" d="M744 219 H770"/>
+            <path class="edge" d="M852 102 V144 H664 V184"/>
+            <text class="edge-label" x="700" y="138">transacc. guardadas</text>
+
+            <g class="band"><rect x="20" y="384" width="912" height="36" rx="8"/><text x="36" y="407">PostgreSQL 16 · seguridad a nivel de fila (RLS) en movimientos y estados de cuenta · SQLAlchemy 2.0 async · Alembic</text></g>
+          </svg>
+          <figcaption>Simplificado. Ambos flujos corren como tareas en background dentro del proceso de la API. La API verifica los tokens de ID de Firebase. Los clientes web (React 19) y Android (Expo) usan tipos de la API generados desde el esquema OpenAPI de FastAPI.</figcaption>
+        </figure>
+
+        <ul class="points prose">
+          <li><strong>Escaneo de boletas.</strong> La API guarda la foto y se la pasa a una tarea en background. Gemini, llamado a través de PydanticAI con un esquema de salida tipado, extrae comercio, ítems y totales; una segunda llamada tipada asigna categorías a los ítems. Los montos se normalizan por moneda en unidades menores enteras (el peso chileno no tiene decimales).</li>
+          <li><strong>Importación de estados de cuenta.</strong> Subir un estado de cuenta requiere indicar la tarjeta y marcar una casilla de consentimiento explícito para el procesamiento con IA. Los PDF cifrados piden la contraseña. Para tres formatos conocidos de tarjetas chilenas, un parser basado en PyMuPDF lee las líneas a partir de la posición de las palabras, sin llamar a ningún modelo.</li>
+          <li><strong>Conciliación.</strong> Cada línea del estado de cuenta se compara con las transacciones guardadas del usuario, escaneadas o ingresadas a mano. Las líneas terminan como emparejadas, solo en el estado de cuenta o ambiguas; las transacciones que no quedan asociadas a ninguna línea terminan como solo en boleta. Cada ejecución reporta un índice de cobertura y los motivos detrás de cada veredicto.</li>
+          <li><strong>Aislamiento de datos.</strong> Cada solicitud fija en Postgres el ámbito de propiedad del usuario (personal o un grupo compartido), y la RLS de las tablas de movimientos, estados de cuenta y conciliación filtra según ese ámbito; los registros de escaneo se acotan en el código de la aplicación. La API se niega a arrancar si su rol de base de datos puede saltarse la RLS, y el CI falla si se omitieron las pruebas de aislamiento sobre Postgres 16 real.</li>
+        </ul>
+
+        <div class="shots prose">
+          <figure>
+            <img src="../../assets/img/gastify-dashboard.webp" width="1200" height="938" alt="El dashboard de la app: gasto del mes, un gráfico de tendencia de seis meses, las categorías por sobre el promedio de tres meses y las últimas transacciones, todo con datos de demostración precargados." loading="lazy">
+            <figcaption>Dashboard con datos de demostración precargados: total del mes, tendencia de seis meses y las categorías por sobre el promedio. App en inglés.</figcaption>
+          </figure>
+          <figure>
+            <img src="../../assets/img/gastify-needs-review.webp" width="1200" height="844" alt="Borrador de boleta con un aviso de revisión: los ítems no suman el total impreso; abajo se listan cuatro ítems con sus precios. Datos de prueba precargados." loading="lazy">
+            <figcaption>El aviso de revisión que levanta el chequeo aritmético, mostrado sobre un borrador de prueba: los ítems y la marca de revisión los cargó un script de pruebas; no vienen de un escaneo.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 13v8"/><path d="M12 3v3"/><path d="M18 6a2 2 0 0 1 1.387.56l2.307 2.22a1 1 0 0 1 0 1.44l-2.307 2.22A2 2 0 0 1 18 13H6a2 2 0 0 1-1.387-.56l-2.306-2.22a1 1 0 0 1 0-1.44l2.306-2.22A2 2 0 0 1 6 6z"/></svg>Decisiones</h2>
+        <ol class="decisions prose">
+          <li>
+            <h3>Salida tipada del LLM, con la aritmética como verificación final</h3>
+            <p>No confié en que un esquema válido significara una boleta correcta. Tras la extracción, un chequeo aritmético compara ítems + impuesto − descuento con el total impreso, en unidades menores enteras. Una diferencia de más de una unidad marca el escaneo como pendiente de revisión y guarda esa señal en la transacción, de modo que el usuario ve la diferencia en vez de un guardado silencioso.</p>
+            <p class="tradeoff"><strong>Costo:</strong> el chequeo solo marca la diferencia; el usuario aún tiene que abrir la boleta y corregirla.</p>
+          </li>
+          <li>
+            <h3>Primero código convencional; la IA, solo como fallback con consentimiento</h3>
+            <p>Hice del código convencional el camino por defecto: un estado de cuenta en uno de los tres formatos conocidos que se parsea con una confianza de 0,80 o más nunca llega a un modelo. La carga se rechaza si no se marca la casilla de consentimiento, y el consentimiento aplica solo cuando el parser no puede procesar el archivo. Bajo 0,80, Gemini recibe evidencia compacta de las filas (texto, orden de las filas, coordenadas), no el PDF, y devuelve un perfil de formato tipado que el código convencional aplica a las filas. Cada resultado registra qué camino se ejecutó y por qué.</p>
+            <p class="tradeoff"><strong>Costo:</strong> tres formatos se parsean con código escrito a mano; cualquier otro estado de cuenta depende del fallback.</p>
+          </li>
+          <li>
+            <h3>Una conciliación que se explica sola</h3>
+            <p>Mantuve el cruce determinista. Una transacción es candidata solo si lleva la tarjeta del estado de cuenta, tiene la misma moneda, una fecha dentro de 3 días, un monto dentro del 1% y una similitud de nombre de comercio de al menos 0,72. Los candidatos se puntúan con 0,4 comercio + 0,3 monto + 0,2 fecha + 0,1 tarjeta; si los dos mejores quedan dentro de un margen de 0,05 entre sí, la línea se marca como ambigua en vez de adivinar. Cada veredicto guarda sus motivos, como <span class="mono">exact_amount</span> o <span class="mono">date_tolerance:2d</span>.</p>
+            <p class="tradeoff"><strong>Costo:</strong> valores fijados a mano (las tolerancias son parámetros de configuración; los pesos y el margen de 0,05 son constantes en el código), y las boletas escaneadas parten etiquetadas como efectivo, así que el usuario debe elegir la tarjeta antes de que puedan cruzarse.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Límites</h2>
+        <div class="limits">
+          <ul class="points">
+            <li>No lanzado. El único despliegue contiene datos de prueba desechables; el control de facturación está desactivado por defecto y no hay ningún proveedor de pagos conectado.</li>
+            <li>Sin cola de trabajos persistente. Los escaneos y los estados de cuenta corren como tareas en background de FastAPI dentro del proceso de la API, así que un reinicio puede perder un trabajo en curso. Volver a subir el mismo PDF reinicia un estado de cuenta que no había empezado la extracción; uno interrumpido a mitad de la extracción hay que eliminarlo y subirlo de nuevo.</li>
+            <li>La app Android está probada en un solo teléfono físico con Maestro. iOS quedó postergado.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</h2>
+        <dl class="facts" style="margin-top:0">
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/></svg>Backend</dt><dd>Python 3.12, FastAPI, SQLAlchemy 2.0 (async), Alembic, PostgreSQL 16, PydanticAI, Gemini (2.5 Flash-Lite por defecto), PyMuPDF, Firebase Auth</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-3.96 3.15"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></svg>Clientes</dt><dd>React 19, TypeScript, Vite, TanStack Query, React Native + Expo, tipos generados desde el esquema OpenAPI</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>Calidad</dt><dd>pytest, ruff, mypy (strict), Vitest, Jest, Playwright, Maestro; GitHub Actions con una cobertura mínima de backend del 80%, gitleaks y pip-audit</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#work">← Todos los trabajos</a>
+        <a href="triage-agent.html">Siguiente: SRE Triage Agent →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Ingeniero Backend, Python e IA</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Correo</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../../assets/js/site.js" defer></script>
+</body>
+</html>

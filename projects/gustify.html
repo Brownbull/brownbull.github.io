@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gustify — project · Gabriel Cárcamo</title>
+  <meta name="description" content="Gustify is a cooking app for Chile.">
+  <meta property="og:title" content="Gustify — project · Gabriel Cárcamo">
+  <meta property="og:description" content="Gustify is a cooking app for Chile.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/gustify.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/gustify.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/gustify.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/gustify.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/gustify.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case project">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Other projects</a>
+
+      <div class="case-head">
+        <div class="chips"><span class="chip progress"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 12-9.373 9.373a1 1 0 0 1-3.001-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172v-.344a2 2 0 0 0-.586-1.414l-1.657-1.657A6 6 0 0 0 12.516 3H9l1.243 1.243A6 6 0 0 1 12 8.485V10l2 2h1.172a2 2 0 0 1 1.414.586L18.5 14.5"/></svg>Side project · in development</span></div>
+        <h1>Gustify</h1>
+        <p class="lede">Gustify is a cooking app for Chile. It ranks a curated recipe catalog by what is already in your pantry and leaves out recipes that conflict with an allergy you declared. The backend is FastAPI on PostgreSQL, and the match score is plain weighted arithmetic. I also built a Gemini recipe generator, but it is switched off in the deployed app.</p>
+      </div>
+
+      <section class="project-screens" aria-label="Screens">
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Gustify: screens"><div class="car-track" tabindex="0"><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="1 of 3"><div class="car-img"><img src="../assets/img/gustify-cover.webp" width="1200" height="750" alt="Three phone screenshots of Gustify, in Spanish, with test data. Left: a pantry list of ingredients such as tomato, lettuce, avocado, Chilean breads, eggs and lemon, each with a quantity and the days left before it expires; one says 2 days. Center: the recipes screen with six scoring lenses (For you, Comfort, Adventure, Skill, Slow, Quick), a banner saying recipes are filtered by the user&#x27;s diet and allergies, and a cilantro green-sauce card at 89% match with all 6 of its ingredients on hand and a 10-minute time, above a card for hallulla bread with avocado. Right: cook mode for fried egg on bread, on step 3 of 4, frying the eggs, with a timer running at 3 minutes 55 seconds."></div><figcaption>Pantry, recipes scored by match %, and cook mode. Staging test accounts; app in Spanish.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="2 of 3"><div class="car-img"><img src="../assets/img/gustify-lenses.webp" width="1200" height="750" alt="Two phone screenshots of the same recipe list, in Spanish, with test data. Left: the Adventure lens is active (&#x27;cook what you have not tried&#x27;), and the list is led by a mushroom risotto at 67% match, followed by a Colombian hen stew and a Peruvian chicken soup at 58%. Right: the Comfort lens is active (&#x27;the familiar, no risk&#x27;), and the same mushroom risotto scores 33%, as do a Spanish omelette and a corn pie." loading="lazy"></div><figcaption>Same list, two lenses: Risotto de Hongos is 67% in Aventura, 33% in Confort. Test data.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="3 of 3"><div class="car-img"><img src="../assets/img/gustify-home.webp" width="1200" height="750" alt="The Gustify home screen on a desktop browser, in Spanish, signed in as a sandbox test account. A greeting asks what we are cooking today, above two suggested dishes, a fresh salad and a vegetable soup, both at 100% match because every ingredient is in the pantry. Both are test fixtures and are shown with a placeholder icon. Below, a summary says the pantry holds 29 ingredients and how many recipes can be cooked, counting only recipes that are safe for this account&#x27;s allergies." loading="lazy"></div><figcaption>Desktop home on staging, sandbox account: suggestions and pantry summary. Test data.</figcaption></figure></div><div class="car-nav"><button type="button" class="car-btn car-prev" aria-label="Previous screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button><div class="car-dots"><button type="button" class="car-dot" aria-label="Go to screen 1" aria-current="true"></button><button type="button" class="car-dot" aria-label="Go to screen 2" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 3" aria-current="false"></button></div><span class="car-count" aria-hidden="true">1 / 3</span><button type="button" class="car-btn car-next" aria-label="Next screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
+        <figure class="diagram" data-fx="flow-gustify" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 506" role="img" aria-labelledby="d-gustify-dt d-gustify-dd">
+          <title id="d-gustify-dt">How it is built</title>
+          <desc id="d-gustify-dd">Top row, the request path: the React web app calls the FastAPI API with a Firebase ID token. The API applies the allergen wall inside the SQL query. It then counts how many of each remaining recipe&#x27;s ingredients are in the user&#x27;s pantry and scores each recipe from 0 to 100 for the chosen lens with fixed formulas, without calling any model. Middle row: a Gemini recipe generator hangs off the API on a dashed line. It is switched off in the deployed app, and its routes return 403, so no model is called. Bottom row: recipes live as JSON files in the repository, written offline and validated in CI. When a commit is deployed, the API syncs them into the database by slug at boot, which gives the allergen wall the recipes and their derived allergen codes. Bottom band: PostgreSQL with async SQLAlchemy and Alembic migrations run at boot. The API and the web app run as Docker services on Railway.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <text class="group-label" x="20" y="26">Request path</text>
+          <text class="group-label" x="20" y="176">Built, switched off</text>
+          <text class="group-label" x="20" y="326">Curated catalog</text>
+          <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">Web app</text><text class="sub" x="32" y="80">React 18 · Vite</text><text class="sub" x="32" y="95">TypeScript</text></g>
+          <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">FastAPI</text><text class="sub" x="220" y="80">/api/v1, async</text><text class="sub" x="220" y="95">Firebase ID token</text></g>
+          <g class="node"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Allergen wall</text><text class="sub" x="408" y="80">in the SQL WHERE,</text><text class="sub" x="408" y="95">before ranking</text></g>
+          <g class="node"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">Pantry coverage</text><text class="sub" x="596" y="80">ingredients you</text><text class="sub" x="596" y="95">already have</text></g>
+          <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Match score</text><text class="sub" x="784" y="80">6 lenses, 0-100</text><text class="sub" x="784" y="95">formulas, no model</text></g>
+          <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">Gemini generator</text><text class="sub" x="220" y="230">off: flag = False</text><text class="sub" x="220" y="245">routes return 403</text></g>
+          <g class="node"><rect x="20" y="336" width="160" height="66" rx="8"/><text x="32" y="360">Recipe JSON files</text><text class="sub" x="32" y="380">written offline,</text><text class="sub" x="32" y="395">validated in CI</text></g>
+          <g class="node"><rect x="396" y="336" width="160" height="66" rx="8"/><text x="408" y="360">Deploy reconcile</text><text class="sub" x="408" y="380">on API boot, by</text><text class="sub" x="408" y="395">slug, advisory lock</text></g>
+          <path class="edge" d="M180 69 H206"/>
+          <path class="edge" d="M368 69 H394"/>
+          <path class="edge" d="M556 69 H582"/>
+          <path class="edge" d="M744 69 H770"/>
+          <path class="edge dashed" d="M288 102 V184"/>
+          <text class="edge-label" x="280" y="147" text-anchor="end">off in deployed app</text>
+          <path class="edge" d="M180 369 H394"/>
+          <text class="edge-label" x="288" y="361" text-anchor="middle">commit, then deploy</text>
+          <path class="edge" d="M476 336 V104"/>
+          <text class="edge-label" x="484" y="224" text-anchor="start">recipes + allergens</text>
+          <g class="band"><rect x="20" y="432" width="912" height="44" rx="8"/><text x="36" y="459">PostgreSQL · SQLAlchemy 2.0 async · Alembic at boot · API and web as Docker services on Railway</text></g>
+          </svg>
+          
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <ul class="points"><li><strong>Match score without a model.</strong> Each recipe card shows how many of its ingredients you already have, plus a 0–100 score for the lens you pick (Para ti, Confort, Aventura, Skill, Reposado or Rápido). Each lens is a fixed weighted formula over pantry coverage, your cooking history, active filters and cooking time. Pantry coverage counts in every lens.</li><li><strong>Allergen wall in SQL.</strong> Declared allergies are applied in the query&#x27;s WHERE clause, before any scoring. A recipe is excluded if its allergen codes or any of its ingredients conflict with one of them, and opening an excluded recipe directly by its id returns 403. The allergen codes are derived from the ingredients, never typed by hand.</li><li><strong>Curated catalog as code.</strong> Recipes are JSON files in the repo, written offline in AI-assisted development sessions (Claude) and never generated at request time. CI checks them (unique slugs, known ingredient codes, complete steps). On each deploy the API syncs the database to the files by slug, under a Postgres advisory lock. A search with no results can be saved as a request (one per user per hour), and a script turns pending requests into a brief for the next authoring session.</li><li><strong>Cooking sessions saved on the server.</strong> Checked steps, the step timer and the cook&#x27;s photos are stored per cooking session; photos are compressed in the browser and stored in Postgres. A reload or navigating away resumes the session where it was left.</li><li><strong>Gemini generator:</strong> built, switched off. A recipe generator using Gemini through google-genai, with a Pydantic response schema, is in the code. RECIPE_CREATION_ENABLED is False, so its routes answer 403. The only override is for the test lane, and the deployed app&#x27;s config refuses to boot with it on.</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <dl class="facts" style="margin-top:0"><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Side project in development. Private repo; walkthrough on request.</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</dt><dd>Python 3.12 · FastAPI · Pydantic v2 · pyright strict · PostgreSQL · SQLAlchemy 2.0 async · Alembic · React 18 · Vite · TypeScript · TanStack Query · Firebase Auth (ID tokens verified by the API with firebase-admin) · Docker services on Railway (API and web) · pytest · Playwright journeys · GitHub Actions</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</dt><dd><span class="muted">Private repo · walkthrough on request</span></dd></div></dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#more">← Other projects</a>
+        <a href="cifra.html">Cifra · Chile →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

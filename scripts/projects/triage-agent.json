@@ -1,0 +1,40 @@
+{
+ "slug": "triage-agent",
+ "name": "SRE Triage Agent",
+ "page": false,
+ "order": 2,
+ "card": {
+  "id": "triage",
+  "h3_en": "SRE Triage Agent",
+  "h3_es": "SRE Triage Agent"
+ },
+ "shots": [
+  {
+   "file": "triage-result.webp",
+   "w": 1200,
+   "h": 750,
+   "caption_en": "A triaged incident: severity, confidence, model and tokens. Example data, local stack.",
+   "caption_es": "Un incidente tras el triage: severidad, confianza, modelo y tokens. Datos de ejemplo, stack local.",
+   "alt_en": "A triaged incident: a pipeline bar from submitted through guardrail, triaged and dispatched; severity P1, confidence 92%, category payment processing, team payments; the engine row reads Claude Haiku 4.5 with its token counts. Example data.",
+   "alt_es": "Un incidente después del triage: la barra del pipeline va de enviado a guardrail, triage y despachado; severidad P1, confianza 92%, categoría procesamiento de pagos, equipo de pagos; la fila del motor indica Claude Haiku 4.5 con su conteo de tokens. Datos de ejemplo."
+  },
+  {
+   "file": "triage-list.webp",
+   "w": 1200,
+   "h": 546,
+   "caption_en": "Incident list; two rows were stopped by the guardrail before any model call.",
+   "caption_es": "Lista de incidentes; el guardrail detuvo dos filas antes de llamar al modelo.",
+   "alt_en": "The incident list: seeded incidents with status, severity, description, attachments, engine and reporter; the last two rows are rejected by the guardrail — one is an SQL injection, the other a prompt injection.",
+   "alt_es": "La lista de incidentes: incidentes precargados con estado, severidad, descripción, adjuntos, motor y quien reporta; las dos últimas filas fueron rechazadas por el guardrail: una es una inyección SQL y la otra un prompt injection."
+  },
+  {
+   "file": "triage-trace.webp",
+   "w": 1200,
+   "h": 532,
+   "caption_en": "One Langfuse trace per triage: guardrail, retrieval, model call, dispatch.",
+   "caption_es": "Una traza de Langfuse por triage: guardrail, recuperación, llamada al modelo y despacho.",
+   "alt_en": "A Langfuse trace for one triage: spans for guardrail, context retrieval and dispatch, and a generation step for the triage with 4,699 input and 1,241 output tokens.",
+   "alt_es": "Una traza de Langfuse para un triage: spans de guardrail, recuperación de contexto y despacho, y un paso de generación con 4.699 tokens de entrada y 1.241 de salida."
+  }
+ ]
+}

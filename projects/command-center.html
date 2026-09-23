@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gabe Command Center — project · Gabriel Cárcamo</title>
+  <meta name="description" content="A documentation site a codebase builds about itself: open work, domain entities, endpoints, data models and test results, read from the code, the committed test reports, git and the plan files.">
+  <meta property="og:title" content="Gabe Command Center — project · Gabriel Cárcamo">
+  <meta property="og:description" content="A documentation site a codebase builds about itself: open work, domain entities, endpoints, data models and test results, read from the code, the committed test reports, git and the plan files.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/command-center.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/command-center.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/command-center.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/command-center.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/command-center.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case project">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Other projects</a>
+
+      <div class="case-head">
+        <div class="chips"><span class="chip oss"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg>Side project · part of Gabe Suite</span></div>
+        <h1>Gabe Command Center</h1>
+        <p class="lede">A documentation site a codebase builds about itself: open work, domain entities, endpoints, data models and test results, read from the code, the committed test reports, git and the plan files. I built it inside Gastify, moved it into Gabe Suite, and use it in two of my private repos. There is no hosted demo; the screenshots are Gastify&#x27;s build, opened as local files.</p>
+      </div>
+
+      <section class="project-screens" aria-label="Screens">
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Gabe Command Center: screens"><div class="car-track" tabindex="0"><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="1 of 4"><div class="car-img"><img src="../assets/img/command-center.webp" width="1200" height="752" alt="The command center board for my Gastify project: a dark sidebar listing the project&#x27;s entities next to a Board page whose intro says every open card is derived from the project&#x27;s plan and tracking files. Tiles show 168 open cards, 4 owed to me, 24 ready now, 37 open for over three months and a 4-day median cycle, above tabs to group the cards by state, track, entity, effort or age."></div><figcaption>The board: open work read from the plan files, with effort and age (Gastify, Sep 2026)</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="2 of 4"><div class="car-img"><img src="../assets/img/cc-endpoints.webp" width="1200" height="750" alt="The Endpoints page of the command center: a note that the whole application is read once per build with Python&#x27;s ast module and no LLM, then a table of Gastify&#x27;s HTTP endpoints. Each row shows the verb and path, the handler function and file, the response model and status code, and small counters for the API, end-to-end and web tests linked to it." loading="lazy"></div><figcaption>Endpoints parsed from Gastify&#x27;s FastAPI code, with test counts from recorded runs</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="3 of 4"><div class="car-img"><img src="../assets/img/cc-entity.webp" width="1200" height="750" alt="The command center page for one domain entity of Gastify, bank statements: a one-line description, tiles counting its API, web and end-to-end test cases and its priority, and a tab bar for Overview, Code, Tests, Evidence and Risk with status pills for cases, pending moves and approval. Below starts a summary of the pending work on this entity, grouped by area." loading="lazy"></div><figcaption>One entity page: test counts per suite, then tabs for code, tests, evidence and risk</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="4 of 4"><div class="car-img"><img src="../assets/img/cc-gates.webp" width="1200" height="750" alt="The Corpora and gates page of the command center: a table of Gastify&#x27;s three test suites (pytest for the API, vitest for the web app, Playwright end to end) with file and test counts and the junit report each one writes, followed by a table of the checks in front of a commit: secret scanning, Python lint and format, a JS formatter, and the CI workflow&#x27;s jobs." loading="lazy"></div><figcaption>Test suites and commit gates, read from junit files and the repo&#x27;s CI config</figcaption></figure></div><div class="car-nav"><button type="button" class="car-btn car-prev" aria-label="Previous screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button><div class="car-dots"><button type="button" class="car-dot" aria-label="Go to screen 1" aria-current="true"></button><button type="button" class="car-dot" aria-label="Go to screen 2" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 3" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 4" aria-current="false"></button></div><span class="car-count" aria-hidden="true">1 / 4</span><button type="button" class="car-btn car-next" aria-label="Next screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
+        <figure class="diagram" data-fx="flow-command-center" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 506" role="img" aria-labelledby="d-command-center-dt d-command-center-dd">
+          <title id="d-command-center-dt">How it is built</title>
+          <desc id="d-command-center-dd">How the command center is built. From the left, the project&#x27;s code, its committed test reports and its git history enter the center generator; FastAPI routes, SQLAlchemy models and Pydantic schemas are parsed with Python&#x27;s ast module. From below, the plan files in .kdbp (PLAN, PENDING, LEDGER) enter as open work. The generator is Python with no LLM calls. It writes two things: upward, the static HTML site (the board and one page per entity, plus one authored card per entity) by filling fixed templates; to the right, a JSON map of the code (archmap.json and its graph files), committed to git. The map feeds the gabe-map MCP server, whose tools answer questions such as which models an endpoint reaches or which entity owns a file, and Claude Code, the one AI component, asks that server before grepping. Bottom band: Python 3 standard library, optional Node helpers for Mermaid and TypeScript, no LLM in the build, pages and map in git.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <g class="node"><rect x="20" y="186" width="160" height="66" rx="8"/><text x="32" y="210">Code, tests, git</text><text class="sub" x="32" y="230">FastAPI · SQLAlchemy</text><text class="sub" x="32" y="245">junit XML · git log</text></g>
+          <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">Center generator</text><text class="sub" x="220" y="230">build_center_a3.py</text><text class="sub" x="220" y="245">Python ast · no LLM</text></g>
+          <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">Static HTML site</text><text class="sub" x="220" y="80">board · entity pages</text><text class="sub" x="220" y="95">+ authored cards</text></g>
+          <g class="node"><rect x="208" y="336" width="160" height="66" rx="8"/><text x="220" y="360">Plan files</text><text class="sub" x="220" y="380">.kdbp/PLAN.md</text><text class="sub" x="220" y="395">PENDING · LEDGER</text></g>
+          <g class="node"><rect x="396" y="186" width="160" height="66" rx="8"/><text x="408" y="210">Code map (JSON)</text><text class="sub" x="408" y="230">archmap.json + graph</text><text class="sub" x="408" y="245">committed to git</text></g>
+          <g class="node"><rect x="584" y="186" width="160" height="66" rx="8"/><text x="596" y="210">gabe-map MCP</text><text class="sub" x="596" y="230">endpoint → models</text><text class="sub" x="596" y="245">file → entity</text></g>
+          <g class="node ai"><rect x="772" y="186" width="160" height="66" rx="8"/><text x="784" y="210">Claude Code</text><text class="sub" x="784" y="230">asks the map</text><text class="sub" x="784" y="245">before grepping</text></g>
+          <path class="edge" d="M180 219 H206"/>
+          <path class="edge" d="M288 336 V254"/>
+          <text class="edge-label" x="296" y="299" text-anchor="start">open work</text>
+          <path class="edge" d="M288 186 V104"/>
+          <text class="edge-label" x="280" y="149" text-anchor="end">fills the templates</text>
+          <path class="edge" d="M368 219 H394"/>
+          <path class="edge" d="M556 219 H582"/>
+          <path class="edge" d="M744 219 H770"/>
+          <g class="band"><rect x="20" y="432" width="912" height="44" rx="8"/><text x="36" y="459">Python 3 standard library · optional Node (Mermaid, TS) · no LLM in the build · pages and map in git</text></g>
+          </svg>
+          
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <ul class="points"><li><strong>At build time it reads the project&#x27;s own files:</strong> FastAPI routes, SQLAlchemy models and Pydantic schemas parsed with Python&#x27;s ast module, the junit XML left in the repo by the last recorded test run, git history, and the plan files in .kdbp/ (PLAN, PENDING, LEDGER). It never runs the tests itself.</li><li><strong>The generator is Python with standard-library imports only and no LLM calls.</strong> It fills fixed HTML templates and writes archmap.json, a sorted JSON map of the code committed next to the pages, so a pull request diff shows what changed in the architecture. The only hand-maintained text is one Markdown card per entity, written through a Claude Code skill and stamped when I review it.</li><li><strong>The board is a projection, not a tracker:</strong> nothing on it can be dragged or saved, and a card moves only when the files it comes from change. Each card shows its effort, how long it has been open and the command that starts it.</li><li><strong>After every build, a crawl gate fails the run on any broken link, anchor or asset.</strong> In Gastify&#x27;s CI, a pull request that touches the center rebuilds it on a clean checkout and runs that gate.</li><li>gabe-map, a small MCP server in the same repo (Python standard library, stdio), turns the committed map into tools, so Claude Code can ask which models an endpoint reaches or which entity owns a file instead of grepping. I made it an MCP server after hooks, instructions and conventions failed to stop agents from defaulting to grep: an MCP server&#x27;s tools are listed to the agent in every session, so using the map no longer depends on the agent remembering it.</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <dl class="facts" style="margin-top:0"><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Part of Gabe Suite, used in two of my private repos. No hosted demo: the screenshots are Gastify&#x27;s build of 21 September 2026, opened as local files.</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</dt><dd>Python 3 (standard library, ast) · Static HTML, CSS and JavaScript · three.js (3D code graph) · JSON code map committed to git · MCP server (Python, stdio) · junit XML · git · Markdown plan files · Optional Node helpers (Mermaid pre-render, TypeScript parser) · graft (third-party call index, MIT, optional)</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</dt><dd><span class="muted">Repository link coming soon</span></dd></div></dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#more">← Other projects</a>
+        <a href="gabe-suite.html">Gabe Suite →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

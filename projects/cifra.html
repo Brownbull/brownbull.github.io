@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cifra · Chile — project · Gabriel Cárcamo</title>
+  <meta name="description" content="Cifra · Chile is a Spanish-language data magazine that explains complex Chilean public-interest cases step by step, linking its figures to their sources and tagging estimates &#x27;ia&#x27;.">
+  <meta property="og:title" content="Cifra · Chile — project · Gabriel Cárcamo">
+  <meta property="og:description" content="Cifra · Chile is a Spanish-language data magazine that explains complex Chilean public-interest cases step by step, linking its figures to their sources and tagging estimates &#x27;ia&#x27;.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/cifra.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/cifra.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/cifra.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/cifra.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/cifra.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case project">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Other projects</a>
+
+      <div class="case-head">
+        <div class="chips"><span class="chip public"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Side project · publicly deployed</span></div>
+        <h1>Cifra · Chile</h1>
+        <p class="lede">Cifra · Chile is a Spanish-language data magazine that explains complex Chilean public-interest cases step by step, linking its figures to their sources and tagging estimates &#x27;ia&#x27;. I built it with Claude Code in June 2026 (last update 3 July). AI researched and drafted the threads, checked their sources and ran a legal red-team on six sensitive pages, with me as editor. The deployed site runs no AI. It is a Next.js app with Google sign-in and a small PostgreSQL backend for votes, moderated comments and a newsletter.</p>
+      </div>
+
+      <section class="project-screens" aria-label="Screens">
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Cifra · Chile: screens"><div class="car-track" tabindex="0"><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="1 of 4"><div class="car-img"><img class="fit-left" src="../assets/img/cifra-home.webp" width="1200" height="569" alt="Cifra Chile home page, in Spanish. A dark navigation bar lists the site&#x27;s sections. The large headline reads &#x27;Las cuentas claras del país&#x27; (the country&#x27;s accounts, made clear), with the tagline &#x27;to understand complex Chile, without politics or beliefs&#x27; and a paragraph about tracing each figure to its official source. Four counters show 48 published threads (plus 5 in preparation), 4 editorial topics, 13 data topics and 6 hub sections."></div><figcaption>Home page (in Spanish), Sep 2026: the site&#x27;s own counters show 48 published threads.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="2 of 4"><div class="car-img"><img class="fit-left" src="../assets/img/cifra-pib.webp" width="1200" height="551" alt="Step 1 of the Cifra thread &#x27;El PIB de Chile, por dentro&#x27; (Chile&#x27;s GDP, inside out), in Spanish. A left sidebar lists the thread&#x27;s eight steps. The main column shows a large &#x27;01&#x27;, the title &#x27;La cifra que lo resume todo&#x27; (the number that sums it all up), a short paragraph explaining GDP, and three cards: the economy&#x27;s size at about US$330 billion, GDP per person at about US$18,600, and 2.6% growth in 2024. Below, a dashed box headed &#x27;Cómo leer esto&#x27; (how to read this) says the totals and growth are verified against the Central Bank and the World Bank, while sector shares and country comparisons are marked &#x27;ia&#x27; because they are approximations." loading="lazy"></div><figcaption>GDP thread, step 1: key figures and the page&#x27;s note on what is verified and what is &#x27;ia&#x27;.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="3 of 4"><div class="car-img"><img class="fit-left" src="../assets/img/cifra-gasto.webp" width="1200" height="612" alt="Cifra&#x27;s public-spending explorer, in Spanish. A very large headline says the Chilean state spent US$89.4 billion in 2025. A short paragraph says that is about US$4,500 per person, that the money comes from taxes, copper and debt, and that it goes to pensions, health and education. Two small source chips below cite DIPRES 2025 and the Central Bank 2025." loading="lazy"></div><figcaption>Spending explorer: Chile&#x27;s 2025 total, with DIPRES and Central Bank source chips.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="4 of 4"><div class="car-img"><img class="fit-left" src="../assets/img/cifra-fuentes.webp" width="1200" height="750" alt="Cifra&#x27;s source registry page, in Spanish. A ladder of source tiers shows counts from the Central Bank (17) and official fiscal sources (46) down to press (84). Filter chips by topic and tier and a search box sit above a table labeled &#x27;showing 234 of 234 figures&#x27;. The first rows list Central Bank series, such as gross public debt, nominal GDP and the observed exchange rate, each with its period, release date, update cadence and a link to the official source." loading="lazy"></div><figcaption>Source registry: 234 entries (Sep 2026), ranked from the Central Bank down to press.</figcaption></figure></div><div class="car-nav"><button type="button" class="car-btn car-prev" aria-label="Previous screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button><div class="car-dots"><button type="button" class="car-dot" aria-label="Go to screen 1" aria-current="true"></button><button type="button" class="car-dot" aria-label="Go to screen 2" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 3" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 4" aria-current="false"></button></div><span class="car-count" aria-hidden="true">1 / 4</span><button type="button" class="car-btn car-next" aria-label="Next screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
+        <figure class="diagram" data-fx="flow-cifra" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 506" role="img" aria-labelledby="d-cifra-dt d-cifra-dd">
+          <title id="d-cifra-dt">How it is built</title>
+          <desc id="d-cifra-dd">Three rows. The top row is authoring, done locally, and publishing. Public sources (DIPRES, the Central Bank, laws and court rulings, plus some press) feed an AI drafting step in Claude Code that writes a thread as a React page with its figures as typed data. An AI source-check step re-fetches the cited links and stamps the page with the agent, model and date. A push to the main branch makes Railway rebuild the Next.js site, whose prerendered pages tag figures with their source or as &#x27;ia&#x27;. The middle row holds review steps where the editor decides. A dashed branch from the source check leads to an AI legal red-team, run on six sensitive pages in June 2026: the agent argues the plaintiff&#x27;s case and then the defense, and the editor approves the fixes. Next to it is comment moderation. Pending comments come up from the database on a dashed path, the editor decides, optionally helped by an AI flag from a local pipeline, and approved comments appear on the site. The bottom row is for readers and runs on Railway. A reader reads without an account and signs in with Google to vote or comment. The API routes check the Firebase ID token on the server for votes and comments and write to PostgreSQL through Prisma, which also stores newsletter sign-ups. The bottom band lists the platform: Railway, Next.js 15, React 19, TypeScript, PostgreSQL with Prisma 6, Firebase Auth and Resend. No AI runs in the deployed site.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <text class="group-label" x="20" y="26">Local authoring → publishing</text>
+          <text class="group-label" x="20" y="176">Review · the editor decides</text>
+          <text class="group-label" x="20" y="326">Readers · API on Railway</text>
+          <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">Public sources</text><text class="sub" x="32" y="80">DIPRES, BCCh, laws,</text><text class="sub" x="32" y="95">courts; also press</text></g>
+          <g class="node ai"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">Draft a thread</text><text class="sub" x="220" y="80">Claude Code, local</text><text class="sub" x="220" y="95">page + typed data</text></g>
+          <g class="node ai"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Source check</text><text class="sub" x="408" y="80">re-fetches links,</text><text class="sub" x="408" y="95">stamps model, date</text></g>
+          <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Next.js site</text><text class="sub" x="784" y="80">prerendered pages,</text><text class="sub" x="784" y="95">source or ia tags</text></g>
+          <g class="node ai"><rect x="396" y="186" width="160" height="66" rx="8"/><text x="408" y="210">Legal red-team</text><text class="sub" x="408" y="230">attack vs defense,</text><text class="sub" x="408" y="245">editor approves</text></g>
+          <g class="node"><rect x="584" y="186" width="160" height="66" rx="8"/><text x="596" y="210">Comment review</text><text class="sub" x="596" y="230">editor decides;</text><text class="sub" x="596" y="245">optional AI flag</text></g>
+          <g class="node"><rect x="208" y="336" width="160" height="66" rx="8"/><text x="220" y="360">Reader</text><text class="sub" x="220" y="380">reads, no account;</text><text class="sub" x="220" y="395">Google to write</text></g>
+          <g class="node"><rect x="396" y="336" width="160" height="66" rx="8"/><text x="408" y="360">API routes</text><text class="sub" x="408" y="380">server checks token</text><text class="sub" x="408" y="395">for votes, comments</text></g>
+          <g class="node"><rect x="584" y="336" width="160" height="66" rx="8"/><text x="596" y="360">PostgreSQL</text><text class="sub" x="596" y="380">Prisma: votes,</text><text class="sub" x="596" y="395">comments, newsletter</text></g>
+          <path class="edge" d="M180 69 H206"/>
+          <path class="edge" d="M368 69 H394"/>
+          <path class="edge" d="M556 69 H770"/>
+          <text class="edge-label" x="664" y="61" text-anchor="middle">push to main, deploy</text>
+          <path class="edge dashed" d="M476 102 V184"/>
+          <text class="edge-label" x="468" y="147" text-anchor="end">6 sensitive pages</text>
+          <path class="edge" d="M368 369 H394"/>
+          <path class="edge" d="M556 369 H582"/>
+          <path class="edge dashed" d="M664 336 V254"/>
+          <text class="edge-label" x="672" y="299" text-anchor="start">pending comments</text>
+          <path class="edge" d="M664 186 V136 H852 V104"/>
+          <text class="edge-label" x="758" y="130" text-anchor="middle">approved comments</text>
+          <g class="band"><rect x="20" y="432" width="912" height="44" rx="8"/><text x="36" y="459">Railway · Next.js 15, React 19, TypeScript · PostgreSQL + Prisma 6 · Firebase Auth · Resend · no AI at runtime</text></g>
+          </svg>
+          
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <ul class="points"><li><strong>Each thread is a React page in TypeScript, with its figures kept as typed data in the code.</strong> Figures link either to a shared registry of 234 sources (as of September 2026), ranked from the Central Bank down to the press (84 of them), or straight to a document. Estimates carry an &#x27;ia&#x27; tag.</li><li><strong>AI works while the pages are made, not in the running site.</strong> The threads were researched and drafted with Claude Code, and a source-check skill stamps each of the 48 published threads with the agent, model and date of its pass. The first site-wide pass (7 June 2026, 37 of the 48 stamps) checked that links were live and pointed to the primary document. On 10 June the skill added a check that each key figure appears in the cited document.</li><li><strong>Six pages that name people or companies got an adversarial legal review from an AI agent in June 2026.</strong> It builds the strongest defamation or privacy claim against the page, then argues the defense, and only the claims that survive become fixes that I approve. It is an editorial check, not legal advice.</li><li><strong>The backend is small.</strong> Reading needs no account. Votes and comments need a Google sign-in: those routes verify the Firebase ID token on the server, and unique constraints in PostgreSQL (through Prisma) allow one vote and one comment per reader per article. The newsletter (double opt-in), the contact form and comment reports work without an account, behind a cooldown or a honeypot and rate limit.</li><li><strong>Comments are moderated before they appear.</strong> A reader&#x27;s note stays private until they ask to publish it. It then waits as pending until I approve it, either from a local pipeline where an AI flag suggests a verdict or from an admin page limited to an allowlist. Editing a published comment sends it back to pending.</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <dl class="facts" style="margin-top:0"><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Side project, publicly deployed. Built with Claude Code in June 2026 (last update 3 July).</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</dt><dd>Next.js 15 (App Router), React 19, TypeScript · PostgreSQL through Prisma 6 · Firebase Auth (Google sign-in, ID token checked on the server) · Railway hosting, auto-deploy from main (since 15 Jun 2026) · Resend (double opt-in newsletter) · Claude Code skills (authoring only, not in the running site)</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</dt><dd><a href="https://cifrachile.cl">Live site (Spanish)</a> · <a href="https://cifrachile.cl/metodologia">How figures are verified</a> · <a href="https://cifrachile.cl/fuentes">Source registry</a></dd></div></dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#more">← Other projects</a>
+        <a href="command-center.html">Gabe Command Center →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,291 @@
+{
+ "slug": "archie",
+ "name": "Archie",
+ "order": 14,
+ "card": {
+  "id": "archie",
+  "h3_en": "Archie",
+  "h3_es": "Archie"
+ },
+ "chips": [
+  {
+   "kind": "public",
+   "en": "Side project · publicly deployed",
+   "es": "Proyecto personal · desplegado públicamente"
+  }
+ ],
+ "lede_en": "Archie is a browser app for learning system design: you wire components on a canvas, run a simulated traffic curve through them, and watch uptime, p99 latency, served requests and monthly cost respond. Scores and suggestions come from deterministic TypeScript engines (a tick-based traffic simulator, a star rubric, a rule-based design grade and a suggestion engine that re-runs the simulation), with no AI model involved. I built it solo, with Claude Code, as a side project between February and July 2026.",
+ "lede_es": "Archie es una app web para aprender diseño de sistemas: conectas componentes en un canvas, les pasas una curva de tráfico simulada y ves cómo responden el uptime, la latencia p99, las solicitudes atendidas y el costo mensual. Los puntajes y las sugerencias salen de motores deterministas en TypeScript (un simulador de tráfico por pasos, una rúbrica de estrellas, una nota de diseño por reglas y un motor de sugerencias que vuelve a correr la simulación), sin ningún modelo de IA de por medio. La desarrollé solo, con Claude Code, como proyecto personal entre febrero y julio de 2026.",
+ "how_it_works_en": [
+  "The catalog is data. The 116 component definitions (count as of 2026-09-22) are YAML files, validated with Zod and loaded into Firestore by an admin script. The browser only reads them (clients have no write access to the catalog), and on later visits it checks one metadata document and reuses the cached catalog while the seed version matches.",
+  "The simulation is deterministic. A run samples the load curve at 50 points, routes requests through the graph in topological order, splits them evenly at fan-outs and sheds what a block can't serve; latency rises with utilization on an M/M/1-style curve. The whole run is computed at once and then played back, and the 'realistic' traffic jitter comes from a seeded generator, so the same build and settings always give the same run.",
+  "Quests are scored by rules. The 64 quests ship as YAML inside the app bundle, each with a load curve, targets and a budget. The first star needs the uptime and p99 targets met with the required blocks on the traffic path; only then does the build earn one more star for staying under budget and one for a well-formed graph (no orphaned or unreachable block). The design grade is separate: it averages the blocks' catalog metrics by category and is recomputed on every edit, not by the simulation.",
+  "'Try this next' re-simulates instead of guessing. After a scored run, the engine takes the current build and the quest's own load curve, pulls one lever at a time on each block (one replica more or fewer, a cheaper or a bigger variant of the same component), re-runs the simulation for each candidate and shows the best change with its uptime, p99 and cost deltas. If the build already passes, only a saving that keeps it passing counts; if nothing qualifies, it says no single change improves the build. No randomness and no LLM.",
+  "Guests write nothing. The first quest plays in the browser with no Firebase user; every store that writes to Firestore returns early without a user id, and an end-to-end test enters as a guest, lands in the quest and asserts that no Firestore write went out. In the repo's Firestore rules, signed-in data is owner-only, fields are allow-listed and updates less than a second apart are rejected. The 'AI Prompt' menu only hands you a prompt to paste into an outside LLM; the YAML it returns comes back through the same validated import."
+ ],
+ "how_it_works_es": [
+  "El catálogo son datos. Las 116 definiciones de componentes (conteo al 22-09-2026) son archivos YAML, validados con Zod y cargados en Firestore con un script de administración. El navegador solo los lee (los clientes no pueden escribir en el catálogo) y, en visitas siguientes, revisa un único documento de metadatos y reutiliza el catálogo guardado mientras la versión de la carga no cambie.",
+  "La simulación es determinista. Cada corrida toma 50 puntos de la curva de carga, recorre el grafo en orden topológico, reparte las solicitudes en partes iguales en cada bifurcación y descarta lo que un bloque no alcanza a atender; la latencia sube con la utilización según una curva tipo M/M/1. La corrida completa se calcula de una vez y después se reproduce, y la variación del tráfico «realista» sale de un generador con semilla: el mismo diseño con la misma configuración siempre da la misma corrida.",
+  "Las misiones se puntúan con reglas. Las 64 misiones vienen como YAML dentro del bundle de la app, cada una con curva de carga, metas y presupuesto. La primera estrella exige cumplir las metas de uptime y p99 con los bloques obligatorios en el camino del tráfico; solo entonces el diseño suma una estrella por no pasarse del presupuesto y otra por un grafo bien armado (sin bloques sueltos ni inalcanzables). La nota de diseño es aparte: promedia por categoría las métricas de catálogo de los bloques y se recalcula con cada cambio, no con la simulación.",
+  "«Try this next» re-simula en vez de adivinar. Después de una corrida puntuada, el motor toma el diseño actual y la curva de carga de la propia misión, mueve una sola palanca a la vez en cada bloque (una réplica más o una menos, una variante más barata o una más grande del mismo componente), vuelve a correr la simulación para cada candidato y muestra el mejor cambio con sus deltas de uptime, p99 y costo. Si el diseño ya aprueba, solo cuenta un ahorro que lo mantenga aprobado; si ningún cambio califica, avisa que ningún cambio individual mejora el diseño. Sin azar y sin LLM.",
+  "El invitado no escribe nada. La primera misión se juega en el navegador sin usuario de Firebase; cada store que escribe en Firestore se detiene si no hay id de usuario, y una prueba end-to-end entra como invitado, llega a la misión y verifica que no salió ninguna escritura a Firestore. En las reglas de Firestore del repo, los datos de una cuenta solo los escribe su dueño, los campos están en una lista permitida y se rechazan actualizaciones con menos de un segundo de diferencia. El menú «AI Prompt» solo entrega un prompt para pegar en un LLM externo; el YAML que devuelve vuelve a entrar por la misma importación validada."
+ ],
+ "stack": [
+  "TypeScript",
+  "React 19 + Vite",
+  "React Flow (@xyflow/react)",
+  "Zustand + Zod",
+  "Firebase Auth, Firestore, Hosting",
+  "Vitest + Playwright, GitHub Actions"
+ ],
+ "status_en": "Side project, publicly deployed (the June 2026 build). Built solo with Claude Code, February–July 2026.",
+ "status_es": "Proyecto personal, desplegado públicamente (el build de junio de 2026). Desarrollo individual con Claude Code, febrero–julio de 2026.",
+ "architecture": {
+  "desc_en": "Archie's architecture in three rows. Middle row, left to right: the component catalog (116 YAML definitions, read-only in Firestore) supplies blocks to the canvas, a React Flow graph whose state lives in Zustand. The canvas feeds the traffic simulation, which computes 50 ticks of load against each block's capacity. The run goes to the star rubric (uptime and p99 targets, budget, wiring); after a scored run, 'Try this next' re-runs the simulation for each one-lever change and shows the best one. Top row: on every edit, the canvas also feeds a rule-based design grade that averages catalog metrics by category, separate from the simulation. Bottom row: an optional, dashed path imports a YAML file, one saved from Archie or written in an outside LLM chat, validated with Zod; the app itself makes no AI call. A quest, one of 64 bundled as YAML, gives the simulation its load curve and gives the rubric its targets and budget. No component calls an AI model. Bottom band: everything runs in the browser, on Firebase Hosting and Auth; Firestore holds the catalog and signed-in users' progress, and guest runs are not saved.",
+  "desc_es": "La arquitectura de Archie en tres filas. Fila del medio, de izquierda a derecha: el catálogo de componentes (116 definiciones YAML, de solo lectura en Firestore) entrega bloques al canvas, un grafo de React Flow cuyo estado vive en Zustand. El canvas alimenta la simulación de tráfico, que calcula 50 pasos de carga contra la capacidad de cada bloque. La corrida pasa a la rúbrica de estrellas (metas de uptime y p99, presupuesto y conexiones); después de una corrida puntuada, «Try this next» vuelve a simular cada cambio de una sola palanca y muestra el mejor. Fila de arriba: con cada cambio, el canvas también alimenta una nota de diseño por reglas que promedia por categoría las métricas del catálogo, aparte de la simulación. Fila de abajo: un camino opcional, punteado, importa un archivo YAML, guardado desde Archie o escrito en un chat con un LLM externo, validado con Zod; la app no llama a ninguna IA. Una misión, una de las 64 empaquetadas como YAML, le entrega a la simulación su curva de carga y a la rúbrica sus metas y su tope de presupuesto. Ningún componente llama a un modelo de IA. Banda inferior: todo corre en el navegador, sobre Firebase Hosting y Auth; Firestore guarda el catálogo y el progreso de las cuentas, y las corridas de un invitado no se guardan.",
+  "groups": [
+   {
+    "row": 0,
+    "label_en": "Rule-based grade",
+    "label_es": "Nota por reglas"
+   },
+   {
+    "row": 1,
+    "label_en": "Build, run, score",
+    "label_es": "Armar, simular, puntuar"
+   },
+   {
+    "row": 2,
+    "label_en": "Inputs",
+    "label_es": "Entradas"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "catalog",
+    "col": 0,
+    "row": 1,
+    "ai": false,
+    "title_en": "Component catalog",
+    "title_es": "Catálogo",
+    "sub_en": [
+     "116 YAML files",
+     "Firestore, read-only"
+    ],
+    "sub_es": [
+     "116 YAML, Firestore",
+     "de solo lectura"
+    ]
+   },
+   {
+    "id": "canvas",
+    "col": 1,
+    "row": 1,
+    "ai": false,
+    "title_en": "Canvas",
+    "title_es": "Canvas",
+    "sub_en": [
+     "React Flow graph",
+     "state in Zustand"
+    ],
+    "sub_es": [
+     "grafo React Flow",
+     "estado en Zustand"
+    ]
+   },
+   {
+    "id": "sim",
+    "col": 2,
+    "row": 1,
+    "ai": false,
+    "title_en": "Traffic simulation",
+    "title_es": "Simulación",
+    "sub_en": [
+     "50 ticks: load vs",
+     "capacity per block"
+    ],
+    "sub_es": [
+     "50 pasos: carga vs",
+     "capacidad por bloque"
+    ]
+   },
+   {
+    "id": "rubric",
+    "col": 3,
+    "row": 1,
+    "ai": false,
+    "title_en": "Star rubric",
+    "title_es": "Estrellas",
+    "sub_en": [
+     "uptime + p99 pass,",
+     "budget, wiring"
+    ],
+    "sub_es": [
+     "uptime y p99 ok,",
+     "costo y conexiones"
+    ]
+   },
+   {
+    "id": "next",
+    "col": 4,
+    "row": 1,
+    "ai": false,
+    "title_en": "Try this next",
+    "title_es": "«Try this next»",
+    "sub_en": [
+     "re-runs the sim per",
+     "one-lever change"
+    ],
+    "sub_es": [
+     "re-simula cada",
+     "cambio de 1 palanca"
+    ]
+   },
+   {
+    "id": "grade",
+    "col": 1,
+    "row": 0,
+    "ai": false,
+    "title_en": "Design grade",
+    "title_es": "Nota de diseño",
+    "sub_en": [
+     "catalog metrics,",
+     "averaged by category"
+    ],
+    "sub_es": [
+     "promedio de métricas",
+     "por categoría"
+    ]
+   },
+   {
+    "id": "yaml",
+    "col": 0,
+    "row": 2,
+    "ai": false,
+    "title_en": "YAML import",
+    "title_es": "Importar YAML",
+    "sub_en": [
+     "saved or LLM-written",
+     "no AI calls in app"
+    ],
+    "sub_es": [
+     "guardado o de un LLM",
+     "sin llamadas a IA"
+    ]
+   },
+   {
+    "id": "quest",
+    "col": 2,
+    "row": 2,
+    "ai": false,
+    "title_en": "Quest",
+    "title_es": "Misión",
+    "sub_en": [
+     "64 bundled YAMLs",
+     "curve, goals, budget"
+    ],
+    "sub_es": [
+     "64 YAML en la app",
+     "curva, metas, tope"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "catalog",
+    "to": "canvas",
+    "dashed": false
+   },
+   {
+    "from": "yaml",
+    "to": "canvas",
+    "dashed": true,
+    "label_en": "Zod-validated",
+    "label_es": "validado con Zod"
+   },
+   {
+    "from": "canvas",
+    "to": "grade",
+    "dashed": false,
+    "label_en": "on every edit",
+    "label_es": "en cada cambio"
+   },
+   {
+    "from": "canvas",
+    "to": "sim",
+    "dashed": false
+   },
+   {
+    "from": "quest",
+    "to": "sim",
+    "dashed": false,
+    "label_en": "load curve",
+    "label_es": "curva de carga"
+   },
+   {
+    "from": "quest",
+    "to": "rubric",
+    "dashed": false,
+    "label_en": "targets + budget",
+    "label_es": "metas y tope"
+   },
+   {
+    "from": "sim",
+    "to": "rubric",
+    "dashed": false
+   },
+   {
+    "from": "rubric",
+    "to": "next",
+    "dashed": false
+   }
+  ],
+  "band_en": "Runs in the browser · Firebase Hosting + Auth · Firestore: catalog, signed-in progress · guest runs not saved",
+  "band_es": "En el navegador · Firebase Hosting y Auth · Firestore: catálogo y progreso de cuentas · el invitado no guarda"
+ },
+ "links": [
+  {
+   "label_en": "Live app (guest mode)",
+   "label_es": "App en línea (modo invitado)",
+   "url": "https://archie-2a560.web.app/login"
+  }
+ ],
+ "shots": [
+  {
+   "file": "archie-overload.webp",
+   "caption_en": "Guest mode, simulated peak pushed past capacity: requests are shed and uptime drops.",
+   "caption_es": "Modo invitado, peak simulado sobre la capacidad: se descartan solicitudes y cae el uptime.",
+   "alt_en": "Archie in guest mode, paused partway through a simulated run. The canvas shows two connected blocks, a Traffic Source set to a peak of 3,000 requests per second and a Compute block, with dots moving along the connection between them. A stats panel on the right lists uptime, average and p99 latency, requests served against the target with the number that failed, and the monthly cost against an 80-dollar budget. At the bottom, a timeline of the run shows red where requests were dropped. The account chip at the top right reads Guest. (Re-check this text against the captured frame.)",
+   "alt_es": "Archie en modo invitado, en pausa a mitad de una corrida simulada. El canvas muestra dos bloques conectados, una fuente de tráfico con un peak de 3.000 solicitudes por segundo y un bloque de cómputo, con puntos que avanzan por la conexión entre ambos. Un panel de estadísticas a la derecha muestra el uptime, la latencia promedio y p99, las solicitudes atendidas frente a la meta con las que fallaron, y el costo mensual frente a un presupuesto de 80 dólares. Abajo, una línea de tiempo de la corrida muestra en rojo las solicitudes que se perdieron. El chip de cuenta, arriba a la derecha, dice Guest. (Revisar este texto contra la captura real.)",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "archie-quest.webp",
+   "caption_en": "The first quest, no sign-in: a short brief, an $80/mo budget and two blocks to wire.",
+   "caption_es": "Primera misión, sin cuenta: enunciado breve, tope de US$80/mes y dos bloques por conectar.",
+   "alt_en": "Archie's build screen in guest mode. A quest panel titled First Service shows a short story-style brief, a budget bar against 80 dollars a month, a required-blocks line that stays hidden until a hint is unlocked, and a hints counter. On the canvas, a Traffic Source block is wired to a Compute block, with a Start Challenge button below. A toolbox of blocks is on the left, and a strip at the bottom shows the overall design grade and its weakest category. (Re-check against the captured frame.)",
+   "alt_es": "Pantalla de armado de Archie en modo invitado. Un panel de misión titulado First Service muestra un enunciado breve en forma de historia, una barra de presupuesto contra 80 dólares al mes, una línea de bloques obligatorios que queda oculta hasta desbloquear una pista y un contador de pistas. En el canvas, una fuente de tráfico está conectada a un bloque de cómputo, con un botón Start Challenge debajo. A la izquierda está la caja de bloques y abajo una franja con la nota de diseño general y su categoría más débil. (Revisar contra la captura real.)",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "archie-results.webp",
+   "caption_en": "A fixed rubric scores the run: uptime and p99 targets, required blocks, budget, wiring.",
+   "caption_es": "Una rúbrica fija puntúa la corrida: metas de uptime y p99, presupuesto y conexiones.",
+   "alt_en": "Archie's results dialog after a simulated run of the First Service quest: three stars, then a checklist of the scoring rules with measured values against targets, covering the uptime and p99 latency targets, the required blocks, staying under the budget, and a well-formed graph. (Re-check against the captured frame, and add the suggestion card's exact text only if it is in frame.)",
+   "alt_es": "Diálogo de resultados de Archie tras una corrida simulada de la misión First Service: tres estrellas y luego una lista con las reglas de puntaje y los valores medidos frente a las metas: uptime y latencia p99, bloques obligatorios, no pasarse del presupuesto y un grafo bien armado. (Revisar contra la captura real y agregar el texto exacto de la tarjeta de sugerencia solo si aparece.)",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "archie-grade.webp",
+   "caption_en": "Design grade: catalog metrics averaged by category; it does not come from the simulation.",
+   "caption_es": "Nota de diseño: métricas del catálogo promediadas por categoría; no sale de la simulación.",
+   "alt_en": "Archie's Architecture Scores dialog: an overall letter grade and a bar for each scoring category with data, such as performance, scalability, operational simplicity and cost, each listing the blocks that help or hurt it most. (Re-check the categories shown against the captured frame.)",
+   "alt_es": "Diálogo Architecture Scores de Archie: una nota general con letra y una barra por cada categoría con datos, como rendimiento, escalabilidad, simplicidad operativa y costo, cada una con los bloques que más la suben o la bajan. (Revisar contra la captura las categorías que aparecen.)",
+   "w": 1200,
+   "h": 750
+  }
+ ]
+}

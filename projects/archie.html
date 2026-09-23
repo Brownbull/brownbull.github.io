@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archie — project · Gabriel Cárcamo</title>
+  <meta name="description" content="Archie is a browser app for learning system design: you wire components on a canvas, run a simulated traffic curve through them, and watch uptime, p99 latency, served requests and monthly cost respond.">
+  <meta property="og:title" content="Archie — project · Gabriel Cárcamo">
+  <meta property="og:description" content="Archie is a browser app for learning system design: you wire components on a canvas, run a simulated traffic curve through them, and watch uptime, p99 latency, served requests and monthly cost respond.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/archie.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
+  <meta property="og:image:alt" content="Gabriel Cárcamo — Senior Backend Engineer, Python and AI">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/archie.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/archie.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/archie.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/archie.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case project">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Other projects</a>
+
+      <div class="case-head">
+        <div class="chips"><span class="chip public"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Side project · publicly deployed</span></div>
+        <h1>Archie</h1>
+        <p class="lede">Archie is a browser app for learning system design: you wire components on a canvas, run a simulated traffic curve through them, and watch uptime, p99 latency, served requests and monthly cost respond. Scores and suggestions come from deterministic TypeScript engines (a tick-based traffic simulator, a star rubric, a rule-based design grade and a suggestion engine that re-runs the simulation), with no AI model involved. I built it solo, with Claude Code, as a side project between February and July 2026.</p>
+      </div>
+
+      <section class="project-screens" aria-label="Screens">
+        <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Archie: screens"><div class="car-track" tabindex="0"><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="1 of 4"><div class="car-img"><img src="../assets/img/archie-overload.webp" width="1200" height="750" alt="Archie in guest mode, paused partway through a simulated run. The canvas shows two connected blocks, a Traffic Source set to a peak of 3,000 requests per second and a Compute block, with dots moving along the connection between them. A stats panel on the right lists uptime, average and p99 latency, requests served against the target with the number that failed, and the monthly cost against an 80-dollar budget. At the bottom, a timeline of the run shows red where requests were dropped. The account chip at the top right reads Guest. (Re-check this text against the captured frame.)"></div><figcaption>Guest mode, simulated peak pushed past capacity: requests are shed and uptime drops.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="2 of 4"><div class="car-img"><img src="../assets/img/archie-quest.webp" width="1200" height="750" alt="Archie&#x27;s build screen in guest mode. A quest panel titled First Service shows a short story-style brief, a budget bar against 80 dollars a month, a required-blocks line that stays hidden until a hint is unlocked, and a hints counter. On the canvas, a Traffic Source block is wired to a Compute block, with a Start Challenge button below. A toolbox of blocks is on the left, and a strip at the bottom shows the overall design grade and its weakest category. (Re-check against the captured frame.)" loading="lazy"></div><figcaption>The first quest, no sign-in: a short brief, an $80/mo budget and two blocks to wire.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="3 of 4"><div class="car-img"><img src="../assets/img/archie-results.webp" width="1200" height="750" alt="Archie&#x27;s results dialog after a simulated run of the First Service quest: three stars, then a checklist of the scoring rules with measured values against targets, covering the uptime and p99 latency targets, the required blocks, staying under the budget, and a well-formed graph. (Re-check against the captured frame, and add the suggestion card&#x27;s exact text only if it is in frame.)" loading="lazy"></div><figcaption>A fixed rubric scores the run: uptime and p99 targets, required blocks, budget, wiring.</figcaption></figure><figure class="car-slide" role="group" aria-roledescription="slide" aria-label="4 of 4"><div class="car-img"><img src="../assets/img/archie-grade.webp" width="1200" height="750" alt="Archie&#x27;s Architecture Scores dialog: an overall letter grade and a bar for each scoring category with data, such as performance, scalability, operational simplicity and cost, each listing the blocks that help or hurt it most. (Re-check the categories shown against the captured frame.)" loading="lazy"></div><figcaption>Design grade: catalog metrics averaged by category; it does not come from the simulation.</figcaption></figure></div><div class="car-nav"><button type="button" class="car-btn car-prev" aria-label="Previous screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6"/></svg></button><div class="car-dots"><button type="button" class="car-dot" aria-label="Go to screen 1" aria-current="true"></button><button type="button" class="car-dot" aria-label="Go to screen 2" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 3" aria-current="false"></button><button type="button" class="car-dot" aria-label="Go to screen 4" aria-current="false"></button></div><span class="car-count" aria-hidden="true">1 / 4</span><button type="button" class="car-btn car-next" aria-label="Next screen"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m9 18 6-6-6-6"/></svg></button></div></div>
+      </section>
+    </div>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
+        <figure class="diagram" data-fx="flow-archie" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 506" role="img" aria-labelledby="d-archie-dt d-archie-dd">
+          <title id="d-archie-dt">How it is built</title>
+          <desc id="d-archie-dd">Archie&#x27;s architecture in three rows. Middle row, left to right: the component catalog (116 YAML definitions, read-only in Firestore) supplies blocks to the canvas, a React Flow graph whose state lives in Zustand. The canvas feeds the traffic simulation, which computes 50 ticks of load against each block&#x27;s capacity. The run goes to the star rubric (uptime and p99 targets, budget, wiring); after a scored run, &#x27;Try this next&#x27; re-runs the simulation for each one-lever change and shows the best one. Top row: on every edit, the canvas also feeds a rule-based design grade that averages catalog metrics by category, separate from the simulation. Bottom row: an optional, dashed path imports a YAML file, one saved from Archie or written in an outside LLM chat, validated with Zod; the app itself makes no AI call. A quest, one of 64 bundled as YAML, gives the simulation its load curve and gives the rubric its targets and budget. No component calls an AI model. Bottom band: everything runs in the browser, on Firebase Hosting and Auth; Firestore holds the catalog and signed-in users&#x27; progress, and guest runs are not saved.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker></defs>
+          <text class="group-label" x="20" y="26">Rule-based grade</text>
+          <text class="group-label" x="20" y="176">Build, run, score</text>
+          <text class="group-label" x="20" y="326">Inputs</text>
+          <g class="node"><rect x="20" y="186" width="160" height="66" rx="8"/><text x="32" y="210">Component catalog</text><text class="sub" x="32" y="230">116 YAML files</text><text class="sub" x="32" y="245">Firestore, read-only</text></g>
+          <g class="node"><rect x="208" y="186" width="160" height="66" rx="8"/><text x="220" y="210">Canvas</text><text class="sub" x="220" y="230">React Flow graph</text><text class="sub" x="220" y="245">state in Zustand</text></g>
+          <g class="node"><rect x="396" y="186" width="160" height="66" rx="8"/><text x="408" y="210">Traffic simulation</text><text class="sub" x="408" y="230">50 ticks: load vs</text><text class="sub" x="408" y="245">capacity per block</text></g>
+          <g class="node"><rect x="584" y="186" width="160" height="66" rx="8"/><text x="596" y="210">Star rubric</text><text class="sub" x="596" y="230">uptime + p99 pass,</text><text class="sub" x="596" y="245">budget, wiring</text></g>
+          <g class="node"><rect x="772" y="186" width="160" height="66" rx="8"/><text x="784" y="210">Try this next</text><text class="sub" x="784" y="230">re-runs the sim per</text><text class="sub" x="784" y="245">one-lever change</text></g>
+          <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">Design grade</text><text class="sub" x="220" y="80">catalog metrics,</text><text class="sub" x="220" y="95">averaged by category</text></g>
+          <g class="node"><rect x="20" y="336" width="160" height="66" rx="8"/><text x="32" y="360">YAML import</text><text class="sub" x="32" y="380">saved or LLM-written</text><text class="sub" x="32" y="395">no AI calls in app</text></g>
+          <g class="node"><rect x="396" y="336" width="160" height="66" rx="8"/><text x="408" y="360">Quest</text><text class="sub" x="408" y="380">64 bundled YAMLs</text><text class="sub" x="408" y="395">curve, goals, budget</text></g>
+          <path class="edge" d="M180 219 H206"/>
+          <path class="edge dashed" d="M100 336 V286 H288 V254"/>
+          <text class="edge-label" x="194" y="280" text-anchor="middle">Zod-validated</text>
+          <path class="edge" d="M288 186 V104"/>
+          <text class="edge-label" x="280" y="149" text-anchor="end">on every edit</text>
+          <path class="edge" d="M368 219 H394"/>
+          <path class="edge" d="M476 336 V254"/>
+          <text class="edge-label" x="468" y="299" text-anchor="end">load curve</text>
+          <path class="edge" d="M476 336 V296 H664 V254"/>
+          <text class="edge-label" x="570" y="290" text-anchor="middle">targets + budget</text>
+          <path class="edge" d="M556 219 H582"/>
+          <path class="edge" d="M744 219 H770"/>
+          <g class="band"><rect x="20" y="432" width="912" height="44" rx="8"/><text x="36" y="459">Runs in the browser · Firebase Hosting + Auth · Firestore: catalog, signed-in progress · guest runs not saved</text></g>
+          </svg>
+          
+        </figure>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <ul class="points"><li><strong>The catalog is data.</strong> The 116 component definitions (count as of 2026-09-22) are YAML files, validated with Zod and loaded into Firestore by an admin script. The browser only reads them (clients have no write access to the catalog), and on later visits it checks one metadata document and reuses the cached catalog while the seed version matches.</li><li><strong>The simulation is deterministic.</strong> A run samples the load curve at 50 points, routes requests through the graph in topological order, splits them evenly at fan-outs and sheds what a block can&#x27;t serve; latency rises with utilization on an M/M/1-style curve. The whole run is computed at once and then played back, and the &#x27;realistic&#x27; traffic jitter comes from a seeded generator, so the same build and settings always give the same run.</li><li><strong>Quests are scored by rules.</strong> The 64 quests ship as YAML inside the app bundle, each with a load curve, targets and a budget. The first star needs the uptime and p99 targets met with the required blocks on the traffic path; only then does the build earn one more star for staying under budget and one for a well-formed graph (no orphaned or unreachable block). The design grade is separate: it averages the blocks&#x27; catalog metrics by category and is recomputed on every edit, not by the simulation.</li><li><strong>&#x27;Try this next&#x27; re-simulates instead of guessing.</strong> After a scored run, the engine takes the current build and the quest&#x27;s own load curve, pulls one lever at a time on each block (one replica more or fewer, a cheaper or a bigger variant of the same component), re-runs the simulation for each candidate and shows the best change with its uptime, p99 and cost deltas. If the build already passes, only a saving that keeps it passing counts; if nothing qualifies, it says no single change improves the build. No randomness and no LLM.</li><li><strong>Guests write nothing.</strong> The first quest plays in the browser with no Firebase user; every store that writes to Firestore returns early without a user id, and an end-to-end test enters as a guest, lands in the quest and asserts that no Firestore write went out. In the repo&#x27;s Firestore rules, signed-in data is owner-only, fields are allow-listed and updates less than a second apart are rejected. The &#x27;AI Prompt&#x27; menu only hands you a prompt to paste into an outside LLM; the YAML it returns comes back through the same validated import.</li></ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <dl class="facts" style="margin-top:0"><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Side project, publicly deployed (the June 2026 build). Built solo with Claude Code, February–July 2026.</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack</dt><dd>TypeScript · React 19 + Vite · React Flow (@xyflow/react) · Zustand + Zod · Firebase Auth, Firestore, Hosting · Vitest + Playwright, GitHub Actions</dd></div><div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Links</dt><dd><a href="https://archie-2a560.web.app/login">Live app (guest mode)</a></dd></div></dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="../index.html#more">← Other projects</a>
+        <a href="nitoagua.html">NitoAgua →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>

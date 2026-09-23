@@ -1,0 +1,243 @@
+{
+ "slug": "command-center",
+ "name": "Gabe Command Center",
+ "order": 12,
+ "card": {
+  "id": "command-center",
+  "h3_en": "Gabe Command Center",
+  "h3_es": "Gabe Command Center"
+ },
+ "chips": [
+  {
+   "kind": "oss",
+   "en": "Side project · part of Gabe Suite",
+   "es": "Proyecto personal · parte de Gabe Suite"
+  }
+ ],
+ "lede_en": "A documentation site a codebase builds about itself: open work, domain entities, endpoints, data models and test results, read from the code, the committed test reports, git and the plan files. I built it inside Gastify, moved it into Gabe Suite, and use it in two of my private repos. There is no hosted demo; the screenshots are Gastify's build, opened as local files.",
+ "lede_es": "Un sitio de documentación que un proyecto genera sobre sí mismo: trabajo abierto, entidades del dominio, endpoints, modelos de datos y resultados de tests, leídos del código, de los reportes de tests guardados en el repo, de git y de los archivos de plan. Lo construí dentro de Gastify, lo pasé a Gabe Suite y lo uso en dos de mis repos privados. No hay demo publicada; las capturas son del build de Gastify, abierto como archivos locales.",
+ "how_it_works_en": [
+  "At build time it reads the project's own files: FastAPI routes, SQLAlchemy models and Pydantic schemas parsed with Python's ast module, the junit XML left in the repo by the last recorded test run, git history, and the plan files in .kdbp/ (PLAN, PENDING, LEDGER). It never runs the tests itself.",
+  "The generator is Python with standard-library imports only and no LLM calls. It fills fixed HTML templates and writes archmap.json, a sorted JSON map of the code committed next to the pages, so a pull request diff shows what changed in the architecture. The only hand-maintained text is one Markdown card per entity, written through a Claude Code skill and stamped when I review it.",
+  "The board is a projection, not a tracker: nothing on it can be dragged or saved, and a card moves only when the files it comes from change. Each card shows its effort, how long it has been open and the command that starts it.",
+  "After every build, a crawl gate fails the run on any broken link, anchor or asset. In Gastify's CI, a pull request that touches the center rebuilds it on a clean checkout and runs that gate.",
+  "gabe-map, a small MCP server in the same repo (Python standard library, stdio), turns the committed map into tools, so Claude Code can ask which models an endpoint reaches or which entity owns a file instead of grepping. I made it an MCP server after hooks, instructions and conventions failed to stop agents from defaulting to grep: an MCP server's tools are listed to the agent in every session, so using the map no longer depends on the agent remembering it."
+ ],
+ "how_it_works_es": [
+  "En cada build lee los archivos del propio proyecto: rutas FastAPI, modelos SQLAlchemy y schemas Pydantic leídos con el módulo ast de Python, los junit XML que dejó en el repo la última corrida de tests registrada, el historial de git y los archivos de plan en .kdbp/ (PLAN, PENDING, LEDGER). Nunca corre los tests por su cuenta.",
+  "El generador es Python, solo con imports de la biblioteca estándar y sin llamadas a un LLM. Llena plantillas HTML fijas y escribe archmap.json, un mapa JSON ordenado del código que se versiona junto a las páginas, así que el diff de un pull request muestra qué cambió en la arquitectura. El único texto mantenido a mano es una ficha Markdown por entidad, redactada con una skill de Claude Code y con un sello que le pongo al revisarla.",
+  "El tablero es una proyección, no un gestor de tareas: ahí nada se arrastra ni se guarda, y una tarjeta cambia solo cuando cambian los archivos de los que sale. Cada una muestra su esfuerzo, cuánto tiempo lleva abierta y el comando que la inicia.",
+  "Después de cada build, un control de enlaces hace fallar la corrida si falta un link, un ancla o un recurso. En el CI de Gastify, un pull request que toca el centro lo reconstruye sobre un checkout limpio y corre ese control.",
+  "gabe-map, un servidor MCP pequeño en el mismo repo (Python con biblioteca estándar, por stdio), convierte el mapa versionado en herramientas: Claude Code puede preguntar a qué modelos llega un endpoint o qué entidad es dueña de un archivo en vez de hacer grep. Lo hice servidor MCP porque los hooks, las instrucciones y las convenciones no bastaban para que los agentes dejaran de volver al grep: las herramientas de un servidor MCP se le anuncian al agente en cada sesión, así que usar el mapa ya no depende de que se acuerde."
+ ],
+ "stack": [
+  "Python 3 (standard library, ast)",
+  "Static HTML, CSS and JavaScript",
+  "three.js (3D code graph)",
+  "JSON code map committed to git",
+  "MCP server (Python, stdio)",
+  "junit XML · git · Markdown plan files",
+  "Optional Node helpers (Mermaid pre-render, TypeScript parser)",
+  "graft (third-party call index, MIT, optional)"
+ ],
+ "status_en": "Part of Gabe Suite, used in two of my private repos. No hosted demo: the screenshots are Gastify's build of 21 September 2026, opened as local files.",
+ "status_es": "Parte de Gabe Suite; lo uso en dos de mis repositorios privados. No hay demo en línea: las capturas son el build de Gastify del 21 de septiembre de 2026, abierto como archivos locales.",
+ "architecture": {
+  "desc_en": "How the command center is built. From the left, the project's code, its committed test reports and its git history enter the center generator; FastAPI routes, SQLAlchemy models and Pydantic schemas are parsed with Python's ast module. From below, the plan files in .kdbp (PLAN, PENDING, LEDGER) enter as open work. The generator is Python with no LLM calls. It writes two things: upward, the static HTML site (the board and one page per entity, plus one authored card per entity) by filling fixed templates; to the right, a JSON map of the code (archmap.json and its graph files), committed to git. The map feeds the gabe-map MCP server, whose tools answer questions such as which models an endpoint reaches or which entity owns a file, and Claude Code, the one AI component, asks that server before grepping. Bottom band: Python 3 standard library, optional Node helpers for Mermaid and TypeScript, no LLM in the build, pages and map in git.",
+  "desc_es": "Cómo se construye el command center. Por la izquierda, el código del proyecto, sus reportes de tests guardados en el repo y su historial de git entran al generador; las rutas FastAPI, los modelos SQLAlchemy y los schemas Pydantic se leen con el módulo ast de Python. Desde abajo entran los archivos de plan en .kdbp (PLAN, PENDING, LEDGER) como trabajo abierto. El generador es Python, sin llamadas a un LLM. Escribe dos cosas: hacia arriba, el sitio HTML estático (el tablero y una página por entidad, más una ficha redactada por entidad) llenando plantillas fijas; hacia la derecha, un mapa JSON del código (archmap.json y sus archivos de grafo), versionado en git. El mapa alimenta al servidor MCP gabe-map, cuyas herramientas responden, por ejemplo, a qué modelos llega un endpoint o qué entidad es dueña de un archivo, y Claude Code, el único componente con IA, le consulta antes de hacer grep. Banda inferior: Python 3 con biblioteca estándar, Node opcional para Mermaid y TypeScript, sin LLM en el build, páginas y mapa en git.",
+  "band_en": "Python 3 standard library · optional Node (Mermaid, TS) · no LLM in the build · pages and map in git",
+  "band_es": "Python 3, biblioteca estándar · Node opcional (Mermaid, TS) · sin LLM en el build · páginas y mapa en git",
+  "groups": [],
+  "nodes": [
+   {
+    "id": "repo",
+    "col": 0,
+    "row": 1,
+    "ai": false,
+    "title_en": "Code, tests, git",
+    "title_es": "Código, tests, git",
+    "sub_en": [
+     "FastAPI · SQLAlchemy",
+     "junit XML · git log"
+    ],
+    "sub_es": [
+     "FastAPI · SQLAlchemy",
+     "junit XML · git log"
+    ]
+   },
+   {
+    "id": "gen",
+    "col": 1,
+    "row": 1,
+    "ai": false,
+    "title_en": "Center generator",
+    "title_es": "Generador",
+    "sub_en": [
+     "build_center_a3.py",
+     "Python ast · no LLM"
+    ],
+    "sub_es": [
+     "build_center_a3.py",
+     "Python ast · sin LLM"
+    ]
+   },
+   {
+    "id": "site",
+    "col": 1,
+    "row": 0,
+    "ai": false,
+    "title_en": "Static HTML site",
+    "title_es": "Sitio estático",
+    "sub_en": [
+     "board · entity pages",
+     "+ authored cards"
+    ],
+    "sub_es": [
+     "tablero · entidades",
+     "+ fichas redactadas"
+    ]
+   },
+   {
+    "id": "plan",
+    "col": 1,
+    "row": 2,
+    "ai": false,
+    "title_en": "Plan files",
+    "title_es": "Archivos de plan",
+    "sub_en": [
+     ".kdbp/PLAN.md",
+     "PENDING · LEDGER"
+    ],
+    "sub_es": [
+     ".kdbp/PLAN.md",
+     "PENDING · LEDGER"
+    ]
+   },
+   {
+    "id": "map",
+    "col": 2,
+    "row": 1,
+    "ai": false,
+    "title_en": "Code map (JSON)",
+    "title_es": "Mapa del código",
+    "sub_en": [
+     "archmap.json + graph",
+     "committed to git"
+    ],
+    "sub_es": [
+     "archmap.json + grafo",
+     "versionado en git"
+    ]
+   },
+   {
+    "id": "mapmcp",
+    "col": 3,
+    "row": 1,
+    "ai": false,
+    "title_en": "gabe-map MCP",
+    "title_es": "gabe-map MCP",
+    "sub_en": [
+     "endpoint → models",
+     "file → entity"
+    ],
+    "sub_es": [
+     "endpoint → modelos",
+     "archivo → entidad"
+    ]
+   },
+   {
+    "id": "claude",
+    "col": 4,
+    "row": 1,
+    "ai": true,
+    "title_en": "Claude Code",
+    "title_es": "Claude Code",
+    "sub_en": [
+     "asks the map",
+     "before grepping"
+    ],
+    "sub_es": [
+     "consulta el mapa",
+     "antes de hacer grep"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "repo",
+    "to": "gen",
+    "dashed": false
+   },
+   {
+    "from": "plan",
+    "to": "gen",
+    "dashed": false,
+    "label_en": "open work",
+    "label_es": "trabajo abierto"
+   },
+   {
+    "from": "gen",
+    "to": "site",
+    "dashed": false,
+    "label_en": "fills the templates",
+    "label_es": "llena las plantillas"
+   },
+   {
+    "from": "gen",
+    "to": "map",
+    "dashed": false
+   },
+   {
+    "from": "map",
+    "to": "mapmcp",
+    "dashed": false
+   },
+   {
+    "from": "mapmcp",
+    "to": "claude",
+    "dashed": false
+   }
+  ]
+ },
+ "links": [],
+ "shots": [
+  {
+   "file": "command-center.webp",
+   "caption_en": "The board: open work read from the plan files, with effort and age (Gastify, Sep 2026)",
+   "caption_es": "Tablero: el trabajo abierto, leído de los archivos de plan, con esfuerzo y antigüedad",
+   "alt_en": "The command center board for my Gastify project: a dark sidebar listing the project's entities next to a Board page whose intro says every open card is derived from the project's plan and tracking files. Tiles show 168 open cards, 4 owed to me, 24 ready now, 37 open for over three months and a 4-day median cycle, above tabs to group the cards by state, track, entity, effort or age.",
+   "alt_es": "El tablero del command center de mi proyecto Gastify (en inglés): una barra lateral oscura con las entidades del proyecto junto a una página Board cuya introducción dice que cada tarjeta abierta se deriva de los archivos de plan y seguimiento del proyecto. Los recuadros muestran 168 tarjetas abiertas, 4 pendientes para mí, 24 listas para tomar, 37 abiertas hace más de tres meses y una mediana de ciclo de 4 días, sobre pestañas para agruparlas por estado, tipo, entidad, esfuerzo o antigüedad.",
+   "w": 1200,
+   "h": 752
+  },
+  {
+   "file": "cc-endpoints.webp",
+   "caption_en": "Endpoints parsed from Gastify's FastAPI code, with test counts from recorded runs",
+   "caption_es": "Endpoints leídos del código FastAPI de Gastify, con los tests de corridas registradas",
+   "alt_en": "The Endpoints page of the command center: a note that the whole application is read once per build with Python's ast module and no LLM, then a table of Gastify's HTTP endpoints. Each row shows the verb and path, the handler function and file, the response model and status code, and small counters for the API, end-to-end and web tests linked to it.",
+   "alt_es": "La página Endpoints del command center (en inglés): una nota que dice que toda la aplicación se lee una vez por build con el módulo ast de Python y sin LLM, y luego una tabla con los endpoints HTTP de Gastify. Cada fila muestra el verbo y la ruta, la función y el archivo que la atienden, el modelo de respuesta y el código de estado, y contadores de los tests de API, end-to-end y web asociados.",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "cc-entity.webp",
+   "caption_en": "One entity page: test counts per suite, then tabs for code, tests, evidence and risk",
+   "caption_es": "Página de una entidad: tests por suite y pestañas de código, tests, evidencia y riesgo",
+   "alt_en": "The command center page for one domain entity of Gastify, bank statements: a one-line description, tiles counting its API, web and end-to-end test cases and its priority, and a tab bar for Overview, Code, Tests, Evidence and Risk with status pills for cases, pending moves and approval. Below starts a summary of the pending work on this entity, grouped by area.",
+   "alt_es": "La página del command center para una entidad del dominio de Gastify, las cartolas bancarias (en inglés): una descripción de una línea, recuadros que cuentan sus casos de test de API, web y end-to-end y su prioridad, y una barra de pestañas Overview, Code, Tests, Evidence y Risk con indicadores de casos, tareas pendientes y aprobación. Abajo empieza un resumen del trabajo pendiente de esta entidad, agrupado por área.",
+   "w": 1200,
+   "h": 750
+  },
+  {
+   "file": "cc-gates.webp",
+   "caption_en": "Test suites and commit gates, read from junit files and the repo's CI config",
+   "caption_es": "Suites de tests y controles previos al commit, leídos de los junit y de la config de CI",
+   "alt_en": "The Corpora and gates page of the command center: a table of Gastify's three test suites (pytest for the API, vitest for the web app, Playwright end to end) with file and test counts and the junit report each one writes, followed by a table of the checks in front of a commit: secret scanning, Python lint and format, a JS formatter, and the CI workflow's jobs.",
+   "alt_es": "La página Corpora and gates del command center (en inglés): una tabla con las tres suites de tests de Gastify (pytest para la API, vitest para la web y Playwright end to end), con cantidad de archivos y tests y el reporte junit que escribe cada una, seguida de una tabla con los controles previos a un commit: detección de secretos, lint y formato de Python, un formateador de JS y los jobs del workflow de CI.",
+   "w": 1200,
+   "h": 750
+  }
+ ],
+ "no_links_en": "Repository link coming soon",
+ "no_links_es": "Enlace al repositorio próximamente"
+}

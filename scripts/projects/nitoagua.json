@@ -1,0 +1,250 @@
+{
+ "slug": "nitoagua",
+ "name": "NitoAgua",
+ "order": 15,
+ "card": {
+  "id": "nitoagua",
+  "h3_en": "NitoAgua",
+  "h3_es": "NitoAgua"
+ },
+ "chips": [
+  {
+   "kind": "progress",
+   "en": "Side project · on hold",
+   "es": "Proyecto personal · en pausa"
+  }
+ ],
+ "lede_en": "NitoAgua is a side project I built to coordinate drinking-water deliveries in rural southern Chile: a customer posts a request, providers approved by an admin send offers, and the customer accepts one. It is publicly deployed on Next.js and Supabase, and the project is on hold.",
+ "lede_es": "NitoAgua es un proyecto personal que hice para coordinar despachos de agua potable en zonas rurales del sur de Chile: el cliente publica un pedido, los proveedores aprobados por un administrador le mandan ofertas y el cliente elige una. Está desplegado públicamente con Next.js y Supabase y hoy está en pausa.",
+ "how_it_works_en": [
+  "Ordering needs no account. A three-step form (contact and comuna; volume, urgency and payment method; review), with an optional map pin, posts to a Next.js route. The route validates the body with Zod and stores the request server-side with a random UUID tracking token. A guest follows the request and its offers through that token.",
+  "Providers get their feed from a server action. It lists pending requests in the comunas they serve, urgent first, and only once an admin has approved them and they are marked available. Row-level security guards the offer side: only approved providers can insert an offer, and a partial unique index allows one active offer per provider per request. An admin, checked against an allowlist table, approves each provider after reviewing their ID, driver's license and vehicle photos.",
+  "Signed-in customers and providers see new requests and offers without reloading. They get them through Supabase Realtime subscriptions on the requests and offers tables, with a 30-second polling fallback if the channel fails. Guests cannot subscribe, because RLS blocks anonymous reads, so their pages are read on the server with the tracking token. The tracking page refreshes itself every 30 seconds, and the offers page shows new offers on reload.",
+  "Accepting an offer is one PL/pgSQL function, select_offer, so the step is atomic. It re-checks that the offer is active and the request still pending, accepts that offer, marks the others as filled and assigns the provider. Who may accept (the account owner or the holder of the tracking token) is checked in the TypeScript server action before the call, not inside the function.",
+  "Two daily Vercel cron jobs, protected by a shared secret, do the clean-up. One marks offers past their deadline as expired. The other marks requests still pending after 4 hours with no active offer as 'no offers'. Between runs, only the offer screen checks the deadline: it greys out expired offers, sorts them last and blocks selecting them. select_offer itself looks at the offer's status, not its deadline."
+ ],
+ "how_it_works_es": [
+  "Pedir no exige cuenta. Un formulario de tres pasos (contacto y comuna; litros, urgencia y forma de pago; revisión), con un pin opcional en el mapa, se envía a una ruta de Next.js. La ruta valida los datos con Zod y guarda el pedido desde el servidor con un token de seguimiento UUID aleatorio. Con ese token, un invitado sigue su pedido y las ofertas que le llegan.",
+  "Cada proveedor recibe su lista desde una server action. La lista muestra los pedidos pendientes de las comunas que atiende, con los urgentes primero, y solo aparece si un administrador lo aprobó y está marcado como disponible. Row-level security protege el lado de las ofertas: solo un proveedor aprobado puede insertar una oferta, y un índice único parcial permite una sola oferta activa por proveedor y pedido. Un administrador, validado contra una tabla de correos autorizados, aprueba a cada proveedor tras revisar su cédula, su licencia de conducir y las fotos del vehículo.",
+  "Los clientes con cuenta y los proveedores ven los pedidos y ofertas nuevos sin recargar. Les llegan por suscripciones de Supabase Realtime a las tablas de pedidos y ofertas, y si el canal falla se pasa a consultar cada 30 segundos. Los invitados no pueden suscribirse, porque RLS bloquea las lecturas anónimas, así que sus páginas se leen en el servidor con el token de seguimiento. La página de seguimiento se actualiza sola cada 30 segundos y la de ofertas muestra las nuevas al recargar.",
+  "Aceptar una oferta es una sola función PL/pgSQL, select_offer, así que el paso es atómico. La función vuelve a revisar que la oferta siga activa y el pedido pendiente, acepta esa oferta, marca las demás como cubiertas y le asigna el pedido al proveedor. Quién puede aceptar (el dueño de la cuenta o quien tiene el token de seguimiento) se revisa en la server action de TypeScript antes de llamarla, no dentro de la función.",
+  "La limpieza la hacen dos tareas cron diarias de Vercel, protegidas con un secreto compartido. Una marca como vencidas las ofertas que pasaron su plazo. La otra marca «sin ofertas» los pedidos que siguen pendientes después de 4 horas sin ninguna oferta activa. Entre una corrida y otra, solo la pantalla de ofertas revisa el plazo: atenúa las vencidas, las deja al final y no deja elegirlas. La función select_offer mira el estado de la oferta, no su plazo."
+ ],
+ "stack": [
+  "Next.js 16 (App Router)",
+  "TypeScript",
+  "Supabase: Postgres, Auth, Realtime",
+  "PL/pgSQL + row-level security",
+  "Zod",
+  "Leaflet (map pin, provider map)",
+  "Vercel (hosting + cron)",
+  "Playwright"
+ ],
+ "status_en": "Side project, deployed and on hold since September 2026. Code on request.",
+ "status_es": "Proyecto personal, desplegado y en pausa desde septiembre de 2026. Código a solicitud.",
+ "architecture": {
+  "desc_en": "NitoAgua's architecture in two rows. Top row, the customer, as a guest or signed in: a three-step order wizard, with no account needed and an optional map pin, sends the order to the Request API, a Next.js route that validates it with Zod and stores it with a UUID tracking token. The new request reaches the provider row live. Bottom row, the provider: an admin approves each provider after reviewing their ID, license and vehicle photos. An approved provider's request feed lists pending requests filtered to the comunas they serve, urgent first. From it they send an offer, which row-level security accepts only from approved providers, one active offer per provider per request. The new offer goes up to the customer's Compare offers screen: live for signed-in customers, on reload for guests. Accepting an offer calls select_offer, one atomic PL/pgSQL function that accepts it, closes the other offers and assigns the provider. That leads down to Delivery, marked in transit and then done, which logs the commission the provider owes. Bottom band: Supabase Postgres with row-level security, Auth and Realtime; Next.js 16 on Vercel; two daily cron jobs.",
+  "desc_es": "La arquitectura de NitoAgua en dos filas. Fila superior, el cliente, como invitado o con cuenta: un pedido guiado de tres pasos, sin crear cuenta y con un pin opcional en el mapa, envía el pedido a la API de pedidos, una ruta de Next.js que lo valida con Zod y lo guarda con un token de seguimiento UUID. El pedido nuevo llega en vivo a la fila del proveedor. Fila inferior, el proveedor: un administrador aprueba a cada proveedor tras revisar su cédula, su licencia y las fotos del vehículo. La lista de un proveedor aprobado muestra los pedidos pendientes filtrados por las comunas que atiende, con los urgentes primero. Desde ahí envía una oferta, que row-level security acepta solo de proveedores aprobados, una oferta activa por proveedor y pedido. La oferta nueva sube a la pantalla Comparar ofertas del cliente: en vivo si tiene cuenta, al recargar si es invitado. Aceptar una oferta llama a select_offer, una sola función PL/pgSQL atómica que la acepta, cierra las demás ofertas y asigna al proveedor. De ahí baja a la Entrega, que se marca en camino y después lista, y que registra la comisión que el proveedor le debe a la plataforma. Banda inferior: Supabase Postgres con row-level security, Auth y Realtime; Next.js 16 en Vercel; dos tareas cron diarias.",
+  "groups": [
+   {
+    "row": 0,
+    "label_en": "Customer, guest or signed in",
+    "label_es": "Cliente, con o sin cuenta"
+   },
+   {
+    "row": 1,
+    "label_en": "Provider, admin-approved",
+    "label_es": "Proveedor aprobado por admin"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "wizard",
+    "col": 0,
+    "row": 0,
+    "ai": false,
+    "title_en": "Order wizard",
+    "title_es": "Pedido guiado",
+    "sub_en": [
+     "3 steps, no account",
+     "optional map pin"
+    ],
+    "sub_es": [
+     "3 pasos, sin cuenta",
+     "pin opcional en mapa"
+    ]
+   },
+   {
+    "id": "api",
+    "col": 1,
+    "row": 0,
+    "ai": false,
+    "title_en": "Request API",
+    "title_es": "API de pedidos",
+    "sub_en": [
+     "POST /api/requests",
+     "Zod + UUID token"
+    ],
+    "sub_es": [
+     "POST /api/requests",
+     "Zod + token UUID"
+    ]
+   },
+   {
+    "id": "compare",
+    "col": 3,
+    "row": 0,
+    "ai": false,
+    "title_en": "Compare offers",
+    "title_es": "Comparar ofertas",
+    "sub_en": [
+     "live with account,",
+     "guests on reload"
+    ],
+    "sub_es": [
+     "en vivo con cuenta,",
+     "invitado al recargar"
+    ]
+   },
+   {
+    "id": "accept",
+    "col": 4,
+    "row": 0,
+    "ai": false,
+    "title_en": "Accept offer",
+    "title_es": "Aceptar oferta",
+    "sub_en": [
+     "select_offer()",
+     "atomic, PL/pgSQL"
+    ],
+    "sub_es": [
+     "select_offer()",
+     "atómica, PL/pgSQL"
+    ]
+   },
+   {
+    "id": "admin",
+    "col": 0,
+    "row": 1,
+    "ai": false,
+    "title_en": "Admin approval",
+    "title_es": "Aprobación admin",
+    "sub_en": [
+     "reviews ID, license",
+     "and vehicle photos"
+    ],
+    "sub_es": [
+     "revisa cédula,",
+     "licencia y vehículo"
+    ]
+   },
+   {
+    "id": "feed",
+    "col": 1,
+    "row": 1,
+    "ai": false,
+    "title_en": "Request feed",
+    "title_es": "Pedidos abiertos",
+    "sub_en": [
+     "filtered by comuna",
+     "urgent first"
+    ],
+    "sub_es": [
+     "filtrados por comuna",
+     "urgentes primero"
+    ]
+   },
+   {
+    "id": "offer",
+    "col": 2,
+    "row": 1,
+    "ai": false,
+    "title_en": "Send offer",
+    "title_es": "Enviar oferta",
+    "sub_en": [
+     "RLS: approved only",
+     "1 active per request"
+    ],
+    "sub_es": [
+     "RLS: solo aprobados",
+     "1 activa por pedido"
+    ]
+   },
+   {
+    "id": "delivery",
+    "col": 4,
+    "row": 1,
+    "ai": false,
+    "title_en": "Delivery",
+    "title_es": "Entrega",
+    "sub_en": [
+     "in transit → done",
+     "logs commission owed"
+    ],
+    "sub_es": [
+     "en camino → lista",
+     "registra comisión"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "wizard",
+    "to": "api",
+    "dashed": false
+   },
+   {
+    "from": "api",
+    "to": "feed",
+    "label_en": "new request, live",
+    "label_es": "pedido nuevo, en vivo",
+    "dashed": false
+   },
+   {
+    "from": "admin",
+    "to": "feed",
+    "dashed": false
+   },
+   {
+    "from": "feed",
+    "to": "offer",
+    "dashed": false
+   },
+   {
+    "from": "offer",
+    "to": "compare",
+    "label_en": "new offer",
+    "label_es": "oferta nueva",
+    "dashed": false
+   },
+   {
+    "from": "compare",
+    "to": "accept",
+    "dashed": false
+   },
+   {
+    "from": "accept",
+    "to": "delivery",
+    "label_en": "provider assigned",
+    "label_es": "proveedor asignado",
+    "dashed": false
+   }
+  ],
+  "band_en": "Supabase: Postgres with row-level security, Auth, Realtime · Next.js 16 on Vercel · 2 daily cron jobs",
+  "band_es": "Supabase: Postgres con row-level security, Auth, Realtime · Next.js 16 en Vercel · 2 tareas cron diarias"
+ },
+ "links": [],
+ "shots": [
+  {
+   "file": "nito-step1.webp",
+   "caption_en": "Step 1 of the order form: contact, comuna, address and an optional map pin. No account.",
+   "caption_es": "Paso 1 del pedido: contacto, comuna, dirección y pin opcional en el mapa. Sin cuenta.",
+   "alt_en": "Step 1 of 3 of NitoAgua's order form, in Spanish: 'Order water, your details and address'. The empty fields are name, phone, optional email, a comuna dropdown, an address field with a button to set a map pin, and a box to describe the house, followed by a Next button.",
+   "alt_es": "Paso 1 de 3 del formulario de pedido de NitoAgua: «Pedir Agua, tus datos y dirección». Los campos vacíos son nombre, teléfono, email opcional, un selector de comuna, la dirección con un botón para marcar un pin en el mapa y un cuadro para describir la casa, más el botón Siguiente.",
+   "w": 1200,
+   "h": 1164
+  }
+ ],
+ "no_links_en": "On hold · code on request",
+ "no_links_es": "En pausa · código a solicitud"
+}

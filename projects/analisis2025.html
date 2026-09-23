@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Policy-document pipeline — post-mortem · Gabriel Cárcamo</title>
+  <meta name="description" content="An LLM pipeline that turned Chile's eight 2025 presidential programs into 2,469 numbered measures, and what it taught me about checking LLM output. No candidate scores or rankings are shown here.">
+  <meta property="og:title" content="Policy-document pipeline — post-mortem · Gabriel Cárcamo">
+  <meta property="og:description" content="Where an LLM extraction pipeline went wrong: self-grading, lost page breaks, self-checks that certified bad citations, and a hand-run table. The checks I would build now.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://brownbull.github.io/projects/analisis2025.html">
+  <meta property="og:image" content="https://brownbull.github.io/assets/img/analisis2025-measures.webp">
+  <meta property="og:image:alt" content="A table of numbered policy measures with a source page each">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://brownbull.github.io/projects/analisis2025.html">
+  <link rel="alternate" hreflang="en" href="https://brownbull.github.io/projects/analisis2025.html">
+  <link rel="alternate" hreflang="es" href="https://brownbull.github.io/es/projects/analisis2025.html">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="../index.html">Gabriel Cárcamo</a>
+      <nav class="nav" aria-label="Main">
+        <a href="../index.html#work">Work</a>
+        <a href="../index.html#experience">Experience</a>
+        <a href="../index.html#contact">Contact</a>
+        <a href="../cv.pdf">CV (PDF)</a>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/analisis2025.html" hreflang="es" lang="es">ES</a></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="case">
+    <div class="wrap">
+      <a class="back" href="../index.html#more">← Other projects</a>
+
+      <div class="case-head">
+        <div class="chips">
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Side project · September–October 2025</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>No longer maintained</span>
+        </div>
+        <h1>Policy-document extraction pipeline</h1>
+        <p class="lede">An LLM pipeline, run with Claude Code, that turned Chile's eight 2025 presidential programs into 2,469 numbered measures with source references, plus a static site that publishes them with three browser-side quizzes. This page is a post-mortem: where the model's output was wrong, and the checks I would build now.</p>
+        <p class="muted">This page takes no political side and shows no candidate scores or rankings.</p>
+      </div>
+
+      <figure class="demo">
+        <div class="media"><img src="../assets/img/analisis2025-measures.webp" alt="A program page on the site (in Spanish): a table with columns Measure, Description and Page, listing numbered measures such as reforms to how state programs are evaluated, each with the page it came from." width="1200" height="454"></div>
+        <figcaption>The pipeline's output as published: numbered measures with a source page each. This program's page numbers match its PDF; two programs' do not (see lesson 2). Site in Spanish.</figcaption>
+      </figure>
+
+      <dl class="facts">
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Role</dt><dd>With Claude Code, I wrote the standards and the commands (including the self-review loop), ran the normalization, master-table and evaluation passes, and built the site. A university friend ran my extraction command and its self-review for six of the eight programs on his own subscription, on the October snapshot of the PDFs, and sent back the outputs. I also used DeepSeek and ChatGPT along the way.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Timeline</dt><dd>September–October 2025, before the election.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>Model</dt><dd>Claude through Claude Code. The project notes say Sonnet 4.5, but the model was not logged per run, and the first extracts (28 September 2025) predate that model's release.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Static site in Spanish, no longer maintained. The main known problems are listed below.</dd></div>
+      </dl>
+    </div>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problem</h2>
+        <p>Chile's eight 2025 presidential programs were PDFs of 36 to 201 pages. They are long, and comparing them by topic is slow.</p>
+        <p>I wanted to test whether an LLM pipeline could turn them into numbered measures a reader can check against the source, and have fictional voter profiles evaluate each program.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <figure class="diagram" data-fx="flow-analisis2025" tabindex="0">
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <svg viewBox="0 0 952 350" role="img" aria-labelledby="ax-title ax-desc">
+            <title id="ax-title">Policy-document pipeline, with the four places it went wrong</title>
+            <desc id="ax-desc">Eight program PDFs are converted to text with pypdf (problem 2: page breaks were lost). A Claude Code command extracts measures following a written standard, with a self-review loop where the model grades its extract from 1 to 10 and revises below 8 (problem 1: it checked format, not facts). A second Claude Code command normalizes the measures with global numbering and page references into one master table per program, 2,469 measures in total. 28 fictional voter profiles and the master tables feed 224 evaluations, which the model checks against the master table and sends back to fix (problem 3: those self-checks certified citations that do not exist). The static site is built with Eleventy; its comparison table came from a script run by hand (problem 4: it was missing 70 of 224 scores).</desc>
+            <defs>
+              <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+            </defs>
+
+            <g class="node"><rect x="20" y="36" width="160" height="66" rx="8"/><text x="32" y="60">8 program PDFs</text><text class="sub" x="32" y="80">official source,</text><text class="sub" x="32" y="95">36–201 pages</text></g>
+            <g class="node"><rect x="208" y="36" width="160" height="66" rx="8"/><text x="220" y="60">PDF to text</text><text class="sub" x="220" y="80">pypdf notebook</text></g>
+            <g class="node ai"><rect x="396" y="36" width="160" height="66" rx="8"/><text x="408" y="60">Extract measures</text><text class="sub" x="408" y="80">Claude Code command</text><text class="sub" x="408" y="95">+ written standard</text></g>
+            <g class="node ai"><rect x="584" y="36" width="160" height="66" rx="8"/><text x="596" y="60">Normalize</text><text class="sub" x="596" y="80">Measure 1..N,</text><text class="sub" x="596" y="95">page reference each</text></g>
+            <g class="node"><rect x="772" y="36" width="160" height="66" rx="8"/><text x="784" y="60">Master tables</text><text class="sub" x="784" y="80">one per program,</text><text class="sub" x="784" y="95">2,469 measures</text></g>
+            <path class="edge" d="M180 69 H206"/>
+            <path class="edge" d="M368 69 H394"/>
+            <path class="edge" d="M556 69 H582"/>
+            <path class="edge" d="M744 69 H770"/>
+
+            <g class="node ai"><rect x="396" y="150" width="160" height="66" rx="8"/><text x="408" y="174">Self-review</text><text class="sub" x="408" y="194">model grades 1–10,</text><text class="sub" x="408" y="209">revises if below 8</text></g>
+            <path class="edge" d="M456 102 V148"/>
+            <text class="edge-label" x="450" y="130" text-anchor="end">draft</text>
+            <path class="edge" d="M496 150 V104"/>
+            <text class="edge-label" x="504" y="130">revise</text>
+
+            <g class="node"><rect x="584" y="150" width="160" height="66" rx="8"/><text x="596" y="174">Profiles</text><text class="sub" x="596" y="194">28 fictional voters</text><text class="sub" x="596" y="209">top-5 priorities</text></g>
+
+            <g class="node ai"><rect x="772" y="264" width="160" height="66" rx="8"/><text x="784" y="288">Evaluations</text><text class="sub" x="784" y="308">28 profiles × 8</text><text class="sub" x="784" y="323">= 224 documents</text></g>
+            <path class="edge" d="M852 102 V262"/>
+            <path class="edge" d="M744 183 H810 V262"/>
+
+            <g class="node ai"><rect x="584" y="264" width="160" height="66" rx="8"/><text x="596" y="288">Consistency checks</text><text class="sub" x="596" y="308">model self-check</text><text class="sub" x="596" y="323">vs master table</text></g>
+            <path class="edge" d="M772 285 H746"/>
+            <path class="edge dashed" d="M746 312 H770"/>
+
+            <g class="node"><rect x="396" y="264" width="160" height="66" rx="8"/><text x="408" y="288">Static site</text><text class="sub" x="408" y="308">Eleventy build,</text><text class="sub" x="408" y="323">hand-run table</text></g>
+            <path class="edge" d="M584 297 H558"/>
+
+            <g class="flag"><circle cx="556" cy="150" r="11"/><text x="556" y="154" text-anchor="middle">1</text></g>
+            <g class="flag"><circle cx="368" cy="36" r="11"/><text x="368" y="40" text-anchor="middle">2</text></g>
+            <g class="flag"><circle cx="744" cy="264" r="11"/><text x="744" y="268" text-anchor="middle">3</text></g>
+            <g class="flag"><circle cx="556" cy="264" r="11"/><text x="556" y="268" text-anchor="middle">4</text></g>
+          </svg>
+          <figcaption>Green boxes are model steps. Numbered markers are where it went wrong; each one is explained below. The commands were run by hand, one program at a time, not as an API program.</figcaption>
+        </figure>
+
+        <ul class="points prose">
+          <li><strong>Written standards instead of one-off prompts.</strong> Each stage (extract, normalize, evaluate) has a standards document and a Claude Code command that reads it, so every program and profile started from written rules instead of a one-off prompt, though the outputs did not always follow them.</li>
+          <li><strong>One numbering per program.</strong> A second command numbers the measures 1..N with no gaps, each with a source reference, so an evaluation can point to "Measure 283" instead of paraphrasing.</li>
+          <li><strong>Markdown as the database.</strong> No backend: Eleventy reads the generated Markdown at build time and GitHub Actions deploys to GitHub Pages.</li>
+          <li><strong>Disclaimers and official sources.</strong> Profiles are labeled fictional, every page says the site is not voting advice, and each program links to its official PDF. Three places still rank candidates; see Limits.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg>What went wrong, and what I would do now</h2>
+        <p class="prose muted">The counts in this section come from a re-audit of the repository with Claude Code in September 2026.</p>
+        <ol class="decisions lessons prose">
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">1</span>Self-grading checked format, not facts</h3>
+            <p>The six extracts that were graded scored 9.5–10; two grade files are empty. Two of the extracts that scored 10 cite text line numbers as page numbers.</p>
+            <p class="now"><strong>Now:</strong> a separate factual check against the source text, instead of the model grading its own output.</p>
+          </li>
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">2</span>Text conversion lost the page breaks</h3>
+            <p>pypdf joined the pages without markers, so in 2 of 8 extracts the model cited text line numbers as page numbers. One 84-page program gave text for only 1 of its pages (35 lines); nothing flagged it, and its extract came from an earlier snapshot.</p>
+            <p class="now"><strong>Now:</strong> keep page markers through conversion, fail the conversion when pages come back without text, and fail the run when a cited page is beyond the page count.</p>
+          </li>
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">3</span>The fix for contradictions was another self-check</h3>
+            <p>In the first round, one profile said a measure existed and another said it did not. I made one master table per program the single reference and re-ran the evaluations against it, with a consistency-check file for 27 of the 28 profiles. Those checks were the model checking its own work again: at least 18 re-run evaluations still cite measure numbers that do not exist in that program's table, and their check files mark them verified.</p>
+            <p class="now"><strong>Now:</strong> start from the shared table, and check every cited measure number against it in code, not with the model.</p>
+          </li>
+          <li>
+            <h3><span class="flag-ref" aria-hidden="true">4</span>The comparison table dropped scores</h3>
+            <p>The comparison table came from a Node script I ran by hand, not from the site build. It did not match two hyphenated candidate names to their files, and I last ran it before the final three profiles' evaluations were added, so the comparison page shows 154 of 224 scores. Separately, 4 evaluations have no score the site can read.</p>
+            <p class="now"><strong>Now:</strong> generate the table inside the build from the evaluation files, and fail the build when a cell is empty or a score is unreadable.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Limits</h2>
+        <div class="limits">
+          <ul class="points">
+            <li>The evaluation standard asked each fictional profile whether it would vote for each candidate, so the site ranks candidates in three places despite its disclaimers: a homepage headline asking who the AI would vote for, per-candidate averages on the comparison page, and a top-3 candidate box in the quiz results.</li>
+            <li>The homepage shows a hardcoded count that matches no data (1,547; the data has 2,469).</li>
+            <li>Two candidates' party labels on the site are wrong: they are hardcoded in the site's data file, and one also entered the data in the normalization pass.</li>
+            <li>The 28 profiles were designed, not sampled, so averages across them say nothing about real voters. Model, token use and cost were not logged per run.</li>
+          </ul>
+        </div>
+        <div class="shots">
+          <figure>
+            <img src="../assets/img/analisis2025-limits.webp" alt="The site's limitations section (in Spanish): it states the analysis is not a voting recommendation, not a feasibility judgment and not a poll of real voters, and that it is an educational exercise using fictional profiles." width="1000" height="590" loading="lazy">
+            <figcaption>The site's own limitations section: not voting advice, fictional profiles (in Spanish).</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap prose">
+        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <dl class="facts" style="margin-top:0">
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Pipeline</dt><dd>Claude Code custom commands, written standards, pypdf (Jupyter)</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Site</dt><dd>Eleventy, Nunjucks, markdown-it, vanilla JavaScript, GitHub Actions, GitHub Pages</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap next-case">
+        <a href="triage-agent.html">← SRE Triage Agent</a>
+        <a href="../index.html#more">Other projects →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="muted" style="margin:0">Gabriel Cárcamo · Backend Engineer, Python &amp; AI</p>
+      <ul>
+        <li><a href="mailto:carcamo.gabriel&#64;gmail.com">Email</a></li>
+        <li><a href="https://www.linkedin.com/in/gabriel-carcamo">LinkedIn</a></li>
+        <li><a href="https://github.com/Brownbull">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="../assets/js/site.js" defer></script>
+</body>
+</html>
