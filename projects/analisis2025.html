@@ -19,7 +19,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css">
+  <script id="theme-init">try{var t=localStorage.getItem("portfolio:theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/site.css?v=b4516269">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -32,7 +33,7 @@
         <a href="../index.html#experience">Experience</a>
         <a href="../index.html#contact">Contact</a>
         <a href="../cv.pdf">CV (PDF)</a>
-        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/analisis2025.html" hreflang="es" lang="es">ES</a></span>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/analisis2025.html" hreflang="es" lang="es">ES</a></span><button type="button" class="theme-toggle" data-to-dark="Switch to dark theme" data-to-light="Switch to light theme" aria-label="Switch to dark theme" title="Switch to dark theme"><svg class="i moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="i sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
       </nav>
     </div>
   </header>
@@ -43,8 +44,8 @@
 
       <div class="case-head">
         <div class="chips">
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Side project · September–October 2025</span>
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>No longer maintained</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Side project · September–October 2025</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg>No longer maintained</span>
         </div>
         <h1>Policy-document extraction pipeline</h1>
         <p class="lede">An LLM pipeline, run with Claude Code, that turned Chile's eight 2025 presidential programs into 2,469 numbered measures with source references, plus a static site that publishes them with three browser-side quizzes. This page is a post-mortem: where the model's output was wrong, and the checks I would build now.</p>
@@ -57,16 +58,16 @@
       </figure>
 
       <dl class="facts">
-        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Role</dt><dd>With Claude Code, I wrote the standards and the commands (including the self-review loop), ran the normalization, master-table and evaluation passes, and built the site. A university friend ran my extraction command and its self-review for six of the eight programs on his own subscription, on the October snapshot of the PDFs, and sent back the outputs. I also used DeepSeek and ChatGPT along the way.</dd></div>
-        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Timeline</dt><dd>September–October 2025, before the election.</dd></div>
-        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>Model</dt><dd>Claude through Claude Code. The project notes say Sonnet 4.5, but the model was not logged per run, and the first extracts (28 September 2025) predate that model's release.</dd></div>
-        <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Static site in Spanish, no longer maintained. The main known problems are listed below.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Role</dt><dd>With Claude Code, I wrote the standards and the commands (including the self-review loop), ran the normalization, master-table and evaluation passes, and built the site. A university friend ran my extraction command and its self-review for six of the eight programs on his own subscription, on the October snapshot of the PDFs, and sent back the outputs. I also used DeepSeek and ChatGPT along the way.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>Timeline</dt><dd>September–October 2025, before the election.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20v2"/><path d="M12 2v2"/><path d="M17 20v2"/><path d="M17 2v2"/><path d="M2 12h2"/><path d="M2 17h2"/><path d="M2 7h2"/><path d="M20 12h2"/><path d="M20 17h2"/><path d="M20 7h2"/><path d="M7 20v2"/><path d="M7 2v2"/><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="8" y="8" width="8" height="8" rx="1"/></svg>Model</dt><dd>Claude through Claude Code. The project notes say Sonnet 4.5, but the model was not logged per run, and the first extracts (28 September 2025) predate that model's release.</dd></div>
+        <div><dt><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/></svg>Status</dt><dd>Static site in Spanish, no longer maintained. The main known problems are listed below.</dd></div>
       </dl>
     </div>
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problem</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Problem</h2>
         <p>Chile's eight 2025 presidential programs were PDFs of 36 to 201 pages. They are long, and comparing them by topic is slow.</p>
         <p>I wanted to test whether an LLM pipeline could turn them into numbered measures a reader can check against the source, and have fictional voter profiles evaluate each program.</p>
       </div>
@@ -74,9 +75,9 @@
 
     <section>
       <div class="wrap">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</h2>
         <figure class="diagram" data-fx="flow-analisis2025" tabindex="0">
-          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
           <svg viewBox="0 0 952 350" role="img" aria-labelledby="ax-title ax-desc">
             <title id="ax-title">Policy-document pipeline, with the four places it went wrong</title>
             <desc id="ax-desc">Eight program PDFs are converted to text with pypdf (problem 2: page breaks were lost). A Claude Code command extracts measures following a written standard, with a self-review loop where the model grades its extract from 1 to 10 and revises below 8 (problem 1: it checked format, not facts). A second Claude Code command normalizes the measures with global numbering and page references into one master table per program, 2,469 measures in total. 28 fictional voter profiles and the master tables feed 224 evaluations, which the model checks against the master table and sends back to fix (problem 3: those self-checks certified citations that do not exist). The static site is built with Eleventy; its comparison table came from a script run by hand (problem 4: it was missing 70 of 224 scores).</desc>
@@ -132,7 +133,7 @@
 
     <section>
       <div class="wrap">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg>What went wrong, and what I would do now</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 20v-9"/><path d="M14 7a4 4 0 0 1 4 4v3a6 6 0 0 1-12 0v-3a4 4 0 0 1 4-4z"/><path d="M14.12 3.88 16 2"/><path d="M21 21a4 4 0 0 0-3.81-4"/><path d="M21 5a4 4 0 0 1-3.55 3.97"/><path d="M22 13h-4"/><path d="M3 21a4 4 0 0 1 3.81-4"/><path d="M3 5a4 4 0 0 0 3.55 3.97"/><path d="M6 13H2"/><path d="m8 2 1.88 1.88"/><path d="M9 7.13V6a3 3 0 1 1 6 0v1.13"/></svg>What went wrong, and what I would do now</h2>
         <p class="prose muted">The counts in this section come from a re-audit of the repository with Claude Code in September 2026.</p>
         <ol class="decisions lessons prose">
           <li>
@@ -161,7 +162,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Limits</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Limits</h2>
         <div class="limits">
           <ul class="points">
             <li>The evaluation standard asked each fictional profile whether it would vote for each candidate, so the site ranks candidates in three places despite its disclaimers: a homepage headline asking who the AI would vote for, per-candidate averages on the comparison page, and a top-3 candidate box in the quiz results.</li>
@@ -181,10 +182,10 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"/><path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"/><path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"/></svg>Stack and links</h2>
         <dl class="facts" style="margin-top:0">
-          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Pipeline</dt><dd>Claude Code custom commands, written standards, pypdf (Jupyter)</dd></div>
-          <div><dt><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Site</dt><dd>Eleventy, Nunjucks, markdown-it, vanilla JavaScript, GitHub Actions, GitHub Pages</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Pipeline</dt><dd>Claude Code custom commands, written standards, pypdf (Jupyter)</dd></div>
+          <div><dt><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>Site</dt><dd>Eleventy, Nunjucks, markdown-it, vanilla JavaScript, GitHub Actions, GitHub Pages</dd></div>
         </dl>
       </div>
     </section>
@@ -207,6 +208,6 @@
       </ul>
     </div>
   </footer>
-  <script src="../assets/js/site.js" defer></script>
+  <script src="../assets/js/site.js?v=bee5530a" defer></script>
 </body>
 </html>

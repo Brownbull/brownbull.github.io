@@ -20,7 +20,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../assets/css/site.css">
+  <script id="theme-init">try{var t=localStorage.getItem("portfolio:theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+  <link rel="stylesheet" href="../../assets/css/site.css?v=b4516269">
 </head>
 <body>
   <a class="skip" href="#main">Saltar al contenido</a>
@@ -33,7 +34,7 @@
         <a href="../index.html#experience">Experiencia</a>
         <a href="../index.html#contact">Contacto</a>
         <a href="../../cv.pdf">CV (PDF, en inglés)</a>
-        <span class="lang" role="group" aria-label="Idioma"><a href="../../projects/agents.html" hreflang="en" lang="en">EN</a><span aria-current="true">ES</span></span>
+        <span class="lang" role="group" aria-label="Idioma"><a href="../../projects/agents.html" hreflang="en" lang="en">EN</a><span aria-current="true">ES</span></span><button type="button" class="theme-toggle" data-to-dark="Cambiar a tema oscuro" data-to-light="Cambiar a tema claro" aria-label="Cambiar a tema oscuro" title="Cambiar a tema oscuro"><svg class="i moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="i sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
       </nav>
     </div>
   </header>
@@ -44,15 +45,15 @@
 
       <div class="case-head">
         <div class="chips">
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Uso interno · repo privado</span>
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>22 agentes · desde enero de 2026</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Uso interno · repo privado</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>22 agentes · desde enero de 2026</span>
         </div>
         <h1>Plataforma personal de agentes</h1>
         <p class="lede">Un conjunto privado de 22 agentes de Claude Code que construí para mis propios trámites, investigación y proyectos personales. Cada uno está a cargo de un dominio y lleva su propio conocimiento y estado; la mayoría procesa sus casos con el mismo esquema: recepción, análisis, borrador y mi revisión. Esta página describe cómo está armada la plataforma.</p>
       </div>
 
       <figure class="diagram" data-fx="flow-agents" tabindex="0">
-          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animación"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Reproducir</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pausar</button></div>
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animación"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Reproducir</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pausar</button></div>
           <svg viewBox="0 0 952 390" role="img" aria-labelledby="ag-title ag-desc">
           <title id="ag-title">Cómo se arma un agente</title>
           <desc id="ag-desc">Un comando slash carga la definición de un agente: un archivo YAML con su rol, sus comandos y sus hooks de sesión. La definición carga una carpeta sidecar que contiene el método de trabajo y las preferencias, una base de conocimiento curada, estado dinámico como el pipeline o los casos abiertos, e instintos. Luego el agente procesa un caso en cuatro pasos: la recepción, con las preguntas que cambian la respuesta; el análisis contrastado con su conocimiento; un borrador del entregable; y una revisión humana. Se aplica una capa común de guardrails: reglas de escalamiento (en 15 de los 22 agentes) que le indican al agente que se detenga y me entregue la decisión o la derive a un profesional, frases prohibidas, fuentes citadas con su nivel de confianza y entregables que se escriben para mi revisión; nada se publica ni se envía sin mi confirmación.</desc>
@@ -89,7 +90,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Para qué sirve</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>Para qué sirve</h2>
         <p>Cada agente cubre un dominio con el que realmente tengo que lidiar, así que el trabajo que antes partía de una página en blanco ahora parte de un método, una base de conocimiento y un registro de lo que pasó la última vez.</p>
         <ul class="points">
           <li><strong>Trámites con reglas que siempre se me olvidan:</strong> consultas y declaraciones de impuestos, correspondencia legal, la documentación de auditoría de un comité de agua potable rural y la administración de un terreno compartido.</li>
@@ -103,7 +104,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>Cómo está construida</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>Cómo está construida</h2>
         <ul class="points">
           <li><strong>Una definición YAML por agente.</strong> Rol y voz, un menú de comandos (entre 8 y 31 por agente, más de 400 en todo el conjunto), los archivos que se cargan al iniciar una sesión y las verificaciones que se ejecutan antes y después de un comando.</li>
           <li><strong>Un sidecar al lado.</strong> El método de trabajo, mis preferencias, una base de conocimiento curada que se carga de forma selectiva y no toda de una vez, el estado dinámico (casos abiertos, pipelines) e instintos: reglas prácticas, la mayoría tomadas de buenas prácticas y unas pocas agregadas después de casos reales, cada una con un valor de confianza inicial y, en varios agentes, una regla (aún sin aplicar) para subirlo o bajarlo cuando un juicio resulta acertado o equivocado.</li>
@@ -116,7 +117,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Límites</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Límites</h2>
         <div class="limits">
           <ul class="points">
             <li>Uso interno, un usuario, una máquina. No es un producto y no es multiusuario.</li>
@@ -146,6 +147,6 @@
       </ul>
     </div>
   </footer>
-  <script src="../../assets/js/site.js" defer></script>
+  <script src="../../assets/js/site.js?v=bee5530a" defer></script>
 </body>
 </html>

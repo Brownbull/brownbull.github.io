@@ -1,5 +1,6 @@
 /* Portfolio — Gabriel Cárcamo
-   One stylesheet, no build step. Tokens on :root, dark theme via prefers-color-scheme. */
+   One stylesheet, no build step. Tokens on :root; dark theme via prefers-color-scheme,
+   overridable per visitor with :root[data-theme] (header button). */
 
 :root {
   --bg: #f7f6f3;
@@ -27,8 +28,9 @@
   color-scheme: light;
 }
 
+/* Dark theme: follows the OS unless the visitor picked one with the header button (data-theme). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #121413;
     --surface: #1a1d1c;
     --ink: #ebeae6;
@@ -47,6 +49,25 @@
     color-scheme: dark;
   }
 }
+:root[data-theme="dark"] {
+    --bg: #121413;
+    --surface: #1a1d1c;
+    --ink: #ebeae6;
+    --muted: #a5a39c;
+    --line: #2d3130;
+    --line-strong: #6f7572;
+    --accent: #5cc0b2;
+    --accent-ink: #0c1a18;
+    --accent-soft: #163631;
+
+    --chip-public-fg: #7fd3c7;   --chip-public-bg: #163631;
+    --chip-progress-fg: #f0c475; --chip-progress-bg: #3a2c12;
+    --chip-internal-fg: #b8c3d3; --chip-internal-bg: #262d37;
+    --chip-hack-fg: #c7b4f5;     --chip-hack-bg: #2c2344;
+    --chip-oss-fg: #9cc8ef;      --chip-oss-bg: #1b2d3f;
+    color-scheme: dark;
+}
+:root[data-theme="light"] { color-scheme: light; }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -453,3 +474,75 @@ h2 { display: flex; align-items: center; gap: 10px; }
 .video-frame { aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #000; }
 .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
 .demo.video { margin-bottom: 22px; }
+
+/* Technology logos on stack tags (Simple Icons, CC0). Brand colour where it reads; very dark marks
+   lighten on the dark theme and very light ones darken on the light theme, so none disappears. */
+.tags li { display: inline-flex; align-items: center; gap: 6px; }
+.tags .logo { width: 14px; height: 14px; flex: none; fill: var(--brand); }
+.tags .logo.lo-lt { fill: color-mix(in srgb, var(--brand) 62%, #000); }
+.tags .logo-i { width: 14px; height: 14px; flex: none; color: var(--muted); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .tags .logo.lo-lt { fill: var(--brand); }
+  :root:not([data-theme="light"]) .tags .logo.lo-dk { fill: color-mix(in srgb, var(--brand) 15%, #fff); }
+}
+:root[data-theme="dark"] .tags .logo.lo-lt { fill: var(--brand); }
+:root[data-theme="dark"] .tags .logo.lo-dk { fill: color-mix(in srgb, var(--brand) 15%, #fff); }
+.facts .stack-row { grid-column: 1 / -1; }
+.facts dd .tags { margin-top: 6px; }
+
+/* Theme button: one press flips light/dark. Shows the moon on the light theme, the sun on the dark one. */
+.theme-toggle {
+  display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; cursor: pointer;
+  border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  transition: border-color .2s ease, color .2s ease;
+}
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle .i { width: 16px; height: 16px; }
+.theme-toggle .sun { display: none; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
+  :root:not([data-theme="light"]) .theme-toggle .moon { display: none; }
+}
+:root[data-theme="dark"] .theme-toggle .sun { display: block; }
+:root[data-theme="dark"] .theme-toggle .moon { display: none; }
+@media (prefers-reduced-motion: reduce) { .theme-toggle { transition: none; } }
+
+/* ---------- Experience tabs (WAI-ARIA tabs; without JS every panel shows, stacked) ---------- */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.xtab-list { display: none; flex-wrap: wrap; gap: 8px; margin: 4px 0 22px; }
+.xtabs.is-tabs .xtab-list { display: flex; }
+.xtab {
+  display: inline-flex; align-items: center; gap: 7px; padding: 7px 14px; cursor: pointer;
+  border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--ink);
+  font: 500 14px var(--font-sans); transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+.xtab:hover { border-color: var(--accent); color: var(--accent); }
+.xtab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.xtab[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.xtab .i { width: 16px; height: 16px; }
+.xt-short { display: none; }
+@media (max-width: 640px) { .xt-full { display: none; } .xt-short { display: inline; } .xtab { padding: 7px 12px; } }
+.xpanel + .xpanel { margin-top: 36px; }
+.xtabs.is-tabs .xpanel + .xpanel { margin-top: 0; }
+.xpanel:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 6px; }
+.xpanel-title { font-size: 1.15rem; margin: 0 0 6px; }
+.xblurb { margin: 0 0 18px; max-width: 72ch; }
+.xitems { display: grid; gap: 14px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .xitems { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.xitem { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; }
+.xitem h4 { margin: 0 0 6px; font-size: 1rem; }
+.xitem p { margin: 0 0 8px; }
+.xitem .where { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 12.5px; color: var(--muted); }
+.xitem .where .i { width: 14px; height: 14px; }
+.xitem .tags { margin-top: 10px; }
+.hero-stack { margin: 14px 0 24px; }
+@media (prefers-reduced-motion: reduce) { .xtab { transition: none; } }
+.xitem.wide { grid-column: 1 / -1; }
+.ximg { margin: 4px 0 10px; }
+.ximg img { width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line); background: #fff; }
+.ximg figcaption { font-size: 13px; color: var(--muted); margin-top: 6px; }
+.xitem .carousel { margin: 6px 0 10px; }
+.xitem .car-img { aspect-ratio: auto; background: #fff; }
+.xitem .car-img img { height: auto; max-height: 560px; object-fit: contain; }
+.car-full { display: block; cursor: zoom-in; }

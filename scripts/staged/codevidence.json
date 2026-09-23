@@ -1,0 +1,314 @@
+{
+ "slug": "codevidence",
+ "name": "Codevidence",
+ "order": 16,
+ "card": {
+  "id": "codevidence",
+  "h3_en": "Codevidence",
+  "h3_es": "Codevidence"
+ },
+ "chips": [
+  {
+   "kind": "progress",
+   "en": "Side project · Feb–Mar 2026 · on hold, unfinished",
+   "es": "Proyecto personal · feb–mar 2026 · en pausa, sin terminar"
+  }
+ ],
+ "lede_en": "Codevidence is a prototype talent-search tool that scores developers from what their GitHub repositories show. A Node.js worker on my machine takes jobs from a Firestore queue, clones each repository, reads its dependency manifests and git history, and computes a Skill Score (0–100) with a fixed formula whose parts are all shown; a React app searches the profiles by skill. A person sets the 0–5 'AI Maturity' level, and the app makes no LLM calls. I built it in TypeScript with Claude Code, February–March 2026. Its discovery step indexes developers without notice or opt-out, so the part I would keep is an opt-in self-scan of public repositories.",
+ "lede_es": "Codevidence es un prototipo de búsqueda de talento que puntúa a desarrolladores según lo que muestran sus repositorios de GitHub. Un worker en Node.js, en mi equipo, toma trabajos de una cola en Firestore, clona cada repositorio, lee sus manifiestos de dependencias y su historial git, y calcula un Skill Score (0–100) con una fórmula fija cuyas partes se muestran todas; una app React busca los perfiles por habilidad. El nivel «AI Maturity» (0–5) lo asigna una persona, y la app no llama a ningún LLM. Lo construí en TypeScript con Claude Code, entre febrero y marzo de 2026. Su etapa de descubrimiento indexa a desarrolladores sin aviso ni forma de excluirse, así que lo que conservaría es un auto-escaneo voluntario de repositorios públicos.",
+ "how_it_works_en": [
+  "The job queue is a Firestore collection. Each request is a scan_jobs document with a priority and 3 attempts. A worker, a Node.js CLI process running one job at a time, reads the first five pending jobs (highest priority, then oldest) and claims one in a transaction that re-reads it and flips it to running, so two workers cannot claim the same pending job. Running jobs send a heartbeat every 60 seconds; after 5 silent minutes a worker returns the job to pending. Retry backoff is unfinished: a failed job goes straight back to pending, so neither the documented backoff nor the pause after a GitHub rate limit takes effect.",
+  "Repositories are cloned, read and deleted. Each clone goes into a temporary directory that a finally block always removes, so no source code is kept. A shallow first pass finds the main language and maps seven kinds of dependency manifest, from package.json to pyproject.toml and go.mod, to a skills taxonomy. A full-clone second pass runs seven analyses: an ownership guess (the owner's username in most commit emails), test-file counts (not coverage), churn, commit messages, and AI-tooling signals such as a committed CLAUDE.md, how often it changed, and AI co-author trailers. Most history reads stop at 200 commits; code metrics cover TypeScript and JavaScript only.",
+  "Two scores, kept apart by a type. The Skill Score adds 19 capped parts, such as 15 points for a detected main language, 4 per framework up to 20, and up to 7 for AI signals. The caps total about 176 and the sum is clamped to 100, so strong profiles can all reach 100; no calibration data backs the thresholds. An admin enters the 0–5 'AI Maturity' level by hand; the Evaluate button only copies evidence and rubric as a prompt for a chat model. The pipeline's write type omits those fields, a compile-time guard only, since the worker signs in as an admin. The level rates AI tooling in a developer's repositories, not the developer.",
+  "Self-scan lets a developer connect their own GitHub account. My Profile sends a personal access token to a Cloud Function, which checks it against GitHub's /user endpoint (the login must match), encrypts it with AES-256-GCM and stores it where clients cannot write. The key sits in Secret Manager and in the worker's local environment; the worker decrypts the token only to list or clone. The job carries the user's id, and the rules reject one that carries a token. Known gaps include: the admin rescan flow stores a pasted token unencrypted in its jobs, GitHub sign-in requests the full 'repo' scope and then discards the token, and disconnecting leaves the encrypted token stored.",
+  "Written by an agent loop, then reviewed. I set the scope in BMAD planning sessions with Claude, which produced a PRD that grew from 19 to 31 user stories; I added guardrail hooks and ran Claude Code in an autonomous one-story-per-iteration loop (Ralph), plus interactive sessions such as the scoring phases. 34 of the 41 commits carry a Claude co-author trailer. The loop marked all 31 stories as passing. A September 2026 review found what that missed: GitHub sign-in never stores its token, the end-to-end tests never sign in, discover alone creates no candidates, and CI in the standalone repo has never passed (a test still reads a file from the old monorepo)."
+ ],
+ "how_it_works_es": [
+  "La cola de trabajos es una colección de Firestore. Cada pedido es un documento de scan_jobs con una prioridad y 3 intentos. Un worker, un proceso CLI de Node.js que ejecuta un trabajo a la vez, lee los primeros cinco pendientes (mayor prioridad, luego los más antiguos) y toma uno en una transacción que lo relee y lo pasa a en curso, así que dos workers no pueden tomar el mismo trabajo pendiente. Un trabajo en curso late cada 60 segundos; tras 5 minutos sin latir, un worker lo devuelve a pendiente. Los reintentos quedaron sin terminar: un trabajo que falla vuelve a pendiente de inmediato, así que ni el backoff documentado ni la pausa tras un límite de tasa de GitHub se aplican.",
+  "Los repositorios se clonan, se leen y se borran. Cada clon va a un directorio temporal que un bloque finally siempre elimina, así que no se guarda código fuente. Una primera pasada superficial detecta el lenguaje principal y lleva siete tipos de manifiesto de dependencias, de package.json a pyproject.toml y go.mod, a una taxonomía de habilidades. Una segunda pasada sobre el clon completo corre siete análisis: una estimación de autoría (el usuario del dueño en la mayoría de los emails de commit), el conteo de archivos de test (no cobertura), churn, mensajes de commit y señales de herramientas de IA, como un CLAUDE.md commiteado, cuántas veces cambió y los trailers de coautoría con IA. Casi todas las lecturas del historial paran en 200 commits; las métricas de código cubren solo TypeScript y JavaScript.",
+  "Dos puntajes, separados por un tipo. El Skill Score suma 19 partes con tope, como 15 puntos por detectar un lenguaje principal, 4 por framework hasta 20 y hasta 7 por señales de IA. Los topes suman cerca de 176 y el total se acota a 100, así que todos los perfiles fuertes pueden llegar a 100; ningún dato de calibración respalda los umbrales. Un administrador ingresa a mano el nivel «AI Maturity» (0–5); el botón Evaluate solo copia la evidencia y la rúbrica como un prompt para un modelo de chat. El tipo con que escribe el pipeline omite esos campos, una protección solo al compilar, porque el worker inicia sesión como administrador. El nivel describe las herramientas de IA en los repositorios de un desarrollador, no al desarrollador.",
+  "El self-scan permite que un desarrollador conecte su propia cuenta de GitHub. My Profile envía un token de acceso personal a una Cloud Function, que lo valida contra el endpoint /user de GitHub (el login debe coincidir), lo cifra con AES-256-GCM y lo guarda donde los clientes no pueden escribir. La llave está en Secret Manager y en el entorno local del worker, que descifra el token solo para listar o clonar. El trabajo lleva el id del usuario, y las reglas rechazan uno que lleve un token. Entre las brechas conocidas: el rescan de administradores guarda sin cifrar en sus trabajos el token que se pega, el inicio de sesión con GitHub pide el scope completo «repo» y después descarta el token, y desconectar la cuenta deja guardado el token cifrado.",
+  "Escrito por un ciclo de agentes y después revisado. Fijé el alcance en sesiones de planificación BMAD con Claude, que produjeron un PRD que creció de 19 a 31 historias de usuario; agregué hooks de control y corrí Claude Code en un ciclo autónomo de una historia por iteración (Ralph), más sesiones interactivas como las de las fases de puntaje. 34 de los 41 commits llevan un trailer de coautoría de Claude. El ciclo marcó las 31 historias como aprobadas. Una revisión en septiembre de 2026 encontró lo que esa marca no vio: el inicio de sesión con GitHub nunca guarda su token, los tests end-to-end nunca inician sesión, discover por sí solo no crea candidatos, y el CI del repo independiente nunca ha pasado (un test todavía lee un archivo del monorepo original)."
+ ],
+ "stack": [
+  "TypeScript (strict) in the app, worker and functions",
+  "Node.js 20 CLI worker (Commander, tsx)",
+  "React 18 + Vite, TanStack Query, Tailwind, Radix",
+  "Firebase Auth, Firestore (data + job queue), Hosting",
+  "Firebase Cloud Functions + Secret Manager",
+  "Octokit, simple-git, TypeScript compiler API",
+  "Vitest; Playwright (signed-out checks only)"
+ ],
+ "status_en": "Side project, unfinished and on hold since March 2026; the working branch was never merged. A build was deployed by hand to Firebase Hosting; the scan worker was never deployed and runs from my machine. Built with Claude Code, February–March 2026.",
+ "status_es": "Proyecto personal, sin terminar y en pausa desde marzo de 2026; la rama de trabajo nunca se fusionó. Un build se desplegó a mano en Firebase Hosting; el worker de escaneo nunca se desplegó y corre desde mi equipo. Construido con Claude Code, febrero–marzo de 2026.",
+ "no_links_en": "On hold · code on request",
+ "no_links_es": "En pausa · código a solicitud",
+ "architecture": {
+  "desc_en": "Codevidence's architecture in three rows. Top row, the inputs: scan requests, either an admin's discover or rescan or a developer's self-scan, are written as documents to the job queue. The GitHub API answers the worker's searches and profile lookups. A Cloud Function checks a developer's own access token against GitHub and stores it encrypted with AES-256-GCM. A human reviewer sets each candidate's AI level. Middle row, left to right: the job queue is Firestore's scan_jobs collection; workers put jobs whose heartbeat stopped back to pending. The local worker, a Node.js CLI on my machine, claims one job at a time inside a Firestore transaction. Repository analysis clones each repository to a temporary directory that is always deleted, decrypts a self-scan token locally when one is needed, and reads dependency manifests and git history. The Skill Score adds 19 capped rules and clamps the sum to 0–100. The candidate documents hold the GitHub profile, the scores and the skill tags; the reviewer writes only the three AI-level fields. Bottom row: after sign-in, the React app reads the candidates for faceted search and a profile page that breaks the score into its parts. No component calls an AI model. Bottom band: Firebase Hosting, Auth and Firestore, which also holds the job queue; the worker runs only on my machine; no LLM calls.",
+  "desc_es": "La arquitectura de Codevidence en tres filas. Fila de arriba, las entradas: los pedidos de escaneo, un discover o rescan de un administrador o el self-scan de un desarrollador, se escriben como documentos en la cola de trabajos. La API de GitHub responde las búsquedas y consultas de perfil del worker. Una Cloud Function valida contra GitHub el token de acceso propio de un desarrollador y lo guarda cifrado con AES-256-GCM. Un revisor humano fija el nivel de IA de cada candidato. Fila del medio, de izquierda a derecha: la cola de trabajos es la colección scan_jobs de Firestore; los workers devuelven a pendiente los trabajos que dejaron de latir. El worker local, una CLI de Node.js en mi equipo, toma un trabajo a la vez dentro de una transacción de Firestore. El análisis del repositorio lo clona en un directorio temporal que siempre se borra, descifra en local el token de self-scan cuando hace falta y lee los manifiestos de dependencias y el historial git. El Skill Score suma 19 reglas con tope y acota el total a 0–100. Los documentos de candidato guardan el perfil de GitHub, los puntajes y las etiquetas de habilidad; el revisor solo escribe los tres campos del nivel de IA. Fila de abajo: con la sesión iniciada, la app React lee los candidatos para la búsqueda por facetas y para una página de perfil que desglosa el puntaje. Ningún componente llama a un modelo de IA. Banda inferior: Firebase Hosting, Auth y Firestore, que también guarda la cola; el worker corre solo en mi equipo; sin llamadas a LLM.",
+  "groups": [
+   {
+    "row": 0,
+    "label_en": "Inputs",
+    "label_es": "Entradas"
+   },
+   {
+    "row": 1,
+    "label_en": "Pipeline",
+    "label_es": "Pipeline"
+   },
+   {
+    "row": 2,
+    "label_en": "Web app (sign-in)",
+    "label_es": "App web (con inicio de sesión)"
+   }
+  ],
+  "nodes": [
+   {
+    "id": "requests",
+    "col": 0,
+    "row": 0,
+    "ai": false,
+    "title_en": "Scan requests",
+    "title_es": "Pedidos de escaneo",
+    "sub_en": [
+     "admin: discover",
+     "user: self-scan"
+    ],
+    "sub_es": [
+     "admin: discover",
+     "usuario: self-scan"
+    ]
+   },
+   {
+    "id": "github",
+    "col": 1,
+    "row": 0,
+    "ai": false,
+    "title_en": "GitHub API",
+    "title_es": "API de GitHub",
+    "sub_en": [
+     "search, users, repos",
+     "Octokit, throttled"
+    ],
+    "sub_es": [
+     "búsqueda y perfiles",
+     "Octokit, con pausas"
+    ]
+   },
+   {
+    "id": "token",
+    "col": 2,
+    "row": 0,
+    "ai": false,
+    "title_en": "Token function",
+    "title_es": "Función de token",
+    "sub_en": [
+     "own PAT, checked",
+     "AES-256-GCM at rest"
+    ],
+    "sub_es": [
+     "PAT propio validado",
+     "cifrado AES-256-GCM"
+    ]
+   },
+   {
+    "id": "reviewer",
+    "col": 4,
+    "row": 0,
+    "ai": false,
+    "title_en": "Reviewer (admin)",
+    "title_es": "Revisor (admin)",
+    "sub_en": [
+     "sets AI level 0–5",
+     "by hand; no LLM"
+    ],
+    "sub_es": [
+     "fija nivel IA 0–5",
+     "a mano, sin LLM"
+    ]
+   },
+   {
+    "id": "queue",
+    "col": 0,
+    "row": 1,
+    "ai": false,
+    "title_en": "Job queue",
+    "title_es": "Cola de trabajos",
+    "sub_en": [
+     "Firestore scan_jobs",
+     "stale jobs reclaimed"
+    ],
+    "sub_es": [
+     "Firestore scan_jobs",
+     "reencola colgados"
+    ]
+   },
+   {
+    "id": "worker",
+    "col": 1,
+    "row": 1,
+    "ai": false,
+    "title_en": "Local worker",
+    "title_es": "Worker local",
+    "sub_en": [
+     "Node CLI, my machine",
+     "claim in transaction"
+    ],
+    "sub_es": [
+     "CLI Node, mi equipo",
+     "toma en transacción"
+    ]
+   },
+   {
+    "id": "analysis",
+    "col": 2,
+    "row": 1,
+    "ai": false,
+    "title_en": "Repo analysis",
+    "title_es": "Análisis del repo",
+    "sub_en": [
+     "temp clone, deleted",
+     "manifests, git log"
+    ],
+    "sub_es": [
+     "clon que se borra",
+     "manifiestos, git log"
+    ]
+   },
+   {
+    "id": "score",
+    "col": 3,
+    "row": 1,
+    "ai": false,
+    "title_en": "Skill Score",
+    "title_es": "Skill Score",
+    "sub_en": [
+     "19 capped rules",
+     "sum clamped 0–100"
+    ],
+    "sub_es": [
+     "19 reglas con tope",
+     "suma acotada 0–100"
+    ]
+   },
+   {
+    "id": "candidates",
+    "col": 4,
+    "row": 1,
+    "ai": false,
+    "title_en": "Candidate docs",
+    "title_es": "Candidatos",
+    "sub_en": [
+     "Firestore: profile,",
+     "scores, skill tags"
+    ],
+    "sub_es": [
+     "Firestore: perfil,",
+     "puntajes y tags"
+    ]
+   },
+   {
+    "id": "search",
+    "col": 4,
+    "row": 2,
+    "ai": false,
+    "title_en": "Search + profile",
+    "title_es": "Búsqueda y perfil",
+    "sub_en": [
+     "facets, score parts",
+     "React SPA, sign-in"
+    ],
+    "sub_es": [
+     "facetas y desglose",
+     "SPA React, con login"
+    ]
+   }
+  ],
+  "edges": [
+   {
+    "from": "requests",
+    "to": "queue",
+    "dashed": false,
+    "label_en": "one doc per job",
+    "label_es": "un doc por trabajo"
+   },
+   {
+    "from": "github",
+    "to": "worker",
+    "dashed": false,
+    "label_en": "search + profiles",
+    "label_es": "búsqueda y perfiles"
+   },
+   {
+    "from": "token",
+    "to": "analysis",
+    "dashed": false,
+    "label_en": "decrypted locally",
+    "label_es": "descifrado en local"
+   },
+   {
+    "from": "queue",
+    "to": "worker",
+    "dashed": false
+   },
+   {
+    "from": "worker",
+    "to": "analysis",
+    "dashed": false
+   },
+   {
+    "from": "analysis",
+    "to": "score",
+    "dashed": false
+   },
+   {
+    "from": "score",
+    "to": "candidates",
+    "dashed": false
+   },
+   {
+    "from": "reviewer",
+    "to": "candidates",
+    "dashed": false,
+    "label_en": "AI-level fields only",
+    "label_es": "solo campos de IA"
+   },
+   {
+    "from": "candidates",
+    "to": "search",
+    "dashed": false,
+    "label_en": "read after sign-in",
+    "label_es": "lectura con sesión"
+   }
+  ],
+  "band_en": "Firebase Hosting, Auth, Firestore (data + job queue) · worker runs only on my machine · no LLM calls",
+  "band_es": "Firebase Hosting, Auth y Firestore (datos y cola) · el worker corre solo en mi equipo · sin llamadas a LLM"
+ },
+ "links": [
+  {
+   "url": "https://github.com/Brownbull/codevidence/tree/ralph/build-candidate-skill-scanner",
+   "label_en": "Code (unmerged branch)",
+   "label_es": "Código (rama sin fusionar)",
+   "pending": "codevidence-repo"
+  }
+ ],
+ "shots": [],
+ "card_markup": {
+  "title": "Codevidence",
+  "chip_kind": "progress",
+  "chip_en": "Side project · Feb–Mar 2026 · on hold, unfinished",
+  "chip_es": "Proyecto personal · feb–mar 2026 · en pausa, sin terminar",
+  "text_en": "A prototype that scores developers from their GitHub repositories. A Node.js worker on my machine claims jobs from a Firestore queue inside a transaction, clones each repository to a temporary directory that it then deletes, and computes a Skill Score (0–100) from manifests and git history with a fixed formula. A person sets the 0–5 AI-tooling level, and the app makes no LLM calls. It indexes developers without asking them, so the design I would keep is an opt-in self-scan. Built with Claude Code in an autonomous story loop; the page lists what the loop's 'done' flags missed.",
+  "text_es": "Un prototipo que puntúa a desarrolladores a partir de sus repositorios de GitHub. Un worker en Node.js, en mi equipo, toma trabajos de una cola en Firestore dentro de una transacción, clona cada repositorio en un directorio temporal que después borra y calcula un Skill Score (0–100) con una fórmula fija a partir de manifiestos e historial git. El nivel de herramientas de IA (0–5) lo asigna una persona, y la app no llama a ningún LLM. Indexa a desarrolladores sin pedirles permiso, así que el diseño que conservaría es un auto-escaneo voluntario. Construido con Claude Code en un ciclo autónomo de historias; la página detalla lo que las marcas de «terminado» del ciclo no vieron.",
+  "tags": [
+   "TypeScript",
+   "Node.js",
+   "Firebase",
+   "React",
+   "Octokit + simple-git"
+  ],
+  "links_en": "<a href=\"projects/codevidence.html\">Architecture and scoring →</a> · <a href=\"https://github.com/Brownbull/codevidence/tree/ralph/build-candidate-skill-scanner\" data-pending=\"codevidence-repo\">Code (unmerged branch)</a>",
+  "links_es": "<a href=\"projects/codevidence.html\">Arquitectura y puntaje →</a> · <a href=\"https://github.com/Brownbull/codevidence/tree/ralph/build-candidate-skill-scanner\" data-pending=\"codevidence-repo\">Código (rama sin fusionar)</a>"
+ }
+}

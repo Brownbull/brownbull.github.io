@@ -115,5 +115,58 @@
     sync();
   });
 
+
+  // ---- Theme: one button flips light/dark; the choice is remembered, otherwise the OS decides ----
+  var THEME_KEY = "portfolio:theme";
+  var darkMq = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)");
+  function effectiveTheme() {
+    var t = root.getAttribute("data-theme");
+    return t === "dark" || t === "light" ? t : (darkMq && darkMq.matches ? "dark" : "light");
+  }
+  function labelTheme() {
+    var dark = effectiveTheme() === "dark";
+    document.querySelectorAll(".theme-toggle").forEach(function (b) {
+      var label = b.getAttribute(dark ? "data-to-light" : "data-to-dark");
+      b.setAttribute("aria-label", label); b.setAttribute("title", label);
+    });
+  }
+  document.querySelectorAll(".theme-toggle").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var next = effectiveTheme() === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { window.localStorage.setItem(THEME_KEY, next); } catch (e) { /* storage blocked */ }
+      labelTheme();
+    });
+  });
+  if (darkMq && darkMq.addEventListener) darkMq.addEventListener("change", labelTheme);
+  labelTheme();
+
+
+  // ---- Experience tabs: WAI-ARIA tabs with automatic activation; without JS all panels stay visible ----
+  document.querySelectorAll(".xtabs").forEach(function (box) {
+    var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+    var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute("aria-controls")); });
+    if (!tabs.length) return;
+    function select(i, focus) {
+      tabs.forEach(function (t, k) {
+        var on = k === i;
+        t.setAttribute("aria-selected", String(on)); t.tabIndex = on ? 0 : -1;
+        if (panels[k]) panels[k].hidden = !on;
+      });
+      if (focus) tabs[i].focus();
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { select(i, false); });
+      t.addEventListener("keydown", function (e) {
+        var n = tabs.length, j = null;
+        if (e.key === "ArrowRight") j = (i + 1) % n; else if (e.key === "ArrowLeft") j = (i - 1 + n) % n;
+        else if (e.key === "Home") j = 0; else if (e.key === "End") j = n - 1;
+        if (j !== null) { e.preventDefault(); select(j, true); }
+      });
+    });
+    box.classList.add("is-tabs");
+    select(Math.max(0, tabs.findIndex(function (t) { return t.getAttribute("aria-selected") === "true"; })), false);
+  });
+
   setMotion(MOTION.on);
 })();

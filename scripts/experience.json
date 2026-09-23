@@ -1,0 +1,495 @@
+{
+ "hero": {
+  "lede_en": "11+ years in software, more than 10 as an engineer at Experian (2014–2025). I built ETL pipelines in Shell, SQL and later Python, and from 2020 deployed and hardened credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) on mainframe, AIX/Linux and AWS, moving and validating data for models that processed 300M+ data points. Since late 2025 I have built LLM features on my own projects, and since April 2026 FastAPI and PostgreSQL backends with typed LLM outputs.",
+  "lede_es": "Más de 11 años en software, más de 10 de ellos como ingeniero en Experian (2014–2025). Construí pipelines ETL en Shell, SQL y más tarde Python, y desde 2020 desplegué y robustecí modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS, moviendo y validando datos para modelos que procesaron más de 300 millones de puntos de datos. Desde fines de 2025 construyo funcionalidades con LLM en proyectos personales, y desde abril de 2026, backends en FastAPI y PostgreSQL con salidas de LLM tipadas.",
+  "stack_en": [
+   "Python",
+   "pandas",
+   "numpy",
+   "FastAPI",
+   "SQLAlchemy async",
+   "Pydantic",
+   "PydanticAI",
+   "PostgreSQL",
+   "DB2",
+   "MySQL",
+   "Shell",
+   "AWS",
+   "Claude API",
+   "Gemini API"
+  ],
+  "stack_es": [
+   "Python",
+   "pandas",
+   "numpy",
+   "FastAPI",
+   "SQLAlchemy asíncrono",
+   "Pydantic",
+   "PydanticAI",
+   "PostgreSQL",
+   "DB2",
+   "MySQL",
+   "Shell",
+   "AWS",
+   "API de Claude",
+   "API de Gemini"
+  ],
+  "meta_en": "How I build: test first, with a review step, and Claude Code as my main coding tool; I packaged that workflow as Gabe Suite. Statement parsing, reconciliation and match scores stay in plain code; where a model is used, its output comes back typed and is checked in code.",
+  "meta_es": "Cómo construyo: primero la prueba, con un paso de revisión, y Claude Code como mi principal herramienta de programación; empaqueté ese flujo como Gabe Suite. La lectura de estados de cuenta, la conciliación y los puntajes de coincidencia quedan en código convencional; donde uso un modelo, su salida vuelve tipada y se revisa en código."
+ },
+ "intro_en": "Work history first; the other tabs group the same experience by kind of work, and each item says where it happened.",
+ "intro_es": "Primero la trayectoria; las otras pestañas agrupan esa misma experiencia por tipo de trabajo, y cada ítem dice dónde ocurrió.",
+ "languages_en": "Languages: Spanish (native), English (professional fluency, daily working language).",
+ "languages_es": "Idiomas: español (nativo), inglés (fluidez profesional, idioma de trabajo diario).",
+ "roles": [
+  {
+   "when": "2025 – now",
+   "title_en": "Independent projects",
+   "title_es": "Proyectos independientes",
+   "org_en": "Remote, Chile",
+   "org_es": "Remoto, Chile",
+   "bullets_en": [
+    "Since April 2026, FastAPI and PostgreSQL backends for Gastify (expense tracker, test deployment) and Gustify (cooking app, in development). LLM integration in three side projects: Gastify, Gustify and the SRE Triage Agent.",
+    "Solo AgentX Hackathon build with Claude Code (April 7–9, 2026), the SRE Triage Agent; and Gabe Suite, a Claude Code toolkit I have used on my own projects since February 2026."
+   ],
+   "bullets_es": [
+    "Desde abril de 2026, backends en FastAPI y PostgreSQL para Gastify (control de gastos, despliegue de prueba) y Gustify (app de cocina, en desarrollo). Integración de LLM en tres proyectos personales: Gastify, Gustify y SRE Triage Agent.",
+    "Desarrollo individual con Claude Code para el AgentX Hackathon (7 al 9 de abril de 2026), SRE Triage Agent; y Gabe Suite, un kit para Claude Code que uso en mis proyectos desde febrero de 2026."
+   ]
+  },
+  {
+   "when": "2020 – 2025",
+   "title_en": "Senior Software Development Engineer",
+   "title_es": "Senior Software Development Engineer",
+   "org_en": "Experian · Remote, Chile",
+   "org_es": "Experian · Remoto, Chile",
+   "bullets_en": [
+    "Deployed and hardened credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) on mainframe, AIX/Linux and AWS: edge cases, test coverage, regulatory and audit requirements; not tuning the models or owning the score.",
+    "Moved and validated data across mainframe, AIX/Linux and AWS for models that processed 300M+ data points (records covering the US population).",
+    "Cut the Property Attributes aggregation pipeline from 4+ hours to 15 minutes by restructuring the input for vectorized pandas/numpy group operations and moving to write-once, load-once feature loading.",
+    "Fixed production issues for Experian's banking clients within 24–48 hours. Worked directly with their teams, including heads of data science, as the vendor-side engineer.",
+    "Coordinated 4+ engineering teams on cross-platform implementations and guided architecture decisions (data passing, model integration, inference design).",
+    "Trained client and internal engineers on migration tooling and coding standards, and designed migration procedures that were still in use years later."
+   ],
+   "bullets_es": [
+    "Desplegué y robustecí modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS: casos borde, cobertura de pruebas y requisitos regulatorios y de auditoría; sin ajustar los modelos ni ser dueño del score.",
+    "Moví y validé datos entre mainframe, AIX/Linux y AWS para modelos que procesaron más de 300 millones de puntos de datos (registros que cubren a la población de EE. UU.).",
+    "Reduje el pipeline de agregación de Property Attributes de 4 horas o más a 15 minutos, reestructurando la entrada para usar operaciones de agrupación vectorizadas con pandas/numpy y pasando a una carga de features del tipo «escribir una vez, cargar una vez».",
+    "Corregí problemas en producción para los clientes bancarios de Experian en un plazo de 24–48 horas. Trabajé directamente con sus equipos, incluidas sus jefaturas de ciencia de datos, como ingeniero del lado del proveedor.",
+    "Coordiné a 4 o más equipos de ingeniería en implementaciones multiplataforma y orienté decisiones de arquitectura (paso de datos, integración de modelos, diseño de inferencia).",
+    "Capacité a ingenieros de clientes e internos en herramientas de migración y estándares de código, y diseñé procedimientos de migración que seguían en uso años después."
+   ],
+   "when_en": "2020 – Apr 2025",
+   "when_es": "2020 – abr. 2025"
+  },
+  {
+   "when": "2014 – 2020",
+   "title_en": "Software Developer I &amp; II",
+   "title_es": "Software Developer I &amp; II",
+   "org_en": "Experian · Remote, Chile",
+   "org_es": "Experian · Remoto, Chile",
+   "bullets_en": [
+    "Designed and built ETL pipelines in Shell and SQL.",
+    "Administered and optimized DB2, MySQL and PostgreSQL databases.",
+    "Supported critical systems 24/7 for internal and external teams, and built internal tools: MVC-structured Shell libraries, file-format converters and, from 2018, small Python CLI tools."
+   ],
+   "bullets_es": [
+    "Diseñé y construí pipelines ETL en Shell y SQL.",
+    "Administré y optimicé bases de datos DB2, MySQL y PostgreSQL.",
+    "Di soporte 24/7 a sistemas críticos para equipos internos y externos, y construí herramientas internas: librerías de Shell con estructura MVC, conversores de formatos de archivo y, desde 2018, pequeñas herramientas CLI en Python."
+   ]
+  },
+  {
+   "when": "2016 – 2020",
+   "title_en": "<span lang=\"es\">Ingeniero en Informática</span> (equivalent to a B.S. in Computer Science)",
+   "title_es": "Ingeniero en Informática (equivalente a una licenciatura en Ciencias de la Computación)",
+   "org_en": "Universidad Mayor, Chile",
+   "org_es": "Universidad Mayor, Chile",
+   "bullets_en": [],
+   "bullets_es": []
+  }
+ ],
+ "tabs": [
+  {
+   "key": "history",
+   "icon": "history",
+   "label_en": "Work history",
+   "label_es": "Trayectoria",
+   "short_en": "History",
+   "short_es": "Trayectoria",
+   "blurb_en": "",
+   "blurb_es": "",
+   "items": []
+  },
+  {
+   "key": "hard",
+   "icon": "mountain",
+   "label_en": "Hard problems",
+   "label_es": "Problemas difíciles",
+   "short_en": "Hard",
+   "short_es": "Desafíos",
+   "blurb_en": "Problems that took real digging: what broke or was missing, how it was solved, and my part in it. Most from Experian.",
+   "blurb_es": "Problemas que exigieron investigar a fondo: qué fallaba o qué faltaba, cómo se resolvió y cuál fue mi parte. La mayoría, de Experian.",
+   "items": [
+    {
+     "title_en": "A neural network from scratch",
+     "title_es": "Una red neuronal desde cero",
+     "text_en": "Starting from a public tutorial's fixed network, I rebuilt it as a configurable one in Python and NumPy: any number of layers and neurons, with the forward pass, backpropagation and weight updates written by hand, and a Graphviz diagram per epoch that shows how each weight moves.",
+     "text_es": "A partir de la red fija de un tutorial público, la reconstruí como una red configurable en Python y NumPy: cualquier cantidad de capas y neuronas, con el paso hacia adelante, la retropropagación y la actualización de pesos escritos a mano, y un diagrama en Graphviz por época que muestra cómo se mueve cada peso.",
+     "where_en": "Personal project · 2021 · private repo",
+     "where_es": "Proyecto personal · 2021 · repositorio privado",
+     "tech": [
+      "Python",
+      "NumPy",
+      "Graphviz"
+     ],
+     "wide": true,
+     "images": [
+      {
+       "file": "bnn-epochs.webp",
+       "w": 1200,
+       "h": 436,
+       "alt_en": "Two diagrams of the same small network drawn by the program: at epoch 0 the loss is 1.006 and every weight is unchanged; at epoch 250 the loss is 0.0087 and each weight shows its new value, its change and an up or down arrow in green or red.",
+       "alt_es": "Dos diagramas de la misma red pequeña dibujados por el programa: en la época 0 la pérdida es 1,006 y ningún peso ha cambiado; en la época 250 la pérdida es 0,0087 y cada peso muestra su nuevo valor, su cambio y una flecha hacia arriba o abajo en verde o rojo.",
+       "caption_en": "The program's own diagram: epoch 0 against epoch 250, loss from 1.006 to 0.0087.",
+       "caption_es": "El diagrama del propio programa: época 0 frente a época 250, con la pérdida de 1,006 a 0,0087."
+      },
+      {
+       "file": "bnn-derivation-1.webp",
+       "full": "bnn-derivation-1-full.webp",
+       "w": 1800,
+       "h": 1560,
+       "alt_en": "My handwritten-style derivation in Lucidchart for a network with one hidden layer: the feedforward equations, the mean squared error, then the chain rule from the loss to weight w1 step by step, ending with the update rule w1 = w1 − η ∂L/∂w1.",
+       "alt_es": "Mi derivación en Lucidchart para una red con una capa oculta: las ecuaciones del paso hacia adelante, el error cuadrático medio y la regla de la cadena desde la pérdida hasta el peso w1, paso a paso, hasta la regla de actualización w1 = w1 − η ∂L/∂w1.",
+       "caption_en": "My derivation of backpropagation with one hidden layer, from the loss to w1 (Lucidchart notes; click for full size).",
+       "caption_es": "Mi derivación de la retropropagación con una capa oculta, desde la pérdida hasta w1 (notas en Lucidchart; clic para verla completa)."
+      },
+      {
+       "file": "bnn-derivation-2.webp",
+       "full": "bnn-derivation-2-full.webp",
+       "w": 2000,
+       "h": 630,
+       "alt_en": "The same derivation for a network with two hidden layers: every weight's partial derivative written as a chain of terms, with the terms that repeat across weights grouped in colored boxes.",
+       "alt_es": "La misma derivación para una red con dos capas ocultas: la derivada parcial de cada peso escrita como una cadena de términos, con los términos que se repiten entre pesos agrupados en recuadros de colores.",
+       "caption_en": "The same derivation with two hidden layers; repeated terms grouped by color (click for full size).",
+       "caption_es": "La misma derivación con dos capas ocultas; los términos que se repiten, agrupados por color (clic para verla completa)."
+      }
+     ]
+    },
+    {
+     "title_en": "Property attributes at four levels",
+     "title_es": "Atributos de propiedades en cuatro niveles",
+     "text_en": "The first way of coding four attribute sets from property data (by property, state, consumer, and consumer × property) grouped rows by consumer and ran if-else functions over them, and it was very slow. I built a feature framework in Python that the team switched to: features are defined in files, loaded into memory and computed on the fly at each aggregation level, with columnar pandas/NumPy operations instead of row groups and flags as bitwise operations on data encoded as numbers instead of string checks. That rework is where the aggregation speed-up in Work history came from. I implemented and deployed it, coordinated with the AWS data team on loading property records across North America to validate it, and worked with data science on the model inputs and with marketing on specs and data dictionaries.",
+     "text_es": "La primera forma de programar cuatro conjuntos de atributos a partir de datos de propiedades (por propiedad, por estado, por consumidor y por consumidor × propiedad) agrupaba filas por consumidor y les aplicaba funciones con if-else, y era muy lenta. Construí en Python un framework de features que el equipo adoptó: cada feature se define en un archivo, se carga en memoria y se calcula al vuelo en cada nivel de agregación, con operaciones columnares en pandas/NumPy en vez de grupos de filas, y las banderas como operaciones bit a bit sobre datos codificados como números en vez de comparar strings. De ese cambio salió la mejora de velocidad de la agregación que aparece en la Trayectoria. Lo implementé y desplegué, coordiné con el equipo de datos en AWS la carga de los registros de propiedades de Norteamérica para validarlo, y trabajé con ciencia de datos en las entradas del modelo y con marketing en las especificaciones y los diccionarios de datos.",
+     "where_en": "Experian, 2023 · no code to show",
+     "where_es": "Experian, 2023 · sin código para mostrar",
+     "tech": [
+      "Python",
+      "pandas",
+      "NumPy",
+      "AWS"
+     ],
+     "wide": false
+    },
+    {
+     "title_en": "Compute only what the requested outputs need",
+     "title_es": "Calcular solo lo que piden las salidas",
+     "text_en": "Before, every attribute, member and filter was computed at every level, and each function received whole records, such as every field of every credit trade. In the same framework I added a dependency tree built from the output attributes requested: it works out which inputs and intermediate attributes are needed, runs the functions in dependency order without repeating any, and passes each one only the fields it uses; each level appends only what it produces to the output.",
+     "text_es": "Antes se calculaban todos los atributos, miembros y filtros en todos los niveles, y cada función recibía registros completos, como todos los campos de cada trade de crédito. En el mismo framework agregué un árbol de dependencias construido a partir de los atributos de salida pedidos: determina qué entradas y atributos intermedios hacen falta, ejecuta las funciones en orden de dependencia sin repetir ninguna y le pasa a cada una solo los campos que usa; cada nivel agrega a la salida solo lo que produce.",
+     "where_en": "Experian, 2023 · Property Attributes",
+     "where_es": "Experian, 2023 · Property Attributes",
+     "tech": [
+      "Python"
+     ]
+    },
+    {
+     "title_en": "Numbers misread between AIX and Linux",
+     "title_es": "Números mal leídos entre AIX y Linux",
+     "text_en": "Many cross-platform differences traced back to C code that converted numbers between AIX (big-endian) and Linux (little-endian) machines and misread one data type. We fixed it as a team with an internal conversion table that accounts for both byte orders. My part: I found the discrepancies, helped trace the cause and design the fix, then deployed it and verified the results; a teammate wrote the code change.",
+     "text_es": "Muchas diferencias entre plataformas venían de código en C que convertía números entre máquinas AIX (big-endian) y Linux (little-endian) y leía mal un tipo de dato. Lo resolvimos en equipo con una tabla interna de conversión que considera ambos órdenes de bytes. Mi parte: encontré las diferencias, ayudé a rastrear la causa y a definir la solución, y luego la desplegué y verifiqué los resultados; el cambio de código lo escribió un compañero.",
+     "where_en": "Experian",
+     "where_es": "Experian",
+     "tech": [
+      "C",
+      "AIX",
+      "Linux"
+     ]
+    },
+    {
+     "title_en": "A memory allocation that overflowed its integer type",
+     "title_es": "Una asignación de memoria que desbordó su tipo entero",
+     "text_en": "A memory allocation whose size overflowed the integer type in the function's signature wrote over other memory during mainframe batch (JCL) runs. As a team we traced it with mainframe debugging tools and fixed it by capping each allocation and requesting a second block, or allocating more statically. My part: I found it, helped trace it and design the fix, then deployed it and verified it; a teammate wrote the code change.",
+     "text_es": "Una asignación de memoria cuyo tamaño desbordó el tipo entero de la firma de la función escribía encima de otra memoria durante ejecuciones batch (JCL) en mainframe. En equipo la rastreamos con herramientas de depuración de mainframe y la corregimos limitando cada asignación y pidiendo un segundo bloque, o asignando de forma más estática. Mi parte: la encontré, ayudé a rastrearla y a definir la solución, y luego la desplegué y verifiqué; el cambio de código lo escribió un compañero.",
+     "where_en": "Experian",
+     "where_es": "Experian",
+     "tech": [
+      "IBM mainframe",
+      "JCL"
+     ]
+    },
+    {
+     "title_en": "A 3D graph to trace an attribute back",
+     "title_es": "Un grafo 3D para rastrear un atributo hacia atrás",
+     "text_en": "Tracing where an attribute difference could come from meant following its logic by hand from input to output, so I wrote Python scripts that parse the attribute definition files and draw each attribute's chain, through members and filters back to the raw input fields, as an interactive 3D dependency graph (Plotly, igraph), with each definition on hover and a view narrowed to chosen attributes. Built for my own debugging; a colleague added setup steps and a config file, and the team used it afterwards.",
+     "text_es": "Rastrear de dónde podía venir una diferencia en un atributo obligaba a seguir su lógica a mano desde la entrada hasta la salida, así que escribí scripts en Python que leen los archivos de definición de atributos y dibujan la cadena de cada atributo, a través de miembros y filtros, hasta los campos de entrada, como un grafo 3D interactivo de dependencias (Plotly, igraph), con cada definición al pasar el mouse y una vista acotada a los atributos elegidos. Lo hice para mi propia depuración; un colega agregó los pasos de instalación y un archivo de configuración, y después lo usó el equipo.",
+     "where_en": "Experian, 2018",
+     "where_es": "Experian, 2018",
+     "tech": [
+      "Python",
+      "Plotly",
+      "igraph"
+     ]
+    }
+   ]
+  },
+  {
+   "key": "backend",
+   "icon": "server",
+   "label_en": "Backend & APIs",
+   "label_es": "Backend y APIs",
+   "short_en": "Backend",
+   "short_es": "Backend",
+   "blurb_en": "FastAPI and PostgreSQL services in side projects since April 2026; before that, DB2, MySQL and PostgreSQL administration at Experian (2014–2020).",
+   "blurb_es": "Servicios en FastAPI y PostgreSQL en proyectos personales desde abril de 2026; antes, administración de bases de datos DB2, MySQL y PostgreSQL en Experian (2014–2020).",
+   "items": [
+    {
+     "title_en": "Async Python APIs",
+     "title_es": "APIs asíncronas en Python",
+     "text_en": "FastAPI services on async SQLAlchemy 2.0, with Alembic migrations and PostgreSQL, in three projects: Gastify, Gustify and the SRE Triage Agent.",
+     "text_es": "Servicios en FastAPI sobre SQLAlchemy 2.0 asíncrono, con migraciones en Alembic y PostgreSQL, en tres proyectos: Gastify, Gustify y SRE Triage Agent.",
+     "tech": [
+      "Python",
+      "FastAPI",
+      "SQLAlchemy",
+      "Alembic",
+      "PostgreSQL"
+     ],
+     "where_en": "Gastify · Gustify · SRE Triage Agent, 2026",
+     "where_es": "Gastify · Gustify · SRE Triage Agent, 2026"
+    },
+    {
+     "title_en": "Row-level security on the ledger tables",
+     "title_es": "Row-level security en las tablas de movimientos",
+     "text_en": "Row-level security filters the ledger, statement and reconciliation tables by each request's ownership scope (personal or shared group); the API refuses to start if its database role could bypass it.",
+     "text_es": "Row-level security filtra las tablas de movimientos, estados de cuenta y conciliación según a quién pertenece cada solicitud (persona o grupo); la API no arranca si su rol de base de datos podría saltársela.",
+     "tech": [
+      "PostgreSQL 16",
+      "SQLAlchemy",
+      "FastAPI"
+     ],
+     "where_en": "Gastify · 2026",
+     "where_es": "Gastify · 2026"
+    },
+    {
+     "title_en": "CI that proves the isolation tests ran",
+     "title_es": "CI que demuestra que las pruebas de aislamiento corrieron",
+     "text_en": "CI fails if the row-level-security tests on real Postgres 16 were skipped, so a green build cannot hide untested isolation. Backend coverage floor: 80%.",
+     "text_es": "La CI falla si se saltaron las pruebas de row-level security sobre un Postgres 16 real, así que un build en verde no puede esconder un aislamiento sin probar. Piso de cobertura del backend: 80 %.",
+     "tech": [
+      "GitHub Actions",
+      "pytest",
+      "mypy",
+      "ruff",
+      "pip-audit"
+     ],
+     "where_en": "Gastify · 2026",
+     "where_es": "Gastify · 2026"
+    },
+    {
+     "title_en": "Allergy rules enforced in SQL",
+     "title_es": "Alergias aplicadas en SQL",
+     "text_en": "Declared allergies are applied in the query's WHERE clause before any scoring, and opening an excluded recipe directly by its id returns 403.",
+     "text_es": "Las alergias declaradas se aplican en el WHERE de la consulta antes de cualquier puntaje, y abrir directamente por id una receta excluida responde 403.",
+     "tech": [
+      "PostgreSQL",
+      "SQLAlchemy",
+      "FastAPI"
+     ],
+     "where_en": "Gustify · 2026, in development",
+     "where_es": "Gustify · 2026, en desarrollo"
+    }
+   ]
+  },
+  {
+   "key": "data",
+   "icon": "database",
+   "label_en": "Data pipelines & validation",
+   "label_es": "Pipelines de datos y validación",
+   "short_en": "Data",
+   "short_es": "Datos",
+   "blurb_en": "Moving data between platforms and validating that it stays consistent: credit-risk model data at Experian, and card statements in Gastify, a side project.",
+   "blurb_es": "Mover datos entre plataformas y validar que lleguen consistentes: datos de modelos de riesgo crediticio en Experian, y estados de cuenta de tarjetas en Gastify, un proyecto personal.",
+   "items": [
+    {
+     "title_en": "Output comparison across platforms",
+     "title_es": "Comparación de salidas entre plataformas",
+     "text_en": "Python scripts I wrote on an existing comparison library, with my own changes on top, compare a model's outputs from its mainframe, AIX/Linux and AWS runs value by value and produce distribution and comparison reports that highlight each difference row by row and column by column.",
+     "text_es": "Scripts en Python que escribí sobre una biblioteca de comparación existente, con cambios propios encima, comparan valor por valor las salidas de un modelo en mainframe, AIX/Linux y AWS, y generan reportes de distribución y de comparación que marcan cada diferencia fila por fila y columna por columna.",
+     "where_en": "Experian",
+     "where_es": "Experian",
+     "tech": [
+      "Python",
+      "IBM mainframe",
+      "AIX/Linux",
+      "AWS"
+     ]
+    },
+    {
+     "title_en": "Statement parsing without a model call",
+     "title_es": "Lectura de estados de cuenta sin llamar a un modelo",
+     "text_en": "A PyMuPDF parser reads three known Chilean card-statement layouts from word positions, with no model call; only files below 0.80 confidence take a consented LLM fallback.",
+     "text_es": "Un parser con PyMuPDF lee tres formatos conocidos de estados de cuenta de tarjetas chilenas a partir de la posición de las palabras, sin llamar a un modelo; solo los archivos bajo 0,80 de confianza pasan a un respaldo con LLM consentido.",
+     "tech": [
+      "Python",
+      "PyMuPDF"
+     ],
+     "where_en": "Gastify · 2026",
+     "where_es": "Gastify · 2026"
+    },
+    {
+     "title_en": "Reconciliation that explains itself",
+     "title_es": "Conciliación que se explica sola",
+     "text_en": "A statement line matches a saved transaction only past five hard filters (card, currency, ±3 days, ±1% amount, merchant similarity ≥ 0.72); near-ties are marked ambiguous, and every verdict stores its reasons.",
+     "text_es": "Una línea del estado de cuenta calza con una transacción guardada solo si pasa cinco filtros estrictos (tarjeta, moneda, ±3 días, ±1 % del monto, similitud del comercio ≥ 0,72); los casi empates quedan como ambiguos y cada veredicto guarda sus razones.",
+     "tech": [
+      "Python",
+      "PostgreSQL",
+      "SQLAlchemy"
+     ],
+     "where_en": "Gastify · 2026",
+     "where_es": "Gastify · 2026"
+    }
+   ]
+  },
+  {
+   "key": "llm",
+   "icon": "sparkles",
+   "label_en": "LLM integration",
+   "label_es": "Integración de LLM",
+   "short_en": "LLM",
+   "short_es": "LLM",
+   "blurb_en": "LLM calls inside three side projects since late 2025: Gastify, the SRE Triage Agent and Gustify (Gemini generator built, switched off). Each call returns a typed result that plain code checks.",
+   "blurb_es": "Llamadas a LLM dentro de tres proyectos personales desde fines de 2025: Gastify, SRE Triage Agent y Gustify (generador con Gemini construido, apagado). Cada llamada devuelve un resultado tipado que revisa código convencional.",
+   "items": [
+    {
+     "title_en": "Typed extraction checked by arithmetic",
+     "title_es": "Extracción tipada revisada con aritmética",
+     "text_en": "Gemini, through PydanticAI, turns a receipt photo into typed merchant, items and totals; plain code then checks items + tax − discount against the printed total and flags any gap over one unit.",
+     "text_es": "Gemini, vía PydanticAI, convierte la foto de una boleta en comercio, ítems y totales tipados; luego código convencional compara ítems + impuesto − descuento con el total impreso y marca cualquier diferencia mayor a una unidad.",
+     "tech": [
+      "Python",
+      "PydanticAI",
+      "Gemini",
+      "FastAPI"
+     ],
+     "where_en": "Gastify · 2026",
+     "where_es": "Gastify · 2026"
+    },
+    {
+     "title_en": "A consented fallback that sends rows, not the PDF",
+     "title_es": "Un respaldo consentido que envía filas, no el PDF",
+     "text_en": "When the parser cannot read a layout (below 0.80 confidence) and the user consented, Gemini gets compact row evidence, not the PDF, and returns a typed layout profile that plain code applies.",
+     "text_es": "Cuando el parser no puede leer un formato (confianza bajo 0,80) y el usuario dio su consentimiento, Gemini recibe evidencia compacta de las filas, no el PDF, y devuelve un perfil de formato tipado que aplica código convencional.",
+     "tech": [
+      "Gemini",
+      "PydanticAI",
+      "PyMuPDF"
+     ],
+     "where_en": "Gastify · 2026",
+     "where_es": "Gastify · 2026"
+    },
+    {
+     "title_en": "Guardrails before the model, a citation check after",
+     "title_es": "Guardrails antes del modelo, verificación de citas después",
+     "text_en": "24 weighted regex patterns reject prompt-injection, SQL-injection and XSS attempts before any model call; afterwards, every file path the model cites is checked against the repo and marked UNVERIFIED if missing.",
+     "text_es": "24 patrones regex ponderados rechazan intentos de prompt injection, SQL injection y XSS antes de llamar al modelo; después, cada ruta de archivo que cita el modelo se contrasta con el repo y, si no existe, se marca como UNVERIFIED.",
+     "tech": [
+      "Python",
+      "FastAPI"
+     ],
+     "where_en": "SRE Triage Agent · hackathon build, April 2026",
+     "where_es": "SRE Triage Agent · desarrollo de hackathon, abril de 2026"
+    },
+    {
+     "title_en": "One typed result, three engines",
+     "title_es": "Un resultado tipado, tres motores",
+     "text_en": "Claude Haiku 4.5 (Anthropic SDK, default), Gemini 2.5 Flash (optional LangChain engine, Groq fallback) and an experimental Managed Agents engine (beta) all return one Pydantic TriageResult; if one fails, the next runs.",
+     "text_es": "Claude Haiku 4.5 (Anthropic SDK, por defecto), Gemini 2.5 Flash (motor opcional con LangChain y Groq como respaldo) y un motor experimental de Managed Agents (beta) devuelven el mismo TriageResult de Pydantic; si uno falla, corre el siguiente.",
+     "tech": [
+      "Anthropic SDK",
+      "Claude",
+      "Gemini",
+      "Pydantic"
+     ],
+     "where_en": "SRE Triage Agent · hackathon build, April 2026",
+     "where_es": "SRE Triage Agent · desarrollo de hackathon, abril de 2026"
+    }
+   ]
+  },
+  {
+   "key": "aidev",
+   "icon": "bot",
+   "label_en": "AI-assisted development",
+   "label_es": "Desarrollo asistido por IA",
+   "short_en": "AI dev",
+   "short_es": "Con IA",
+   "blurb_en": "Tools and agents I built around Claude Code, my main coding tool, for my own work since early 2026. Before that, GitHub Copilot at Experian (2024) for model implementation.",
+   "blurb_es": "Herramientas y agentes que construí en torno a Claude Code, mi principal herramienta de programación, para mi propio trabajo desde inicios de 2026. Antes, GitHub Copilot en Experian (2024) para implementar modelos.",
+   "items": [
+    {
+     "title_en": "A test-first loop with hooks that block",
+     "title_es": "Un ciclo test-first con hooks que bloquean",
+     "text_en": "Gabe Suite: 28 Claude Code skills (as of September 2026) walk a test-first loop from plan to push; 2 of its 9 hooks block, e.g. a plan step marked done without proof.",
+     "text_es": "Gabe Suite: 28 skills de Claude Code (a septiembre de 2026) recorren un ciclo test-first del plan al push; 2 de sus 9 hooks bloquean, p. ej. un paso del plan marcado como listo sin su evidencia.",
+     "tech": [
+      "Claude Code",
+      "Bash",
+      "Python",
+      "Markdown"
+     ],
+     "where_en": "Gabe Suite · public repo, since February 2026",
+     "where_es": "Gabe Suite · repositorio público, desde febrero de 2026"
+    },
+    {
+     "title_en": "Two MCP servers on the standard library",
+     "title_es": "Dos servidores MCP con la biblioteca estándar",
+     "text_en": "gabe-map exposes a project's committed code map as 18 query tools, so agents stop grepping; gabe-kdbp exposes the workflow state as 7 read-only tools. Both are Python standard library over stdio.",
+     "text_es": "gabe-map expone el mapa de código versionado de un proyecto como 18 herramientas de consulta, para que los agentes dejen de hacer grep; gabe-kdbp expone el estado del flujo de trabajo como 7 herramientas de solo lectura. Ambos usan solo la biblioteca estándar de Python sobre stdio.",
+     "tech": [
+      "MCP",
+      "Python",
+      "JSON-RPC"
+     ],
+     "where_en": "Gabe Suite · September 2026",
+     "where_es": "Gabe Suite · septiembre de 2026"
+    },
+    {
+     "title_en": "Documentation generated from the code",
+     "title_es": "Documentación generada desde el código",
+     "text_en": "Python's ast module reads FastAPI routes, SQLAlchemy models and Pydantic schemas into documentation pages, with no LLM call; a committed JSON code map puts architecture changes in pull-request diffs.",
+     "text_es": "El módulo ast de Python lee rutas de FastAPI, modelos de SQLAlchemy y esquemas de Pydantic y genera páginas de documentación, sin llamar a un LLM; un mapa de código en JSON versionado deja los cambios de arquitectura a la vista en el diff de cada pull request.",
+     "tech": [
+      "Python (ast, standard library)",
+      "JSON",
+      "static HTML"
+     ],
+     "where_en": "Gabe Command Center · part of Gabe Suite, used in two of my private repos",
+     "where_es": "Gabe Command Center · parte de Gabe Suite, en uso en dos de mis repos privados"
+    },
+    {
+     "title_en": "22 agents with human review",
+     "title_es": "22 agentes con revisión humana",
+     "text_en": "22 Claude Code agents (as of September 2026) for my own paperwork, research and side projects; in 15, escalation rules written as prose tell the agent to hand decisions to me.",
+     "text_es": "22 agentes de Claude Code (a septiembre de 2026) para mis propios trámites, investigación y proyectos personales; en 15, reglas de escalamiento escritas en prosa le indican al agente que me devuelva la decisión.",
+     "tech": [
+      "Claude Code",
+      "YAML",
+      "Markdown"
+     ],
+     "where_en": "Personal agent platform · internal use, since January 2026",
+     "where_es": "Plataforma personal de agentes · uso interno, desde enero de 2026"
+    }
+   ]
+  }
+ ]
+}

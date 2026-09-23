@@ -90,7 +90,8 @@ def icon(name: str, cls: str = "i") -> str:
             attrs.pop("key", None)
             parts.append(f"<{tag} " + " ".join(f'{k}="{v}"' for k, v in attrs.items()) + "/>")
         _cache[name] = "".join(parts)
-    return (f'<svg class="{cls}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+    return (f'<svg class="{cls}" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" '
+            f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
             f"{_cache[name]}</svg>")
 
 

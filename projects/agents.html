@@ -19,7 +19,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/site.css">
+  <script id="theme-init">try{var t=localStorage.getItem("portfolio:theme");if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>
+  <link rel="stylesheet" href="../assets/css/site.css?v=b4516269">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -32,7 +33,7 @@
         <a href="../index.html#experience">Experience</a>
         <a href="../index.html#contact">Contact</a>
         <a href="../cv.pdf">CV (PDF)</a>
-        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/agents.html" hreflang="es" lang="es">ES</a></span>
+        <span class="lang" role="group" aria-label="Language"><span aria-current="true">EN</span><a href="../es/projects/agents.html" hreflang="es" lang="es">ES</a></span><button type="button" class="theme-toggle" data-to-dark="Switch to dark theme" data-to-light="Switch to light theme" aria-label="Switch to dark theme" title="Switch to dark theme"><svg class="i moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401"/></svg><svg class="i sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
       </nav>
     </div>
   </header>
@@ -43,15 +44,15 @@
 
       <div class="case-head">
         <div class="chips">
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Internal use · private repo</span>
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>22 agents · since January 2026</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Internal use · private repo</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>22 agents · since January 2026</span>
         </div>
         <h1>Personal agent platform</h1>
         <p class="lede">A private set of 22 Claude Code agents I built for my own paperwork, research and side projects. Each one owns a domain and carries its own knowledge and state; most run their cases through the same outline: intake, analysis, a draft and my review. This page describes how it is put together.</p>
       </div>
 
       <figure class="diagram" data-fx="flow-agents" tabindex="0">
-          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
+          <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
           <svg viewBox="0 0 952 390" role="img" aria-labelledby="ag-title ag-desc">
           <title id="ag-title">How one agent is put together</title>
           <desc id="ag-desc">A slash command loads an agent definition: a YAML file with the agent's role, its commands and its session hooks. The definition loads a sidecar folder holding the working method and preferences, a curated knowledge base, dynamic state such as the pipeline or open cases, and instincts. The agent then runs a case through four steps: intake with the questions that change the answer, analysis against its knowledge, a draft deliverable, and a human review. A shared layer of guardrails applies: escalation rules (in 15 of the 22 agents) that tell the agent to stop and hand the decision to me or refer it to a professional, prohibited phrasings, sources cited with their confidence, and deliverables written for my review; nothing is published or sent without my confirmation.</desc>
@@ -88,7 +89,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>What it is for</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>What it is for</h2>
         <p>Every agent covers one domain I actually deal with, so the work that used to be a blank page starts from a method, a knowledge base and a record of what happened last time.</p>
         <ul class="points">
           <li><strong>Paperwork with rules I keep forgetting:</strong> tax questions and filings, legal correspondence, the audit documentation of a rural drinking-water committee, and the administration of a shared land plot.</li>
@@ -102,7 +103,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 22V7a1 1 0 0 0-1-1H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-5a1 1 0 0 0-1-1H2"/><rect x="14" y="2" width="8" height="8" rx="1"/></svg>How it is built</h2>
         <ul class="points">
           <li><strong>One YAML definition per agent.</strong> Role and voice, a menu of commands (8 to 31 per agent, more than 400 across the set), the files to load when a session starts, and checks to run before and after a command.</li>
           <li><strong>A sidecar next to it.</strong> The working method, my preferences, a curated knowledge base loaded selectively rather than all at once, dynamic state (open cases, pipelines), and instincts: rules of thumb, most seeded from best practice and a few added after real cases, each with a starting confidence value and, in several agents, a rule (not yet applied) for raising or lowering it when a call turns out right or wrong.</li>
@@ -115,7 +116,7 @@
 
     <section>
       <div class="wrap prose">
-        <h2><svg class="i i-title" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Limits</h2>
+        <h2><svg class="i i-title" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Limits</h2>
         <div class="limits">
           <ul class="points">
             <li>Internal use, one user, one machine. It is not a product and it is not multi-user.</li>
@@ -145,6 +146,6 @@
       </ul>
     </div>
   </footer>
-  <script src="../assets/js/site.js" defer></script>
+  <script src="../assets/js/site.js?v=bee5530a" defer></script>
 </body>
 </html>

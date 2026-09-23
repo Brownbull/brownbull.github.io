@@ -7,6 +7,8 @@ carousel. The diagram uses the same grammar as the hand-drawn case-study diagram
 
     python3 scripts/build_projects.py          # write pages + card carousels
     python3 scripts/add_icons.py               # then add icons and the animation toggle
+    python3 scripts/add_logos.py               # then technology logos on every stack tag
+    python3 scripts/stamp_chrome.py            # last: theme button, icon attributes, cache-busting
 """
 from __future__ import annotations
 
@@ -122,10 +124,13 @@ def carousel(shots: list[dict], lang: str, name: str, prefix: str, compact: bool
     for i, s in enumerate(shots):
         lazy = "" if (i == 0 and not compact) else ' loading="lazy"'
         fit = ' class="fit-left"' if s.get("fit") == "left" else ""
+        # optional full-size version, opened in a new tab (dense images such as handwritten derivations)
+        open_a = (f'<a class="car-full" href="{prefix}assets/img/{s["full"]}" target="_blank" rel="noopener">' if s.get("full") else "")
+        close_a = "</a>" if s.get("full") else ""
         slides.append(
             f'<figure class="car-slide" role="group" aria-roledescription="slide" aria-label="{i + 1} {t["of"]} {n}">'
-            f'<div class="car-img"><img{fit} src="{prefix}assets/img/{s["file"]}" width="{s["w"]}" height="{s["h"]}" '
-            f'alt="{e(s["alt_" + lang])}"{lazy}></div>'
+            f'<div class="car-img">{open_a}<img{fit} src="{prefix}assets/img/{s["file"]}" width="{s["w"]}" height="{s["h"]}" '
+            f'alt="{e(s["alt_" + lang])}"{lazy}>{close_a}</div>'
             f'<figcaption>{e(s["caption_" + lang])}</figcaption></figure>')
     dots = "".join(f'<button type="button" class="car-dot" aria-label="{t["goto"]} {i + 1}"'
                    f' aria-current="{"true" if i == 0 else "false"}"></button>' for i in range(n))
@@ -169,13 +174,17 @@ def page(spec: dict, lang: str, next_spec: dict | None) -> str:
     links = " · ".join(f'<a href="{e(l["url"])}"{pend(l)}>{e(l["label_" + lang])}</a>' for l in spec.get("links", [])) \
         or f'<span class="muted">{e(spec.get("no_links_" + lang, ""))}</span>'
     facts = (f'<div><dt>{t["status"]}</dt><dd>{e(spec["status_" + lang])}</dd></div>'
-             f'<div><dt>{t["stack"]}</dt><dd>{e(" · ".join(spec["stack"]))}</dd></div>'
+             f'<div class="stack-row"><dt>{t["stack"]}</dt><dd><ul class="tags" aria-label="{t["stack"]}">'
+             + "".join(f"<li>{e(x)}</li>" for x in spec["stack"]) + '</ul></dd></div>'
              f'<div><dt>{t["links"]}</dt><dd>{links}</dd></div>')
     caption = spec["architecture"].get("caption_" + lang)
     nxt = ""
     if next_spec:
         nxt = f'<a href="{next_spec["slug"]}.html">{e(next_spec.get("name_" + lang, next_spec["name"]))} {t["next_proj"]}</a>'
     og_locale = '\n  <meta property="og:locale" content="es_CL">' if lang == "es" else ""
+    # A project without screenshots yet gets no Screens section (and no empty carousel).
+    screens = (f'<section class="project-screens" aria-label="{t["screens"]}">\n        '
+               f'{carousel(spec["shots"], lang, name, up, compact=False)}\n      </section>') if spec.get("shots") else ""
     return f"""<!doctype html>
 <html lang="{lang}">
 <head>
@@ -225,9 +234,7 @@ def page(spec: dict, lang: str, next_spec: dict | None) -> str:
         <p class="lede">{e(spec["lede_" + lang])}</p>
       </div>
 
-      <section class="project-screens" aria-label="{t["screens"]}">
-        {carousel(spec["shots"], lang, name, up, compact=False)}
-      </section>
+      {screens}
     </div>
 
     <section>
@@ -316,6 +323,8 @@ def main() -> int:
         for lang, base in (("en", ROOT / "projects"), ("es", ROOT / "es" / "projects")):
             (base / f"{sp['slug']}.html").write_text(page(sp, lang, nxt), encoding="utf-8")
     for sp in specs:
+        if not sp.get("shots"):
+            continue  # no carousel to put on the card; its card is written by hand in the index
         for lang, idx in (("en", ROOT / "index.html"), ("es", ROOT / "es" / "index.html")):
             href = f"projects/{sp['slug']}.html" if sp.get("page", True) else None
             card_carousel(idx, lang, sp["card"], sp["shots"], sp.get("name_" + lang, sp["name"]), href)
