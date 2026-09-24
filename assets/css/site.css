@@ -1,6 +1,14 @@
 /* Portfolio — Gabriel Cárcamo
    One stylesheet, no build step. Tokens on :root; dark theme via prefers-color-scheme,
-   overridable per visitor with :root[data-theme] (header button). */
+   overridable per visitor with :root[data-theme] (header button).
+   Four layers, in this order (a later layer overrides an earlier one by source order):
+     1. Base: tokens, layout and components (this top part).
+     2. Apple layer: the site's look — neutrals, full-bleed bands, tiles, large type, a glass header
+        that stays one row at every width.
+     3. Animated background (:root.has-bg): scrim, card material and the background toast for the
+        canvases assets/js/fondo.js draws behind the page.
+     4. Scroll reveal: the states assets/js/reveal.js moves elements through.
+   Without JS the page is layers 1 and 2 only: nothing moves and nothing is hidden. */
 
 :root {
   --bg: #f7f6f3;
@@ -490,15 +498,22 @@ h2 { display: flex; align-items: center; gap: 10px; }
 .facts .stack-row { grid-column: 1 / -1; }
 .facts dd .tags { margin-top: 6px; }
 
-/* Theme button: one press flips light/dark. Shows the moon on the light theme, the sun on the dark one. */
-.theme-toggle {
+/* Theme button: one press flips light/dark. Shows the moon on the light theme, the sun on the dark one.
+   Motion button (.motion-toggle, right after it): the same control, everywhere below. It pauses and
+   plays every animation (WCAG 2.2.2) through site.js; it shows pause while things move and play once
+   <html data-motion="off">. fondo.js hides it (hidden attribute) when the OS asks to reduce motion. */
+.theme-toggle, .motion-toggle {
   display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; cursor: pointer;
   border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
   transition: border-color .2s ease, color .2s ease;
 }
-.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
-.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.theme-toggle .i { width: 16px; height: 16px; }
+.theme-toggle:hover, .motion-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle:focus-visible, .motion-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle .i, .motion-toggle .i { width: 16px; height: 16px; }
+.motion-toggle[hidden] { display: none; }   /* the display above would otherwise beat [hidden] */
+.motion-toggle .play { display: none; }
+:root[data-motion="off"] .motion-toggle .pause { display: none; }
+:root[data-motion="off"] .motion-toggle .play { display: block; }
 .theme-toggle .sun { display: none; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
@@ -506,7 +521,10 @@ h2 { display: flex; align-items: center; gap: 10px; }
 }
 :root[data-theme="dark"] .theme-toggle .sun { display: block; }
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
-@media (prefers-reduced-motion: reduce) { .theme-toggle { transition: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle { transition: none; }
+  .motion-toggle { display: none; }   /* nothing moves: nothing to pause */
+}
 
 /* ---------- Experience tabs (WAI-ARIA tabs; without JS every panel shows, stacked) ---------- */
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
@@ -559,7 +577,7 @@ h2 { display: flex; align-items: center; gap: 10px; }
   .nav-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .lang { margin-left: 4px; }
   .lang [aria-current] { display: none; }
-  .theme-toggle { width: 30px; height: 30px; }
+  .theme-toggle, .motion-toggle { width: 30px; height: 30px; }
 }
 @media (max-width: 370px) {
   .brand { font-size: 15px; }
@@ -571,4 +589,727 @@ h2 { display: flex; align-items: center; gap: 10px; }
   .nav > a { min-width: 26px; padding: 0 2px; }
   .lang { margin-left: 2px; }
   .lang > * { padding: 4px 7px; }
+}
+
+/* =====================================================================================
+   2. Apple layer — the site's look (ported from the redesign branch, 2026-09-24)
+   ===================================================================================== */
+/* Comes after the base rules and changes no content or reading order. What it changes, top to bottom:
+   Apple neutrals (pure black dark mode), full-bleed section bands that alternate two neutrals,
+   tiles set apart by fill alone, large tight headlines, one glass bar, a one-row header at every
+   width. No Apple trademarks, logos or font files: SF Pro is only named, so it renders where the OS
+   already has it. Text floor stays 12px. Focus outlines are the base layer's and are never removed here.
+   Entrance animation is not in this layer: reveal.js and the Scroll reveal layer own it (a
+   view()-timeline reveal finished within 160px of entry and read as "already there").
+
+   HIG references (apple-skill/references/hig), cited where they apply below:
+     design-principles.md › Simplicity ("Establish hierarchy"), › Delight ("Don't mistake delight
+       for decoration")
+     typography.md › Conveying hierarchy, › Ensuring legibility (17 pt default), › Tracking values
+     color.md › Best practices ("Avoid using the same color to mean different things"; light, dark
+       and increased contrast variants)
+     layout.md › Visual hierarchy ("negative space, container shapes, or separator lines"; "Order
+       content by relative importance")
+     materials.md › Liquid Glass ("Don't use Liquid Glass in the content layer")
+     dark-mode.md › Dark Mode colors (≥ 4.5:1, strive for 7:1 in small text), › Mobile (base and
+       elevated backgrounds: the elevated one is brighter)
+     motion.md › Best practices ("Add motion purposefully"; "Make motion optional")
+     accessibility.md › Mobility (44×44 pt default target, 28×28 pt minimum)
+
+   Contrast (WCAG 2.x, computed on the redesign branch; every pair, both themes, with and without
+   .has-bg):
+     light  band A #ffffff · band B #f5f5f7 · tile on A #f5f5f7 · tile on B #ffffff
+       ink #1d1d1f 15.46–16.83 · muted #515154 7.26–7.91 · accent #0e6b61 5.85–6.37
+       primary label #fff on accent 6.37 · selected tab #fff on ink 16.83
+       tags: muted on the 6% ink fill 6.46–7.01 · buttons/tabs: ink on the 7% tint ≥ 13.50
+       UI marks: line-strong #86868b 3.33–3.62 · focus ring (accent) ≥ 5.85
+       header glass (#fff 80%) over a black pixel = #cccccc: ink 10.48 · header-muted #48484c 5.67
+         · focus ring 3.97
+     dark   band A #000000 · band B #161617 · tile on A #1c1c1e · tile on B #252527
+       ink #f5f5f7 14.05–19.29 · muted #aeaeb2 6.92–9.50 · accent #5cc0b2 7.02–9.64
+       primary label #0c1a18 on accent 8.19 · selected tab #000 on ink 19.29
+       tags: muted on the 6% ink fill 5.87–8.67 · buttons/tabs: ink on the 7% tint ≥ 11.41
+       UI marks: line-strong #7c7c80 3.68–5.05 · focus ring ≥ 7.02
+       header glass (#000 80%) over a white pixel = #333333: ink 11.60 · header-muted #c7c7cc 7.50
+         · focus ring 5.80
+     .has-bg (layer 3 owns --muted/--accent there; the whiter/blacker --bg only helps):
+       light, worst pixel per scrim row: muted #4a4843 ≥ 4.97, accent #094d46 ≥ 5.29, ink ≥ 9.16;
+         on the card material muted ≥ 6.93
+       dark 76% over a white pixel = #3d3d3d: ink 9.98 · muted #c2c0b9 5.97 · accent #7fd3c7 6.23
+     opaque pieces on tiles, both themes: chips 5.39–8.30 · diagram sub-labels ≥ 5.91 (on the
+       accent-soft AI node) · Play/Pause on the diagram ≥ 5.39
+     selected text (::selection) on bands and tiles ≥ 4.65 */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* System face first. On Apple devices -apple-system is SF Pro with dynamic optical sizes
+     (Text cut for body, Display cut for headlines). Elsewhere Inter stands in (Google Fonts). */
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, "Segoe UI", Roboto, sans-serif;
+  /* Mono is kept for data only (dates, counters, code): SF Mono on Apple devices. */
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "IBM Plex Mono", Consolas, monospace;
+  /* Diagrams keep the faces their SVG coordinates were laid out for (952px viewBox, 1:1). */
+  --font-diagram: "IBM Plex Sans", system-ui, sans-serif;
+  --font-diagram-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Apple neutrals. The teal accent and the chip colours are the brand and stay the base layer's.
+     --bg is band A (and the page), --surface the tile on it; band B flips both locally (below). */
+  --bg: #ffffff;
+  --surface: #f5f5f7;
+  --band-b: #f5f5f7;
+  --tile-b: #ffffff;
+  --ink: #1d1d1f;
+  --muted: #515154;          /* ≥ 7:1 on every band and tile (dark-mode.md: strive for 7:1) */
+  --line: #d2d2d7;
+  --line-strong: #86868b;    /* carousel dots, diagram strokes: ≥ 3:1 */
+  --on-ink: #ffffff;         /* label on an ink-filled "selected" control */
+
+  --gutter: clamp(20px, 3.2vw, 32px);  /* 20px on phones, as before: the one-row header is tuned for it */
+  /* 952px diagram + 2×20px padding + 2px border = 994px: the wrap holds it at the 32px gutter
+     without a scrollbar inside the tile (the base 1040px did so only with its 20px gutter). */
+  --wrap: 1064px;
+  --radius: 20px;                      /* the base rules read it: cards, facts, decisions, diagrams, xitems */
+  --radius-lg: 28px;                   /* featured work, contact */
+  --radius-md: 12px;                   /* media inside a padded tile */
+
+  --hairline: rgba(0, 0, 0, .08);
+  --tint: color-mix(in srgb, var(--ink) 7%, transparent);        /* secondary buttons, tabs, carousel arrows */
+  --tint-hover: color-mix(in srgb, var(--ink) 12%, transparent);
+  --tag-fill: color-mix(in srgb, var(--ink) 6%, transparent);
+
+  /* Header glass (functional layer only). 80% fill = the top of the "regular" range in the HIG
+     Liquid Glass guide; contrast is computed over a PURE BLACK (light) / PURE WHITE (dark) pixel. */
+  --glass: color-mix(in srgb, var(--bg) 80%, transparent);
+  --glass-line: rgba(0, 0, 0, .1);
+  --header-muted: #48484c;
+
+  --ease: cubic-bezier(.22, .61, .36, 1);
+}
+/* Pure black base; bands and tiles step up in brightness, the way dark-mode.md › Mobile describes
+   base and elevated backgrounds. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --band-b: #161617;
+    --tile-b: #252527;
+    --ink: #f5f5f7;
+    --muted: #aeaeb2;
+    --line: #38383a;
+    --line-strong: #7c7c80;
+    --on-ink: #000000;
+    --hairline: rgba(255, 255, 255, .1);
+    --glass-line: rgba(255, 255, 255, .12);
+    --header-muted: #c7c7cc;
+  }
+}
+:root[data-theme="dark"] {
+    --bg: #000000;
+    --surface: #1c1c1e;
+    --band-b: #161617;
+    --tile-b: #252527;
+    --ink: #f5f5f7;
+    --muted: #aeaeb2;
+    --line: #38383a;
+    --line-strong: #7c7c80;
+    --on-ink: #000000;
+    --hairline: rgba(255, 255, 255, .1);
+    --glass-line: rgba(255, 255, 255, .12);
+    --header-muted: #c7c7cc;
+}
+
+/* ---------- Bands: full-bleed sections alternating two neutrals ----------
+   layout.md › Visual hierarchy: groups by negative space and container shapes, so the rules between
+   sections retire. Band B redefines --bg and --surface locally, so every tile, media well, diagram
+   node and placeholder inside it picks the matching fill through the base rules' own var() reads.
+   Home: hero A · work B · experience A · more B · contact A · footer B.
+   Case pages: the head block sits on the page (A), then sections alternate from B; the closing
+   "next case" row always stays A, so the footer (B) keeps its edge whatever the section count. */
+main:not(.case) > section:nth-of-type(even),
+main.case > section:nth-of-type(odd):not(:last-of-type),
+.site-footer {
+  --bg: var(--band-b);
+  --surface: var(--tile-b);
+}
+/* Painted only without the animated background: with :root.has-bg the canvas shows through,
+   the scrim and the card material come from layer 3, and nothing here paints an opaque fill. */
+@media screen {
+  :root:not(.has-bg) :is(main > section, .site-footer) { background: var(--bg); }
+}
+
+/* ---------- Base type ----------
+   Body stays at 17px (typography.md › Ensuring legibility: the 17 pt default). Tracking follows the
+   direction of the SF Pro table in typography.md › Tracking values: negative around 17px and more
+   negative at display sizes, kept light because SF already tracks itself. */
+html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body { line-height: 1.5; letter-spacing: -0.011em; }
+.mono, code, kbd, .when, .num, .car-count { letter-spacing: 0; font-variant-numeric: tabular-nums; }
+/* 16%: selected links and muted text keep ≥ 4.65:1 on every band and tile (24% took links on
+   #f5f5f7 to 4.11 and dark muted on the #252527 tile to 4.30). */
+::selection { background: color-mix(in srgb, var(--accent) 16%, transparent); }
+
+h1, h2, h3 { text-wrap: balance; }
+/* Sized so "Gabriel Cárcamo" stays on one line from 320px up: Inter semibold at −0.025em is 7.72em
+   wide, which the 11.5vw − 5px slope keeps under the column at every width (88px from ~810px). */
+h1 { font-size: clamp(2rem, 11.5vw - 5px, 5.5rem); font-weight: 600; line-height: 1.04; letter-spacing: -0.025em; }
+/* Section heads: 32px on phones, 56px on a laptop (typography.md › Conveying hierarchy). The Lucide
+   glyph moves above the headline, as a symbol over a title; it keeps the brand teal. */
+h2 {
+  flex-direction: column; align-items: flex-start; gap: .32em;
+  font-size: clamp(2rem, 1.25rem + 3.2vw, 3.5rem); font-weight: 600; line-height: 1.07; letter-spacing: -0.028em;
+}
+.i-title { width: clamp(28px, .6em, 40px); height: clamp(28px, .6em, 40px); stroke-width: 1.75; }
+h3 { font-size: 1.3125rem; line-height: 1.24; letter-spacing: -0.018em; }
+
+.eyebrow {
+  font-family: var(--font-sans); font-size: clamp(.9375rem, .9rem + .2vw, 1.0625rem); font-weight: 600;
+  letter-spacing: -0.012em; text-transform: none; margin: 0 0 18px;
+}
+.lede { font-size: clamp(1.1875rem, 1.05rem + .55vw, 1.5rem); line-height: 1.42; letter-spacing: -0.017em; max-width: 60ch; }
+
+/* ---------- Layout rhythm ---------- */
+section { padding: clamp(64px, 9vw, 120px) 0; }
+section + section { border-top: 0; }
+.section-head { flex-direction: column; align-items: flex-start; gap: 16px; margin-bottom: clamp(32px, 5vw, 64px); }
+.section-head > p { margin: 0; max-width: 56ch; font-size: clamp(1.125rem, 1rem + .55vw, 1.375rem); line-height: 1.42; letter-spacing: -0.014em; }
+
+/* ---------- Hero: one headline carries the page (left-aligned, reading order kept) ---------- */
+.hero { padding: clamp(64px, 12vw, 152px) 0 clamp(64px, 9vw, 120px); }
+/* The role becomes a subhead: sans, large, muted. It was accent-coloured, the colour of links
+   (color.md › Best practices). */
+.hero .role {
+  font-family: var(--font-sans); color: var(--muted); font-weight: 600;
+  font-size: clamp(1.375rem, 1.1rem + 1.4vw, 2rem); line-height: 1.16; letter-spacing: -0.024em;
+  margin: 16px 0 28px;
+}
+.hero .lede { margin-bottom: 8px; }
+.hero-stack { margin: 24px 0 36px; }
+.actions { gap: 12px; }
+.meta-line { margin-top: 32px; max-width: 64ch; font-size: 15px; line-height: 1.5; }
+
+/* ---------- Header: translucent glass bar (the only glass on the page) ----------
+   materials.md › Liquid Glass: glass belongs to the functional layer, never to content. */
+.site-header { border-bottom-color: var(--glass-line); }
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .site-header {
+    background: var(--glass);
+    -webkit-backdrop-filter: saturate(1.8) blur(20px);
+    backdrop-filter: saturate(1.8) blur(20px);
+  }
+}
+.nav a { color: var(--header-muted); transition: color .2s var(--ease), background-color .2s var(--ease); }
+.nav a:hover { color: var(--ink); }
+.lang { font-family: var(--font-sans); border-color: var(--glass-line); }  /* size stays 12.5px: header budget */
+.lang > * { display: inline-flex; align-items: center; min-height: 28px; }  /* HIG minimum target; height only */
+.lang a { color: var(--header-muted); }
+/* "Current" is a state, not an action: ink fill, so the teal keeps meaning "link / primary action". */
+.lang [aria-current] { background: var(--ink); color: var(--on-ink); }
+.theme-toggle, .motion-toggle { background: transparent; border-color: transparent; }
+.theme-toggle:hover, .motion-toggle:hover { background: var(--tint); border-color: transparent; color: var(--ink); }
+/* The name cycles the background on the home pages (fondo.js; the only pages whose name links to
+   themselves): no text selection when it is clicked a few times in a row. */
+.brand[href="index.html"] { -webkit-user-select: none; user-select: none; }
+
+/* One row at every width. The base rules let the row wrap from 641px up, and the Spanish labels made it
+   2–3 rows between 641 and ~830px. Here it never wraps: labels show only where the whole row fits,
+   and if a wider fallback face still overflows, the name ellipsizes instead of pushing the page
+   into a horizontal scroll. */
+.site-header .wrap, .nav { flex-wrap: nowrap; }
+.brand { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  min-height: 24px; line-height: 24px; }  /* the name is a control on the home page (it cycles the background): 24px target (WCAG 2.5.8) */
+@media (min-width: 641px) {
+  .site-header .wrap { min-height: 56px; gap: 24px; }   /* + 1px border = the phones' 57px */
+  .brand { font-size: 17px; letter-spacing: -0.022em; }
+  /* Labelled tier: text-only links in a small global-nav size (13px, above the 12px floor). */
+  .nav { gap: 24px; font-size: 13px; letter-spacing: -0.01em; }
+  .nav > a { min-height: 44px; }
+  .nav > a .i { display: none; }
+  .theme-toggle, .motion-toggle { width: 36px; height: 36px; }
+}
+/* Icon-only tier, from 641px until the labelled row fits. Row widths measured in Inter 13px
+   (brand 132px + nav): EN ≈ 590px → labels from 760px; ES ≈ 675px ("CV (PDF, en inglés)" alone
+   is 116px) → labels from 900px, i.e. 104px / 150px of slack at those widths; DejaVu Sans, the
+   widest fallback on Linux, still fits with 74px / 113px. The pause/play button takes 60px of
+   that (36px + one 24px nav gap): 44px / 90px left (DejaVu 14px / 53px), and ≥ 100px in the
+   icon-only tier. Targets are 44×44 (accessibility.md › Mobility); the label stays in the
+   accessibility tree. */
+@media (min-width: 641px) and (max-width: 759.98px) {
+  .nav { gap: 2px; }
+  .nav > a { width: 44px; height: 44px; justify-content: center; padding: 0; border-radius: 999px; }
+  .nav > a .i { display: block; width: 18px; height: 18px; }
+  .nav > a:hover { background: var(--tint); }
+  .nav-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  .lang { margin-left: 10px; }
+}
+@media (min-width: 760px) and (max-width: 899.98px) {
+  :root:lang(es) .nav { gap: 2px; }
+  :root:lang(es) .nav > a { width: 44px; height: 44px; justify-content: center; padding: 0; border-radius: 999px; }
+  :root:lang(es) .nav > a .i { display: block; width: 18px; height: 18px; }
+  :root:lang(es) .nav > a:hover { background: var(--tint); }
+  :root:lang(es) .nav-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  :root:lang(es) .lang { margin-left: 10px; }
+}
+/* Phones: the base layer's one-row geometry (56px + 1px border = 57px) is kept, and the row carries
+   seven controls: four icon links, the language pill (the other language only), theme and
+   pause/play. No gap between the nav targets (each box already spaces its 16px icon). Widths are
+   Inter advance widths: the name is 7.566em (semibold, −0.035em); at 12.5px "EN" is 16.61px and
+   "ES" 15.17px. Inner width = viewport − 2 × 20px gutter. pill = 2px border + 2 × .lang padding +
+   2 × the label's inline padding + label. Each tier at its narrowest, ES page (its "EN" pill is
+   the wider one):
+     401–640  name 16px 121.06 + gap 10 + links 4×30 + margin 4 + pill 40.61 + toggles 2×30 = 355.67 of 361 (slack 5.33)
+     371–400  name 16px 121.06 + gap 6 + links 4×26 + margin 2 + pill 36.61 + toggles 2×28 = 325.67 of 331 (slack 5.33)
+     341–370  name 14px 105.93 + gap 6 + links 4×24 + margin 2 + pill 30.61 + toggles 2×26 = 292.54 of 301 (slack 8.46)
+     320–340  name 12px  90.80 + gap 4 + links 4×24 + margin 0 + pill 30.61 + toggles 2×26 = 273.41 of 280 (slack 6.59)
+   At 320px:
+     EN page ("ES" pill 2 + 0 + 12 + 15.17 = 29.17): 90.80 + 4 + 96 + 0 + 29.17 + 52 = 271.97 of 280, slack 8.03
+     ES page ("EN" pill 2 + 0 + 12 + 16.61 = 30.61): 90.80 + 4 + 96 + 0 + 30.61 + 52 = 273.41 of 280, slack 6.59
+   (Without the pause/play button the old tiers left 4.5–5.4px.) The name keeps its 16px down to
+   371px (so 375/390/393px phones), 14px on 360px phones, 12px (the text floor) only at ≤ 340px.
+   Every control stays ≥ 24×24: links 24–30 wide × 30 tall, toggles 26–30 round, pill 30–34 tall.
+   Under OS reduced motion the pause/play button is hidden, which only adds room. A wider fallback
+   face (DejaVu Sans) still ellipsizes the name here, as before. */
+@media (max-width: 640px) {
+  .brand { letter-spacing: -0.035em; }
+  .nav { gap: 0; }
+}
+@media (max-width: 400px) {
+  .site-header .wrap { gap: 6px; }
+  .nav > a { min-width: 26px; padding: 0 2px; }
+  .lang { margin-left: 2px; }
+  .lang > * { padding-inline: 7px; }
+  .theme-toggle, .motion-toggle { width: 28px; height: 28px; }
+}
+@media (max-width: 370px) {
+  .brand { font-size: 14px; }
+  .nav > a { min-width: 24px; padding: 0; }
+  .lang { padding: 0; }   /* one label shows on phones: no inset needed around a current-language fill */
+  .lang > * { padding-inline: 6px; }
+  .theme-toggle, .motion-toggle { width: 26px; height: 26px; }
+}
+@media (max-width: 340px) {
+  .site-header .wrap { gap: 4px; }
+  .brand { font-size: 12px; }
+  .lang { margin-left: 0; }
+}
+
+/* ---------- Buttons: pills; the accent fills only the primary action ---------- */
+.btn {
+  min-height: 44px; padding: 10px 20px; border-radius: 999px; border-color: transparent;
+  background: var(--tint); color: var(--ink); font-size: 15px; font-weight: 500; letter-spacing: -0.01em;
+  transition: background-color .2s var(--ease), box-shadow .2s var(--ease), transform .2s var(--ease);
+}
+.btn:hover { background: var(--tint-hover); border-color: transparent; transform: none; }
+.btn.primary {
+  background: var(--accent); border-color: transparent; color: var(--accent-ink);
+  box-shadow: 0 8px 18px -10px color-mix(in srgb, var(--accent) 80%, transparent);
+}
+.btn.primary:hover { background: color-mix(in srgb, var(--accent) 86%, var(--ink)); }
+@media (prefers-reduced-motion: no-preference) {
+  .btn:active { transform: scale(.97); }
+}
+
+/* ---------- Chips and tags ---------- */
+.chip { font-family: var(--font-sans); font-size: 13px; font-weight: 500; letter-spacing: -0.005em; padding: 4px 12px 4px 10px; }
+.tags { gap: 8px; }
+.tags li {
+  font-family: var(--font-sans); font-size: 13px; letter-spacing: -0.005em;
+  background: var(--tag-fill); border-color: transparent; border-radius: 999px; padding: 3px 10px;
+}
+
+/* ---------- Tiles: large radii, set apart by fill alone ----------
+   No border, no drop shadow, no lift: the grey-on-white / white-on-grey fill is the edge (dark:
+   each tile one step brighter than its band). The 1px transparent border is kept on purpose:
+   forced-colours mode paints it, and Increase Contrast turns it on below. */
+.feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card { border-color: transparent; box-shadow: none; }
+.feature:hover, .card:hover { border-color: transparent; box-shadow: none; transform: none; }
+.media, .car-img, .shots img, .ximg img, .video-frame { border-color: var(--hairline); }
+.media, .car-track, .car-img, .video-frame, .shots img, .ximg img { border-radius: var(--radius-md); }
+
+.featured { gap: clamp(20px, 2.6vw, 32px); }
+.feature { border-radius: var(--radius-lg); padding: clamp(20px, 3.4vw, 40px); gap: clamp(20px, 3vw, 44px); }
+@media (min-width: 860px) { .feature { align-items: center; } }
+.feature h3 { font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem); line-height: 1.1; letter-spacing: -0.026em; margin: 16px 0 12px; }
+.feature p { line-height: 1.55; }
+.feature .more { margin-top: 20px; }
+
+/* Cards: image-first tiles. The screen well bleeds to the tile edge, so the 24px padding is
+   mirrored on the bleed and on the caption/controls under it. */
+.cards { gap: 20px; }
+.card { padding: 24px; gap: 10px; }
+.card .carousel, .card .media { margin: -24px -24px 8px; }
+.card .media, .card .car-img { border-bottom-color: var(--hairline); }
+.card .car-slide figcaption { margin: 10px 24px 0; }
+.card .car-nav { margin: 8px 24px 0; }
+.card h3 { font-size: 1.5rem; line-height: 1.18; letter-spacing: -0.022em; }
+.card .links { padding-top: 12px; }
+
+.xitems { gap: 16px; }
+.xitem { padding: 24px 26px; }
+.xitem h4 { font-size: 1.125rem; letter-spacing: -0.014em; line-height: 1.3; }
+.xitem .where { font-family: var(--font-sans); font-size: 13px; }
+.xpanel-title { font-size: 1.5rem; letter-spacing: -0.02em; margin-bottom: 10px; }
+
+.contact-card { border-radius: var(--radius-lg); padding: clamp(24px, 5vw, 56px); }
+.contact-card .section-head { margin-bottom: 16px; }
+
+/* Carousel and tab controls: quiet tinted fills instead of outlines */
+.car-btn { background: var(--tint); border-color: transparent; }
+.car-btn:hover { background: var(--tint-hover); border-color: transparent; color: var(--ink); }
+.xtab-list { gap: 8px; margin-bottom: 28px; }
+.xtab { min-height: 36px; padding: 7px 16px; background: var(--tint); border-color: transparent; }
+.xtab:hover { background: var(--tint-hover); border-color: transparent; color: var(--ink); }
+/* Selection is a state: ink fill. The accent stays with links and the primary action. */
+.xtab[aria-selected="true"], .xtab[aria-selected="true"]:hover { background: var(--ink); border-color: var(--ink); color: var(--on-ink); }
+
+/* ---------- Experience: each role is a tile, like the items in the other tabs ---------- */
+.timeline { gap: 16px; }
+.timeline > li {
+  border: 1px solid transparent; border-radius: var(--radius);
+  background: var(--surface); padding: clamp(20px, 3vw, 32px);
+}
+.timeline .when { font-size: 14px; }
+.timeline h3 { margin-bottom: 4px; }
+
+/* ---------- Case pages ---------- */
+.case section { padding: clamp(56px, 7vw, 96px) 0; }
+.case h2 { font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.75rem); }
+.case section h2 { margin-bottom: 28px; }
+/* The closing "next case" row is small: a full band of padding would read as an empty section. */
+main.case > section:last-of-type { padding: clamp(28px, 4vw, 44px) 0; }
+.next-case { font-size: 17px; font-weight: 500; }
+.back { margin-top: clamp(24px, 4vw, 40px); font-weight: 500; }
+.case-head { padding: 24px 0 clamp(32px, 5vw, 56px); }
+/* Case titles run up to ~60 characters ("Pipeline de extracción…"), so they get a calmer scale. */
+.case-head h1 { margin: 18px 0 20px; font-size: clamp(2rem, 1.2rem + 3.6vw, 3.75rem); line-height: 1.06; }
+.demo .media { border-radius: var(--radius); }
+.facts { padding: clamp(22px, 3vw, 32px); gap: 18px 36px; margin-top: 40px; }
+.facts dt { font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0; text-transform: none; }
+.decisions { gap: 16px; }
+.decisions li { padding: clamp(20px, 2.6vw, 26px) clamp(20px, 2.8vw, 28px) clamp(20px, 2.6vw, 24px) clamp(52px, 6vw, 64px); }
+/* A plain ordinal: "01 / 02 / 03" styling is decoration on a short list. Muted, because accent
+   text reads as a link everywhere else on the site. */
+.decisions li::before {
+  content: counter(d); left: clamp(20px, 2.8vw, 28px); top: clamp(20px, 2.6vw, 26px);
+  font-family: var(--font-sans); font-weight: 600; font-size: 15px; color: var(--muted);
+}
+.decisions.lessons li { padding-left: clamp(20px, 2.8vw, 28px); }  /* no counter: even padding all round */
+/* Limits: a tile of its own. The amber rule becomes an inset bar that follows the corner radius. */
+.limits {
+  border: 1px solid transparent; border-radius: var(--radius); background: var(--surface);
+  padding: clamp(18px, 2.6vw, 28px) clamp(20px, 3vw, 32px);
+  box-shadow: inset 4px 0 0 var(--chip-progress-fg);
+}
+/* The list's trailing 8px would sit inside the tile's bottom padding (the base layer's bare rule hid it). */
+.limits ul.points > li:last-child { margin-bottom: 0; }
+.diagram { padding: 20px; }
+.fx-bar { top: 14px; right: 14px; }   /* clear of the 20px corner */
+.diagram > svg { letter-spacing: normal; }  /* SVG text would inherit body tracking and drift off its boxes */
+.diagram .node text { font-family: var(--font-diagram); }
+.diagram .node text.sub, .diagram .edge-label, .diagram .group-label, .diagram .band text, .diagram .flag text { font-family: var(--font-diagram-mono); }
+.shots { gap: 20px; }
+
+.site-footer { border-top-color: var(--hairline); padding: 48px 0 64px; font-size: 14px; }
+
+/* Contact on the narrowest phones: the address button is ~264px wide and the tile's inner column
+   ~230px at 320px. Tighter padding and no glyph fit it; overflow-wrap is the last resort for a
+   wider face, so it can never push past the tile. */
+@media (max-width: 380px) {
+  .contact-card { padding: 22px 18px; }
+  .contact-card .btn { padding-inline: 16px; max-width: 100%; overflow-wrap: anywhere; }
+  .contact-card .btn.primary .i { display: none; }
+}
+
+/* The base layer's reduced-motion "transition: none" comes earlier in the file, so it is restated
+   for the transitions added here (motion.md › Best practices: make motion optional). */
+@media (prefers-reduced-motion: reduce) {
+  .btn, .nav a { transition: none; }
+}
+
+/* ---------- Animated background (:root.has-bg) ----------
+   The canvas shows through: bands are left unpainted (see Bands), and the two tiles this layer adds
+   take layer 3's thin --material like the others. Selectors mirror layer 3's. */
+:root.has-bg :is(.timeline > li, .limits) { background: var(--material); }
+/* See-through surfaces over the animated background still need an edge. */
+:root.has-bg :is(.feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .timeline > li, .limits) { border-color: var(--hairline); }
+/* Less blur over a moving canvas: the backdrop is re-blurred on every canvas frame. :where() keeps
+   the specificity low so the accessibility blocks below still win. Phones drop the blur. */
+:where(:root.has-bg) .site-header { -webkit-backdrop-filter: saturate(1.2) blur(12px); backdrop-filter: saturate(1.2) blur(12px); }
+@media (max-width: 640px) {
+  :where(:root.has-bg) .site-header { background: color-mix(in srgb, var(--bg) 92%, transparent); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+
+/* ---------- Accessibility states ---------- */
+/* Reduce Transparency / Increase Contrast: glass and materials turn opaque. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  .site-header { background: var(--bg); -webkit-backdrop-filter: none; backdrop-filter: none; }
+}
+/* Increase Contrast: real edges back on every surface and control (color.md › Best practices). */
+@media (prefers-contrast: more) {
+  .site-header { border-bottom-color: var(--line-strong); }
+  .feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .timeline > li, .limits, .media, .car-img,
+  .video-frame, .shots img, .ximg img, .btn, .xtab, .car-btn, .tags li, .lang, .theme-toggle, .motion-toggle { border-color: var(--line-strong); }
+  :root.has-bg :is(.feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .timeline > li, .limits) { border-color: var(--line-strong); }
+  .feature, .card, .contact-card { box-shadow: none; }
+  /* Bands are told apart by fill alone (1.09:1 in light): a rule marks each section edge again. */
+  main > * + section { border-top: 1px solid var(--line-strong); }
+  .site-footer { border-top-color: var(--line-strong); }
+}
+/* Forced colors: no glass. (The background canvases are removed in layer 3.) Selected states
+   shown by a fill alone (tab, current language, diagram Play/Pause) would be repainted like their
+   neighbours, so they take system colours. */
+@media (forced-colors: active) {
+  .site-header { -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .xtab[aria-selected="true"], .xtab[aria-selected="true"]:hover,
+  .lang [aria-current], .fx-bar .af-opt[aria-checked="true"] {
+    forced-color-adjust: none; background: Highlight; border-color: Highlight; color: HighlightText;
+  }
+}
+/* Print: paper is white whatever theme is on screen, so the light tokens come back (!important:
+   the dark theme and layer 3's .has-bg tokens sit at higher specificity). Tiles get a grey
+   edge, the amber limits bar becomes a border (shadows may drop in print) and diagrams fit the page
+   width instead of being clipped at their 952px minimum. */
+@media print {
+  :root {
+    --bg: #ffffff !important; --surface: #f5f5f7 !important; --band-b: #f5f5f7 !important; --tile-b: #ffffff !important;
+    --ink: #1d1d1f !important; --muted: #515154 !important; --line: #d2d2d7 !important; --line-strong: #86868b !important;
+    --on-ink: #ffffff !important; --hairline: rgba(0, 0, 0, .08) !important; --glass-line: rgba(0, 0, 0, .1) !important;
+    --header-muted: #48484c !important;
+    --accent: #0e6b61 !important; --accent-ink: #ffffff !important; --accent-soft: #e1efec !important;
+    --chip-public-fg: #0e6b61 !important;   --chip-public-bg: #e1efec !important;
+    --chip-progress-fg: #7a4f00 !important; --chip-progress-bg: #f8ecd4 !important;
+    --chip-internal-fg: #394556 !important; --chip-internal-bg: #e6e9ee !important;
+    --chip-hack-fg: #54389a !important;     --chip-hack-bg: #ece6f7 !important;
+    --chip-oss-fg: #1f5a8a !important;      --chip-oss-bg: #e2edf7 !important;
+    color-scheme: light !important;
+  }
+  .site-header { position: static; background: none; -webkit-backdrop-filter: none; backdrop-filter: none; }
+  .feature, .card, .contact-card { box-shadow: none; }
+  .feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .timeline > li, .limits { background: none; border-color: #ccc; }
+  .tags li { border-color: #ccc; }
+  .limits { box-shadow: none; border-left: 4px solid #7a4f00 !important; }  /* over .has-bg's hairline */
+  .diagram { overflow: visible; }
+  .diagram > svg { min-width: 0; margin-top: 0; }
+  .fx-bar { display: none; }  /* Play / Pause mean nothing on paper; the svg's top margin cleared it */
+}
+
+/* =====================================================================================
+   3. Animated background (:root.has-bg) — assets/js/fondo.js
+   ===================================================================================== */
+/* Four configurations, cycled by clicking the name in the header on the home pages: constellation
+   with ships, constellation, stars with ships, stars (the light theme draws the star chart instead,
+   with the same ships). fondo.js sets on <html>, BEFORE a module starts (modules read the tokens
+   below as they start): .has-bg while a background OR the ships overlay runs, data-bg (module name
+   or "none"), data-ships ("on" / "off") and data-fondo (0–3). The canvases (#bg-canvas, then
+   #bg-ships: first children of <body>, fixed, z-index -1) are decoration. Without JS, under forced
+   colours and in print none of this applies. The page turns transparent; a scrim over the reading
+   column (body::after, painted above both canvases by tree order) and a thin material on cards
+   keep text AA. --scrim-strength is the one knob, sized from each module's
+   light-theme ceiling (per final canvas pixel, overlaps inside a canvas included):
+     starfield, starchart, ships: ink ≤ 22% · constellation: ink ≤ 64% ·
+     nebula, aurora: luminance ≥ L(--bg) − 0.14.
+   Two canvases stack, so a background plus ships is the pair's combined worst pixel.
+   Worst case behind the column (has-bg tokens: muted #4a4843, accent #094d46), light theme:
+     starfield / starchart alone, 10% ...... ink 10.5 · muted 5.62 · accent 5.98; card muted 7.67
+     starfield / starchart + ships, 28% .... ink 8.65 · muted 4.63 · accent 4.92; card muted 7.20
+     constellation alone, 56% ............. ink 8.66 · muted 4.63 · accent 4.93; card muted 7.20
+     constellation + ships, 62% ............ ink 8.83 · muted 4.73 · accent 5.03; card muted 7.25
+     nebula / aurora alone, 10% ............ muted ≥ 7.35 · accent ≥ 7.82
+     nebula / aurora + ships, 10% .......... muted ≥ 4.95 · accent ≥ 5.27; card muted 7.36
+     ships alone (bg none), 10% ............ same as starfield alone
+     anything else (a module this table does not know), 76%: safe even over pure ink.
+   Dark theme, every combination (76%): worst pixel pure white behind the column →
+     column ink 7.13 · muted #c2c0b9 4.71 · accent #7fd3c7 4.92; card muted 7.41.
+   Module contract: a module stays within its own light ceiling; raising one means re-checking its
+   rows here. Cards get no backdrop blur: blurs over a moving canvas are re-computed every frame. */
+:root.has-bg {
+  --scrim-strength: 76%;
+  --scrim: color-mix(in srgb, var(--bg) var(--scrim-strength), transparent);
+  --material: color-mix(in srgb, var(--surface) 62%, transparent);
+  --muted: #4a4843;
+  --accent: #094d46;
+  --hairline: rgba(28, 28, 26, .10);
+  background: var(--bg);
+}
+@media (prefers-color-scheme: dark) {
+  :root.has-bg:not([data-theme="light"]) { --muted: #c2c0b9; --accent: #7fd3c7; --hairline: rgba(235, 234, 230, .12); }
+}
+:root.has-bg[data-theme="dark"] { --muted: #c2c0b9; --accent: #7fd3c7; --hairline: rgba(235, 234, 230, .12); }
+
+/* Light-theme scrim per combination. :where() keeps these at the base rule's specificity (0,2,0),
+   so they override the 76% default by order, and the dark rules below (0,3,0) always win. */
+:root.has-bg:where([data-ships="off"]):where([data-bg="starfield"], [data-bg="starchart"], [data-bg="nebula"], [data-bg="aurora"]) { --scrim-strength: 10%; }
+:root.has-bg:where([data-ships="off"][data-bg="constellation"]) { --scrim-strength: 56%; }
+:root.has-bg:where([data-ships="on"]):where([data-bg="starfield"], [data-bg="starchart"]) { --scrim-strength: 28%; }
+:root.has-bg:where([data-ships="on"][data-bg="constellation"]) { --scrim-strength: 62%; }
+:root.has-bg:where([data-ships="on"]):where([data-bg="nebula"], [data-bg="aurora"], [data-bg="none"]) { --scrim-strength: 10%; }
+/* Dark theme: 76% for every combination. Last, so it wins. */
+@media (prefers-color-scheme: dark) { :root.has-bg:not([data-theme="light"]) { --scrim-strength: 76%; } }
+:root.has-bg[data-theme="dark"] { --scrim-strength: 76%; }
+
+:root.has-bg body { background: transparent; }
+:root.has-bg body::after {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent calc(50% - 700px), var(--scrim) calc(50% - 540px),
+    var(--scrim) calc(50% + 540px), transparent calc(50% + 700px));
+}
+:root.has-bg :is(.feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .pending-copy) { background: var(--material); }
+:root.has-bg .tags li { background: var(--material); }  /* an ink tint on the bare column would drop muted to 4.1–4.3:1 */
+
+/* Reduce Transparency / Increase Contrast: the scrim and the materials turn opaque. */
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more) {
+  :root.has-bg { --scrim: var(--bg); --material: var(--surface); }
+}
+/* Forced colors: the system does not recolour a canvas. fondo.js starts nothing there; if a canvas
+   is left over (the mode switched on mid-visit), it goes. */
+@media (forced-colors: active) {
+  #bg-canvas, #bg-ships, :root.has-bg body::after { display: none !important; }
+}
+
+/* Background toast: names the configuration a click on the name just picked ("Stars with ships ·
+   3/4"). fondo.js creates it (role="status", aria-live="polite") and sets .is-on for ~1.6 s. It
+   stays rendered while hidden: a live region taken out with display:none may not announce. Centred
+   12px under the 57px header, so it never covers the header's controls; clicks pass through it.
+   Ink on the page colour: 16.83:1 light, 19.29:1 dark (.has-bg changes neither token). The
+   transparent border is for forced colours, where the fill is repainted like the page. */
+.fondo-toast {
+  position: fixed; top: calc(57px + 12px); left: 50%; z-index: 40; transform: translateX(-50%);
+  width: max-content; max-width: calc(100% - 32px); padding: 8px 16px;
+  border: 1px solid transparent; border-radius: 999px; background: var(--ink); color: var(--bg);
+  font: 600 13px/1.3 var(--font-sans); letter-spacing: -0.005em; text-align: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, .22); pointer-events: none; opacity: 0; transition: opacity .2s ease;
+}
+.fondo-toast.is-on { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .fondo-toast { transition: none; } }
+
+@media print {
+  #bg-canvas, #bg-ships, :root.has-bg body::after, .fondo-toast { display: none !important; }
+  :root.has-bg { background: #fff; }
+}
+
+/* =====================================================================================
+   4. Scroll reveal (mode "bold") — assets/js/reveal.js
+   ===================================================================================== */
+/* reveal.js decides what hides and when; this layer only describes the states:
+     :root.reveal-pending   set by the head snippet before first paint; hides exactly the targets
+                            (the list below mirrors RULES in reveal.js: keep the two in step) until
+                            reveal.js has marked each one, or until the snippet's 4 s fail-safe;
+                            the hero's (or a case page's head's) own cap lets it through 1.6 s
+                            after its first style, so a slow load never shows an empty first
+                            screen for long. reveal.js reads each on-screen target's opacity and
+                            animates only what is still hidden;
+     :root.rv-on            the reveal is live: a mode is on and motion is allowed;
+     .rv[data-rv="<kind>"]  one element waiting to be revealed, in its start state;
+     .rv.rv-in              the same element travelling to its natural state, delayed by its --rv-d.
+   reveal.js removes every class, attribute and inline property once an element has landed.
+   Hidden states exist only on screen and only under .rv-on or .reveal-pending, so without JS, in
+   print, under reduced motion (reveal.js never sets rv-on), under the site's Pause and in "off" the
+   page is simply static. Only opacity, translate, scale, rotate and filter change: no layout shift,
+   and the individual transform properties leave the site's own hover transforms alone. */
+
+/* ---------- Tokens: bold is the default (the head snippet fixes data-reveal="bold"); soft is
+   reveal.js's quieter mode, kept so its API stays whole ---------- */
+:root {
+  --rv-ease: cubic-bezier(.16, 1, .3, 1);    /* fast start, long settle */
+  --rv-pop: cubic-bezier(.34, 1.56, .64, 1); /* a small overshoot: chips, buttons and icons pop */
+  --rv-dur: 800ms;                           /* reveal.js mirrors both durations for its clean-up */
+  --rv-dur-sm: 550ms;                        /* chips, buttons, icons */
+  --rv-rise: 40px;                           /* headings, text, cards */
+  --rv-rise-sm: 14px;                        /* chips, list rows */
+  --rv-rise-btn: 18px;
+  --rv-rise-media: 0px;                      /* images and carousels only scale in bold */
+  --rv-rise-fig: 24px;                       /* diagrams: a shorter rise and a lighter scale */
+  --rv-blur: blur(8px);                      /* headings and the hero's words */
+  --rv-media: .94;
+  --rv-fig: .97;
+  --rv-chip: .8;
+  --rv-btn: .94;
+  --rv-icon: .4;
+  --rv-turn: -40deg;                         /* a section icon spins a little as it pops */
+}
+:root[data-reveal="soft"] {
+  --rv-dur: 450ms;
+  --rv-dur-sm: 350ms;
+  --rv-rise: 16px;
+  --rv-rise-sm: 8px;
+  --rv-rise-btn: 10px;
+  --rv-rise-media: 16px;
+  --rv-rise-fig: 16px;
+  --rv-blur: none;
+  --rv-media: 1;
+  --rv-fig: 1;
+  --rv-chip: 1;
+  --rv-btn: 1;
+  --rv-icon: 1;
+  --rv-turn: 0deg;
+}
+
+@media screen {
+  /* ---------- First paint: the targets, until reveal.js takes over ---------- */
+  :root.reveal-pending :is(
+    .hero h1, .case-head h1, main h2, .xpanel-title,
+    ul.tags, .case-head .chips, .actions, .xtab-list,
+    .feature .chip, .card > .chip,
+    .featured > .feature, .cards > .card, .xitems > .xitem, .decisions > li, .contact-card,
+    .timeline > li, dl.facts,
+    .feature > .carousel, .card > .carousel, .card > .media, .xitem .carousel, .xitem .ximg,
+    .project-screens .carousel, figure.demo, .shots > figure,
+    figure.diagram, .limits,
+    .hero .eyebrow, .hero .role, .hero .lede, .hero .meta-line, .case-head .lede, main > .wrap > .back,
+    .section-head > p, .xpanel > p, .contact-card .lede, ul.points > li,
+    main section > .wrap > p, main section > .wrap > h3, .next-case > a, .site-footer .wrap > *
+  ) { opacity: 0; }
+  /* The cap: the first-screen text only (each is in the list above, and a waiting animation costs
+     a compositor layer, so not the whole page). No "from" keyframe and no backwards fill: before
+     its delay it adds nothing, and anything it matched by mistake would go from 1 to 1. */
+  :root.reveal-pending :is(
+    .hero h1, .hero .eyebrow, .hero .role, .hero .lede, .hero .meta-line, .hero ul.tags, .hero .actions,
+    .case-head h1, .case-head .lede, .case-head .chips, main > .wrap > .back
+  ) { animation: rv-cap .4s ease-out 1.6s forwards; }
+  @keyframes rv-cap { to { opacity: 1; } }
+
+  /* ---------- Waiting: each kind's start state (no transition, so arming is instant) ---------- */
+  .rv-on .rv:not(.rv-in) { opacity: 0; transition: none; }
+  .rv-on .rv:is([data-rv="head"], [data-rv="word"]):not(.rv-in) { translate: 0 var(--rv-rise); filter: var(--rv-blur); }
+  .rv-on .rv:is([data-rv="text"], [data-rv="card"]):not(.rv-in) { translate: 0 var(--rv-rise); }
+  .rv-on .rv[data-rv="item"]:not(.rv-in) { translate: 0 var(--rv-rise-sm); }
+  .rv-on .rv[data-rv="chip"]:not(.rv-in) { translate: 0 var(--rv-rise-sm); scale: var(--rv-chip); }
+  .rv-on .rv[data-rv="btn"]:not(.rv-in) { translate: 0 var(--rv-rise-btn); scale: var(--rv-btn); }
+  .rv-on .rv[data-rv="icon"]:not(.rv-in) { scale: var(--rv-icon); rotate: var(--rv-turn); }
+  .rv-on .rv[data-rv="media"]:not(.rv-in) { translate: 0 var(--rv-rise-media); scale: var(--rv-media); }
+  .rv-on .rv[data-rv="figure"]:not(.rv-in) { translate: 0 var(--rv-rise-fig); scale: var(--rv-fig); }
+  /* "fade" (the facts box, the limits rule) changes opacity only. */
+
+  /* ---------- Travelling: to the natural state; will-change lives only here ---------- */
+  .rv-on .rv.rv-in {
+    transition-property: opacity, translate, scale, rotate, filter;
+    transition-duration: var(--rv-dur);
+    transition-timing-function: var(--rv-ease);
+    transition-delay: var(--rv-d, 0ms);
+    will-change: opacity, translate, scale;
+  }
+  .rv-on .rv.rv-in:is([data-rv="head"], [data-rv="word"]) { will-change: opacity, translate, filter; }
+  .rv-on .rv.rv-in:is([data-rv="chip"], [data-rv="btn"], [data-rv="icon"]) {
+    transition-duration: var(--rv-dur-sm);
+    /* same order as transition-property: the scale and the turn overshoot, the rest settles */
+    transition-timing-function: var(--rv-ease), var(--rv-ease), var(--rv-pop), var(--rv-pop), var(--rv-ease);
+  }
+}
+
+/* ---------- The hero h1, one span per word (bold, on load) ----------
+   Words are inline-blocks (a transform needs a box) separated by the original spaces, so lines
+   break where they did. Screen readers read the visually hidden copy; the words are aria-hidden.
+   reveal.js puts the original text back as soon as the words have landed. */
+.rv-w { display: inline-block; }
+.rv-sr {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+  overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---------- The hero easing back as it scrolls away (bold) ----------
+   reveal.js writes opacity (never below 0.35) and transform (scale never below 0.96) inline. The
+   left edge stays on the page's grid while it shrinks. */
+.rv-hero { transform-origin: 0 0; }
+
+@media print {
+  .rv-hero { opacity: 1 !important; transform: none !important; }
 }
