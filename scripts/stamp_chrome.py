@@ -3,15 +3,15 @@
 
 1. Theme: a tiny script in <head> applies the visitor's saved theme before first paint
    (no flash), and a single header button flips light/dark (behaviour in assets/js/site.js).
-2. Motion: a pause/play button right after the theme one (WCAG 2.2.2: the background and the
-   diagrams move on their own). Behaviour in assets/js/fondo.js, through site.js's single switch.
+2. Motion: a pause/play button right after the theme one (WCAG 2.2.2: the starry background and
+   the diagrams move on their own). Behaviour in assets/js/fondo.js, through site.js's single switch.
 3. Scroll reveal: a tiny script in <head>, before the first stylesheet, marks <html> before first
    paint (mode "bold") so reveal.js never flashes content in and out. It stands down under OS
    reduced motion or the site's saved Pause, and lets everything through after 4 s whatever happens.
 4. Fonts: Inter (the Apple layer's stand-in for SF Pro) right after the IBM Plex link.
 5. Icons: every inline Lucide icon carries its own size and stroke attributes, so a stale or
    missing stylesheet can never render them huge or as black blobs (CSS still wins when loaded).
-6. Scripts, deferred, in this order: site.js, the background modules, reveal.js, fondo.js.
+6. Scripts, deferred, in this order: site.js, the starfield module, reveal.js, fondo.js.
 7. Cache-busting: site.css and every script are referenced as ?v=<content hash>, so a deploy that
    changes them is fetched fresh instead of mixing new HTML with an old cached asset.
 
@@ -50,10 +50,9 @@ MOTION_LABELS = {"en": ("Pause animations", "Play animations"),
 NAV_ICONS = (("#work", "briefcase"), ("#experience", "history"), ("#contact", "mail"), ("cv.pdf", "file-text"))
 ICON_ATTRS = ('width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" '
               'stroke-linecap="round" stroke-linejoin="round" ')
-# site.js first (fondo.js calls its window.__setMotion), then the modules fondo.js starts, reveal.js,
-# and fondo.js last, once every module has registered on window.PortfolioBG.
-SCRIPTS = ("assets/js/site.js", "assets/js/bg/constellation.js", "assets/js/bg/starfield.js",
-           "assets/js/bg/starchart.js", "assets/js/bg/ships.js", "assets/js/reveal.js", "assets/js/fondo.js")
+# site.js first (fondo.js calls its window.__setMotion), then the starfield module fondo.js starts,
+# reveal.js, and fondo.js last, once the module has registered on window.PortfolioBG.
+SCRIPTS = ("assets/js/site.js", "assets/js/bg/starfield.js", "assets/js/reveal.js", "assets/js/fondo.js")
 BUSTED = ("assets/css/site.css",) + SCRIPTS
 
 # What this script rewrites on every run, each with its line break.

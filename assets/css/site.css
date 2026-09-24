@@ -805,9 +805,6 @@ section + section { border-top: 0; }
 .lang [aria-current] { background: var(--ink); color: var(--on-ink); }
 .theme-toggle, .motion-toggle { background: transparent; border-color: transparent; }
 .theme-toggle:hover, .motion-toggle:hover { background: var(--tint); border-color: transparent; color: var(--ink); }
-/* The name cycles the background on the home pages (fondo.js; the only pages whose name links to
-   themselves): no text selection when it is clicked a few times in a row. */
-.brand[href="index.html"] { -webkit-user-select: none; user-select: none; }
 
 /* One row at every width. The base rules let the row wrap from 641px up, and the Spanish labels made it
    2–3 rows between 641 and ~830px. Here it never wraps: labels show only where the whole row fits,
@@ -815,7 +812,7 @@ section + section { border-top: 0; }
    into a horizontal scroll. */
 .site-header .wrap, .nav { flex-wrap: nowrap; }
 .brand { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  min-height: 24px; line-height: 24px; }  /* the name is a control on the home page (it cycles the background): 24px target (WCAG 2.5.8) */
+  min-height: 24px; line-height: 24px; }  /* 24px target for the home link (WCAG 2.5.8) */
 @media (min-width: 641px) {
   .site-header .wrap { min-height: 56px; gap: 24px; }   /* + 1px border = the phones' 57px */
   .brand { font-size: 17px; letter-spacing: -0.022em; }
@@ -1165,24 +1162,8 @@ main.case > section:last-of-type { padding: clamp(28px, 4vw, 44px) 0; }
   #bg-canvas, #bg-ships, :root.has-bg body::after { display: none !important; }
 }
 
-/* Background toast: names the configuration a click on the name just picked ("Stars with ships ·
-   3/4"). fondo.js creates it (role="status", aria-live="polite") and sets .is-on for ~1.6 s. It
-   stays rendered while hidden: a live region taken out with display:none may not announce. Centred
-   12px under the 57px header, so it never covers the header's controls; clicks pass through it.
-   Ink on the page colour: 16.83:1 light, 19.29:1 dark (.has-bg changes neither token). The
-   transparent border is for forced colours, where the fill is repainted like the page. */
-.fondo-toast {
-  position: fixed; top: calc(57px + 12px); left: 50%; z-index: 40; transform: translateX(-50%);
-  width: max-content; max-width: calc(100% - 32px); padding: 8px 16px;
-  border: 1px solid transparent; border-radius: 999px; background: var(--ink); color: var(--bg);
-  font: 600 13px/1.3 var(--font-sans); letter-spacing: -0.005em; text-align: center;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, .22); pointer-events: none; opacity: 0; transition: opacity .2s ease;
-}
-.fondo-toast.is-on { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .fondo-toast { transition: none; } }
-
 @media print {
-  #bg-canvas, #bg-ships, :root.has-bg body::after, .fondo-toast { display: none !important; }
+  #bg-canvas, #bg-ships, :root.has-bg body::after { display: none !important; }
   :root.has-bg { background: #fff; }
 }
 
