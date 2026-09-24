@@ -499,21 +499,15 @@ h2 { display: flex; align-items: center; gap: 10px; }
 .facts dd .tags { margin-top: 6px; }
 
 /* Theme button: one press flips light/dark. Shows the moon on the light theme, the sun on the dark one.
-   Motion button (.motion-toggle, right after it): the same control, everywhere below. It pauses and
-   plays every animation (WCAG 2.2.2) through site.js; it shows pause while things move and play once
-   <html data-motion="off">. fondo.js hides it (hidden attribute) when the OS asks to reduce motion. */
-.theme-toggle, .motion-toggle {
+   (Pausing the animations is the name's job on the home pages: see fondo.js.) */
+.theme-toggle {
   display: inline-grid; place-items: center; width: 32px; height: 32px; padding: 0; cursor: pointer;
   border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
   transition: border-color .2s ease, color .2s ease;
 }
-.theme-toggle:hover, .motion-toggle:hover { border-color: var(--accent); color: var(--accent); }
-.theme-toggle:focus-visible, .motion-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.theme-toggle .i, .motion-toggle .i { width: 16px; height: 16px; }
-.motion-toggle[hidden] { display: none; }   /* the display above would otherwise beat [hidden] */
-.motion-toggle .play { display: none; }
-:root[data-motion="off"] .motion-toggle .pause { display: none; }
-:root[data-motion="off"] .motion-toggle .play { display: block; }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.theme-toggle .i { width: 16px; height: 16px; }
 .theme-toggle .sun { display: none; }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .theme-toggle .sun { display: block; }
@@ -523,7 +517,6 @@ h2 { display: flex; align-items: center; gap: 10px; }
 :root[data-theme="dark"] .theme-toggle .moon { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle { transition: none; }
-  .motion-toggle { display: none; }   /* nothing moves: nothing to pause */
 }
 
 /* ---------- Experience tabs (WAI-ARIA tabs; without JS every panel shows, stacked) ---------- */
@@ -577,7 +570,7 @@ h2 { display: flex; align-items: center; gap: 10px; }
   .nav-label { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   .lang { margin-left: 4px; }
   .lang [aria-current] { display: none; }
-  .theme-toggle, .motion-toggle { width: 30px; height: 30px; }
+  .theme-toggle { width: 30px; height: 30px; }
 }
 @media (max-width: 370px) {
   .brand { font-size: 15px; }
@@ -803,8 +796,8 @@ section + section { border-top: 0; }
 .lang a { color: var(--header-muted); }
 /* "Current" is a state, not an action: ink fill, so the teal keeps meaning "link / primary action". */
 .lang [aria-current] { background: var(--ink); color: var(--on-ink); }
-.theme-toggle, .motion-toggle { background: transparent; border-color: transparent; }
-.theme-toggle:hover, .motion-toggle:hover { background: var(--tint); border-color: transparent; color: var(--ink); }
+.theme-toggle { background: transparent; border-color: transparent; }
+.theme-toggle:hover { background: var(--tint); border-color: transparent; color: var(--ink); }
 
 /* One row at every width. The base rules let the row wrap from 641px up, and the Spanish labels made it
    2–3 rows between 641 and ~830px. Here it never wraps: labels show only where the whole row fits,
@@ -820,7 +813,7 @@ section + section { border-top: 0; }
   .nav { gap: 24px; font-size: 13px; letter-spacing: -0.01em; }
   .nav > a { min-height: 44px; }
   .nav > a .i { display: none; }
-  .theme-toggle, .motion-toggle { width: 36px; height: 36px; }
+  .theme-toggle { width: 36px; height: 36px; }
 }
 /* Icon-only tier, from 641px until the labelled row fits. Row widths measured in Inter 13px
    (brand 132px + nav): EN ≈ 590px → labels from 760px; ES ≈ 675px ("CV (PDF, en inglés)" alone
@@ -873,14 +866,14 @@ section + section { border-top: 0; }
   .nav > a { min-width: 26px; padding: 0 2px; }
   .lang { margin-left: 2px; }
   .lang > * { padding-inline: 7px; }
-  .theme-toggle, .motion-toggle { width: 28px; height: 28px; }
+  .theme-toggle { width: 28px; height: 28px; }
 }
 @media (max-width: 370px) {
   .brand { font-size: 14px; }
   .nav > a { min-width: 24px; padding: 0; }
   .lang { padding: 0; }   /* one label shows on phones: no inset needed around a current-language fill */
   .lang > * { padding-inline: 6px; }
-  .theme-toggle, .motion-toggle { width: 26px; height: 26px; }
+  .theme-toggle { width: 26px; height: 26px; }
 }
 @media (max-width: 340px) {
   .site-header .wrap { gap: 4px; }
@@ -1043,7 +1036,7 @@ main.case > section:last-of-type { padding: clamp(28px, 4vw, 44px) 0; }
 @media (prefers-contrast: more) {
   .site-header { border-bottom-color: var(--line-strong); }
   .feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .timeline > li, .limits, .media, .car-img,
-  .video-frame, .shots img, .ximg img, .btn, .xtab, .car-btn, .tags li, .lang, .theme-toggle, .motion-toggle { border-color: var(--line-strong); }
+  .video-frame, .shots img, .ximg img, .btn, .xtab, .car-btn, .tags li, .lang, .theme-toggle { border-color: var(--line-strong); }
   :root.has-bg :is(.feature, .card, .xitem, .facts, .decisions li, .diagram, .contact-card, .timeline > li, .limits) { border-color: var(--line-strong); }
   .feature, .card, .contact-card { box-shadow: none; }
   /* Bands are told apart by fill alone (1.09:1 in light): a rule marks each section edge again. */

@@ -3,8 +3,9 @@
 
 1. Theme: a tiny script in <head> applies the visitor's saved theme before first paint
    (no flash), and a single header button flips light/dark (behaviour in assets/js/site.js).
-2. Motion: a pause/play button right after the theme one (WCAG 2.2.2: the starry background and
-   the diagrams move on their own). Behaviour in assets/js/fondo.js, through site.js's single switch.
+2. Motion: no button. On the home pages the name in the header is the pause control (WCAG 2.2.2):
+   fondo.js pauses everything and goes to the top, and a second press resumes. Any pause/play button
+   an earlier run stamped is removed.
 3. Scroll reveal: a tiny script in <head>, before the first stylesheet, marks <html> before first
    paint (mode "bold") so reveal.js never flashes content in and out. It stands down under OS
    reduced motion or the site's saved Pause, and lets everything through after 4 s whatever happens.
@@ -43,8 +44,6 @@ REVEAL_INIT = ('<script id="reveal-init">try{var r=document.documentElement;r.se
 INTER = '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">'
 LABELS = {"en": ("Switch to dark theme", "Switch to light theme"),
           "es": ("Cambiar a tema oscuro", "Cambiar a tema claro")}
-MOTION_LABELS = {"en": ("Pause animations", "Play animations"),
-                 "es": ("Pausar animaciones", "Reanudar animaciones")}
 # Header links: an icon plus a label; on phones the label is visually hidden (still read by screen
 # readers) so the whole header fits on one row.
 NAV_ICONS = (("#work", "briefcase"), ("#experience", "history"), ("#contact", "mail"), ("cv.pdf", "file-text"))
@@ -107,17 +106,9 @@ def main() -> int:
                            lambda m: m.group(1) + button + m.group(2), s, count=1, flags=re.S)
             assert n == 1, f"{path}: language switch not found"
             counts["button"] += 1
-        if 'class="motion-toggle"' not in s:
-            # The label names what a press does (like the theme toggle), so no aria-pressed: a changing
-            # label plus a pressed state would read "Play animations, pressed". fondo.js labels it at load.
-            to_pause, to_play = MOTION_LABELS[lang]
-            button = (f'<button type="button" class="motion-toggle" data-to-pause="{to_pause}" data-to-play="{to_play}" '
-                      f'aria-label="{to_pause}" title="{to_pause}">'
-                      f'{icon("pause", "i pause")}{icon("play", "i play")}</button>')
-            s, n = re.subn(r'(<button type="button" class="theme-toggle".*?</button>)',
-                           lambda m: m.group(1) + button, s, count=1, flags=re.S)
-            assert n == 1, f"{path}: theme button not found"
-            counts["motion"] += 1
+        # The name is the pause control now (fondo.js): drop the button earlier runs stamped.
+        s, n = re.subn(r'<button type="button" class="motion-toggle"[^>]*>.*?</button>', "", s, flags=re.S)
+        counts["motion"] += n
 
         def link(a: re.Match) -> str:
             # Only plain-text links match, so a link that already has its icon is left alone.

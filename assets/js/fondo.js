@@ -13,7 +13,7 @@
 //
 // Case pages keep the sky as a still frame (started, then paused), so the architecture diagrams
 // carry the motion. Under forced colours nothing starts: the system does not recolour a canvas.
-// The header's pause/play button (.motion-toggle) drives site.js's single motion switch.
+// On the home pages the name in the header pauses and resumes everything (see below).
 (function () {
   "use strict";
 
@@ -78,38 +78,69 @@
   });
   listen(forcedMq, start);
 
-  // ---- Pause / play in the header (WCAG 2.2.2): site.js's single motion switch ----
-  // The label names what a press does, as the theme button does (no aria-pressed: see stamp_chrome.py).
-  // Hidden when the OS asks to reduce motion: nothing moves then (site.js decides that at load).
-  var toggles = Array.prototype.slice.call(document.querySelectorAll(".motion-toggle"));
-  var reducedAtLoad = osReduced();
+  // ---- The name in the header: the pause control on the home pages (WCAG 2.2.2) ----
+  // A first press pauses every animation (the sky, the scroll reveal, the hero) through site.js's
+  // single switch and goes back to the top; the next press resumes. The pause is remembered like the
+  // diagrams' own Pause. Only where the name links to the page itself (the home pages): on a
+  // project page it still goes home, and the sky there is already still. A modifier or another
+  // button keeps the browser's own behaviour (new tab, window, download). Under OS reduced motion
+  // nothing moves and the name stays a plain link. A title tells mouse users; a polite live region
+  // tells screen-reader users what a press did.
+  var LANG = /^es\b/i.test(root.getAttribute("lang") || "") ? "es" : "en";
+  var TEXT = {
+    en: { pause: "Pause animations and go to the top", play: "Resume animations",
+          paused: "Animations paused", resumed: "Animations resumed" },
+    es: { pause: "Pausar animaciones e ir al inicio", play: "Reanudar animaciones",
+          paused: "Animaciones en pausa", resumed: "Animaciones reanudadas" }
+  }[LANG];
+  function pagePath(p) { p = p || "/"; return p.charAt(p.length - 1) === "/" ? p + "index.html" : p; }
+  var brand = document.querySelector("header .brand");
+  var loc = window.location;
+  var brandHome = !!brand && typeof brand.pathname === "string" && brand.host === loc.host &&
+    pagePath(brand.pathname) === pagePath(loc.pathname);
   function motionOn() {
     var m = root.getAttribute("data-motion");
     return m === "off" ? false : m === "on" ? true : storeGet(MOTION_KEY) !== "off";
   }
-  function labelMotion() {
-    var paused = !motionOn(), hide = reducedAtLoad || osReduced();
-    toggles.forEach(function (b) {
-      var text = b.getAttribute(paused ? "data-to-play" : "data-to-pause");
-      if (text) { b.setAttribute("aria-label", text); b.setAttribute("title", text); }
-      b.hidden = hide;
-      b.style.display = hide ? "none" : "";   // an author `display` on the button would override [hidden]
-    });
+  function controls() { return brandHome && !osReduced(); }
+  function labelBrand() {
+    if (!brandHome) return;
+    if (controls()) brand.setAttribute("title", motionOn() ? TEXT.pause : TEXT.play);
+    else brand.removeAttribute("title");
   }
-  toggles.forEach(function (b) {
-    b.addEventListener("click", function () {
+  var status = null;
+  function announce(text) {
+    if (!status) {
+      status = document.createElement("span");
+      status.className = "sr-only";
+      status.setAttribute("role", "status");
+      status.setAttribute("aria-live", "polite");
+      document.body.appendChild(status);
+    }
+    status.textContent = "";
+    window.setTimeout(function () { status.textContent = text; }, 50);   // cleared first, so a repeat is read again
+  }
+  if (brandHome) {
+    brand.addEventListener("click", function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (!controls()) return;
+      e.preventDefault();
       var on = !motionOn();
       storeSet(MOTION_KEY, on ? "on" : "off");
       if (typeof window.__setMotion === "function") window.__setMotion(on);
       else root.setAttribute("data-motion", on ? "on" : "off");
-      labelMotion();
+      if (!on) {
+        try { window.scrollTo({ top: 0, left: 0, behavior: "smooth" }); } catch (err) { window.scrollTo(0, 0); }
+      }
+      labelBrand();
+      announce(on ? TEXT.resumed : TEXT.paused);
     });
-  });
+  }
   // The diagrams' own Play/Pause (or site.js) can change the switch too.
   if (window.MutationObserver) {
-    new window.MutationObserver(labelMotion).observe(root, { attributes: true, attributeFilter: ["data-motion"] });
+    new window.MutationObserver(labelBrand).observe(root, { attributes: true, attributeFilter: ["data-motion"] });
   }
-  listen(reduceMq, labelMotion);
+  listen(reduceMq, labelBrand);
 
   window.PortfolioFondo = {
     current: function () {
@@ -117,6 +148,6 @@
     }
   };
 
-  labelMotion();
+  labelBrand();
   start();
 })();
