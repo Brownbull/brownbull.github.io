@@ -26,6 +26,9 @@ INIT = ('<script id="theme-init">try{var t=localStorage.getItem("portfolio:theme
         'if(t==="dark"||t==="light")document.documentElement.setAttribute("data-theme",t)}catch(e){}</script>')
 LABELS = {"en": ("Switch to dark theme", "Switch to light theme"),
           "es": ("Cambiar a tema oscuro", "Cambiar a tema claro")}
+# Header links: an icon plus a label; on phones the label is visually hidden (still read by screen
+# readers) so the whole header fits on one row.
+NAV_ICONS = (("#work", "briefcase"), ("#experience", "history"), ("#contact", "mail"), ("cv.pdf", "file-text"))
 ICON_ATTRS = ('width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" '
               'stroke-linecap="round" stroke-linejoin="round" ')
 
@@ -36,7 +39,7 @@ def digest(rel: str) -> str:
 
 def main() -> int:
     css_v, js_v = digest("assets/css/site.css"), digest("assets/js/site.js")
-    counts = {"init": 0, "button": 0, "icons": 0, "busted": 0}
+    counts = {"init": 0, "button": 0, "nav": 0, "icons": 0, "busted": 0}
     for path in sorted(ROOT.rglob("*.html")):
         if ".git" in path.parts or path.name.startswith("_"):
             continue
@@ -54,6 +57,18 @@ def main() -> int:
                            lambda m: m.group(1) + button + m.group(2), s, count=1, flags=re.S)
             assert n == 1, f"{path}: language switch not found"
             counts["button"] += 1
+        def link(a: re.Match) -> str:
+            # Only plain-text links match, so a link that already has its icon is left alone.
+            href, attrs, label = a.group(1), a.group(2), a.group(3)
+            for suffix, name in NAV_ICONS:
+                if href.endswith(suffix):
+                    counts["nav"] += 1
+                    return f'<a href="{href}"{attrs}>{icon(name)}<span class="nav-label">{label}</span></a>'
+            return a.group(0)
+
+        def nav_links(m: re.Match) -> str:
+            return re.sub(r'<a href="([^"]+)"([^>]*)>([^<]+)</a>', link, m.group(0))
+        s = re.sub(r'<nav class="nav"[^>]*>.*?</nav>', nav_links, s, count=1, flags=re.S)
         s, n = re.subn(r'<svg class="(i[^"]*)" viewBox="0 0 24 24" aria-hidden="true"',
                        lambda m: f'<svg class="{m.group(1)}" viewBox="0 0 24 24" {ICON_ATTRS}aria-hidden="true"', s)
         counts["icons"] += n
