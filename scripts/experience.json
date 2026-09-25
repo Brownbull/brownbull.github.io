@@ -433,8 +433,8 @@
    "label_es": "Desarrollo asistido por IA",
    "short_en": "AI dev",
    "short_es": "Con IA",
-   "blurb_en": "Tools and agents I built around Claude Code, my main coding tool, for my own work since early 2026. Before that, GitHub Copilot at Experian (2024) for model implementation.",
-   "blurb_es": "Herramientas y agentes que construí en torno a Claude Code, mi principal herramienta de programación, para mi propio trabajo desde inicios de 2026. Antes, GitHub Copilot en Experian (2024) para implementar modelos.",
+   "blurb_en": "Tools and agents I built around Claude Code, my main coding tool, for my own work since late 2025. Before that, GitHub Copilot at Experian (2024) for model implementation.",
+   "blurb_es": "Herramientas y agentes que construí en torno a Claude Code, mi principal herramienta de programación, para mi propio trabajo desde fines de 2025. Antes, GitHub Copilot en Experian (2024) para implementar modelos.",
    "items": [
     {
      "title_en": "A test-first loop with hooks that block",
@@ -449,6 +449,29 @@
      ],
      "where_en": "Gabe Suite · public repo, since February 2026",
      "where_es": "Gabe Suite · repositorio público, desde febrero de 2026"
+    },
+    {
+     "title_en": "Outcomes with gates, then a hostile pass",
+     "title_es": "Resultados con gates y luego una revisión hostil",
+     "text_en": "Claude Code's /insights report on 35 of my sessions (Aug–Sep 2026) describes how I work: I set an outcome with acceptance gates (green tests, a Playwright proof, a commit), let it run, correct in batches, research with parallel agents, add an adversarial pass and a handoff note.",
+     "text_es": "El informe /insights de Claude Code sobre 35 de mis sesiones (ago–sep 2026) describe cómo trabajo: fijo un resultado con criterios de aceptación (tests en verde, una prueba en Playwright, un commit), lo dejo correr, corrijo en lote, investigo con agentes en paralelo y sumo una pasada adversarial y una nota de traspaso.",
+     "tech": [
+      "Claude Code",
+      "Playwright"
+     ],
+     "where_en": "How I work · Claude Code /insights, August–September 2026",
+     "where_es": "Cómo trabajo · /insights de Claude Code, agosto–septiembre de 2026"
+    },
+    {
+     "title_en": "Kept what held up, archived the rest",
+     "title_es": "Conservé lo que funcionó y archivé el resto",
+     "text_en": "On the way to Gabe Suite: my own framework and BMAD (2025), Everything Claude Code, agents that update their own rule files on a LEARN command, Ralph loops and Compound Engineering ideas (early 2026). In July 2026 I archived what went unused; now the suite proposes archiving by usage, asking me first.",
+     "text_es": "En el camino a Gabe Suite: mi propio framework y BMAD (2025), Everything Claude Code, agentes que actualizan sus archivos de reglas con un comando LEARN, loops de Ralph e ideas de Compound Engineering (inicios de 2026). En julio de 2026 archivé lo que no usaba; ahora la suite propone qué archivar según el uso y me pregunta antes.",
+     "tech": [
+      "Claude Code"
+     ],
+     "where_en": "Gabe Suite · lineage, 2025–2026",
+     "where_es": "Gabe Suite · antecedentes, 2025–2026"
     },
     {
      "title_en": "Two MCP servers on the standard library",
@@ -488,6 +511,18 @@
      ],
      "where_en": "Personal agent platform · internal use, since January 2026",
      "where_es": "Plataforma personal de agentes · uso interno, desde enero de 2026"
+    },
+    {
+     "title_en": "Vector RAG weighed, not built",
+     "title_es": "RAG vectorial: analizado, no construido",
+     "text_en": "In March 2026 my agents kept loading whole files: vector RAG over their ~80 curated Markdown files meant an index and embeddings to maintain for little gain. In August I weighed eight RAG designs, naive to agentic, on seven properties like auditability: RAG wins only on a corpus too big to load or impossible to curate.",
+     "text_es": "En marzo de 2026 mis agentes siguieron cargando archivos completos: RAG vectorial sobre sus ~80 archivos Markdown curados implicaba mantener un índice y embeddings con poca ganancia. En agosto sopesé ocho diseños de RAG, de naive a agéntico, en siete propiedades como la auditabilidad: RAG gana solo con un corpus demasiado grande para cargarlo o imposible de curar.",
+     "tech": [
+      "Claude Code",
+      "Markdown"
+     ],
+     "where_en": "Personal agent platform · written analyses, March and August 2026",
+     "where_es": "Plataforma personal de agentes · análisis escritos, marzo y agosto de 2026"
     }
    ]
   }
