@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Personal agent platform — case study · Gabriel Cárcamo</title>
-  <meta name="description" content="A private platform of 22 Claude Code agents I use for my own paperwork and research: how an agent is defined, what its sidecar holds, how a case runs, and the guardrails around it.">
+  <meta name="description" content="A private platform of 23 Claude Code agents I use for my own paperwork and research: how an agent is defined, what its sidecar holds, how a case runs, and the guardrails around it.">
   <meta property="og:title" content="Personal agent platform — case study · Gabriel Cárcamo">
-  <meta property="og:description" content="22 domain agents, each a YAML definition plus a sidecar of knowledge and state; most run their cases through a shared outline with escalation rules, and nothing is published or sent without my confirmation.">
+  <meta property="og:description" content="23 domain agents, each a YAML definition plus a sidecar of knowledge and state; most run their cases through a shared outline with escalation rules, and nothing is published or sent without my confirmation.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://brownbull.github.io/projects/agents.html">
   <meta property="og:image" content="https://brownbull.github.io/assets/img/og-card.png">
@@ -47,17 +47,17 @@
       <div class="case-head">
         <div class="chips">
           <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Internal use · private repo</span>
-          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>22 agents · since January 2026</span>
+          <span class="chip internal"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>23 agents · since January 2026</span>
         </div>
         <h1>Personal agent platform</h1>
-        <p class="lede">A private set of 22 Claude Code agents I built for my own paperwork, research and side projects. Each one owns a domain and carries its own knowledge and state; most run their cases through the same outline: intake, analysis, a draft and my review. This page describes how it is put together.</p>
+        <p class="lede">A private set of 23 Claude Code agents I built for my own paperwork, research and side projects. Each one owns a domain and carries its own knowledge and state; most run their cases through the same outline: intake, analysis, a draft and my review. This page describes how it is put together.</p>
       </div>
 
       <figure class="diagram" data-fx="flow-agents" tabindex="0">
           <div class="fx-bar" id="af-motion" role="radiogroup" aria-label="Animation"><button type="button" class="af-opt" data-id="on" role="radio" aria-checked="true"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 5a2 2 0 0 1 3.008-1.728l11.997 6.998a2 2 0 0 1 .003 3.458l-12 7A2 2 0 0 1 5 19z"/></svg>Play</button><button type="button" class="af-opt" data-id="off" role="radio" aria-checked="false"><svg class="i" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="14" y="3" width="5" height="18" rx="1"/><rect x="5" y="3" width="5" height="18" rx="1"/></svg>Pause</button></div>
           <svg viewBox="0 0 952 390" role="img" aria-labelledby="ag-title ag-desc">
           <title id="ag-title">How one agent is put together</title>
-          <desc id="ag-desc">A slash command loads an agent definition: a YAML file with the agent's role, its commands and its session hooks. The definition loads a sidecar folder holding the working method and preferences, a curated knowledge base, dynamic state such as the pipeline or open cases, and instincts. The agent then runs a case through four steps: intake with the questions that change the answer, analysis against its knowledge, a draft deliverable, and a human review. A shared layer of guardrails applies: escalation rules (in 15 of the 22 agents) that tell the agent to stop and hand the decision to me or refer it to a professional, prohibited phrasings, sources cited with their confidence, and deliverables written for my review; nothing is published or sent without my confirmation.</desc>
+          <desc id="ag-desc">A slash command loads an agent definition: a YAML file with the agent's role, its commands and its session hooks. The definition loads a sidecar folder holding the working method and preferences, a curated knowledge base, dynamic state such as the pipeline or open cases, and instincts. The agent then runs a case through four steps: intake with the questions that change the answer, analysis against its knowledge, a draft deliverable, and a human review. A shared layer of guardrails applies: escalation rules (in 16 of the 23 agents) that tell the agent to stop and hand the decision to me or refer it to a professional, prohibited phrasings, sources cited with their confidence, and deliverables written for my review; nothing is published or sent without my confirmation.</desc>
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
           </defs>
@@ -83,7 +83,7 @@
           <path class="edge" d="M744 219 H770"/>
           <path class="edge dashed" d="M664 102 V184"/>
 
-          <g class="band"><rect x="20" y="300" width="912" height="60" rx="8"/><text x="36" y="325">Guardrails: escalation rules in 15 of the 22 agents · prohibited phrasings · sources cited with a confidence label</text><text x="36" y="347">· nothing is published or sent without my confirmation · a meta-agent creates new agents to a shared quality checklist</text></g>
+          <g class="band"><rect x="20" y="300" width="912" height="60" rx="8"/><text x="36" y="325">Guardrails: escalation rules in 16 of the 23 agents · prohibited phrasings · sources cited with a confidence label</text><text x="36" y="347">· nothing is published or sent without my confirmation · a meta-agent creates new agents to a shared quality checklist</text></g>
         </svg>
         <figcaption>Most agents share this shape; the phases, commands and case format differ per agent, and a few keep a running workspace instead of case folders.</figcaption>
       </figure>
@@ -110,7 +110,7 @@
           <li><strong>One YAML definition per agent.</strong> Role and voice, a menu of commands (8 to 31 per agent, more than 400 across the set), the files to load when a session starts, and checks to run before and after a command.</li>
           <li><strong>A sidecar next to it.</strong> The working method, my preferences, a curated knowledge base loaded selectively rather than all at once, dynamic state (open cases, pipelines), and instincts: rules of thumb, most seeded from best practice and a few added after real cases, each with a starting confidence value and, in several agents, a rule (not yet applied) for raising or lowering it when a call turns out right or wrong.</li>
           <li><strong>A case folder per job,</strong> dated and owned by one agent, holding intake, analysis and deliverables. A dashboard file lists every open case across agents.</li>
-          <li><strong>Guardrails in the definition, not in my memory.</strong> Escalation rules (in 15 of the 22 agents), written as prose instructions, that tell the agent to stop and hand the decision to me or refer it to a professional, phrasings it may not use, a requirement to label each figure as verified or inferred and to name its source, and a rule that deliverables are written for my review and nothing is published or sent without my confirmation.</li>
+          <li><strong>Guardrails in the definition, not in my memory.</strong> Escalation rules (in 16 of the 23 agents), written as prose instructions, that tell the agent to stop and hand the decision to me or refer it to a professional, phrasings it may not use, a requirement to label each figure as verified or inferred and to name its source, and a rule that deliverables are written for my review and nothing is published or sent without my confirmation.</li>
           <li><strong>A shared execution contract</strong> that every agent follows: cite evidence, run the check before claiming something passed, and update the state file in the same session.</li>
         </ul>
       </div>
@@ -124,7 +124,7 @@
             <li>Internal use, one user, one machine. It is not a product and it is not multi-user.</li>
             <li>The repository holds real personal and third-party material, so it stays private and nothing from it appears here.</li>
             <li>There is no accuracy evaluation. The safeguard is that a person reads every output before it goes anywhere.</li>
-            <li>Counts as of September 2026: 22 agents, more than 400 commands (8 to 31 per agent). First commit January 2026.</li>
+            <li>Counts as of September 2026: 23 agents, more than 400 commands (8 to 31 per agent). First commit January 2026.</li>
           </ul>
         </div>
       </div>

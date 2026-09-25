@@ -30,7 +30,7 @@ CHIP_RULES = [
     (("runs locally", "corre en local", "se ejecuta en local", "not hosted", "sin hosting"), "laptop"),
     (("maintained", "se mantiene"), "archive"),
     (("private", "privad", "internal use", "uso interno"), "lock"),
-    (("22 agents", "22 agentes"), "bot"),
+    (("23 agents", "23 agentes"), "bot"),
     (("public repo", "repo público", "repositorio público"), "git-branch"),
     (("publicly deployed", "desplegado públicamente"), "globe"),
     (("gabe suite",), "puzzle"),

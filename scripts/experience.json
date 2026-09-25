@@ -34,8 +34,8 @@
    "API de Claude",
    "API de Gemini"
   ],
-  "meta_en": "How I build: test first, with a review step, and Claude Code as my main coding tool; I packaged that workflow as Gabe Suite. Statement parsing, reconciliation and match scores stay in plain code; where a model is used, its output comes back typed and is checked in code.",
-  "meta_es": "Cómo construyo: primero la prueba, con un paso de revisión, y Claude Code como mi principal herramienta de programación; empaqueté ese flujo como Gabe Suite. La lectura de estados de cuenta, la conciliación y los puntajes de coincidencia quedan en código convencional; donde uso un modelo, su salida vuelve tipada y se revisa en código."
+  "meta_en": "How I build: I hand Claude Code, my main tool, an outcome with gates (tests first, a Playwright proof, an adversarial pass). I packaged that workflow as Gabe Suite after trying BMAD, Everything Claude Code and Ralph loops. My agents read curated files, not vector RAG; statement parsing, reconciliation and match scores stay in plain code, which also checks typed model output.",
+  "meta_es": "Cómo construyo: a Claude Code, mi herramienta principal, le encargo un resultado con gates (tests primero, una prueba en Playwright, una pasada adversarial). Empaqueté ese flujo como Gabe Suite después de probar BMAD, Everything Claude Code y los loops de Ralph. Mis agentes leen archivos curados, no RAG vectorial; la lectura de estados de cuenta, la conciliación y los puntajes de coincidencia quedan en código convencional, que además revisa la salida tipada del modelo."
  },
  "intro_en": "Work history first; the other tabs group the same experience by kind of work, and each item says where it happened.",
  "intro_es": "Primero la trayectoria; las otras pestañas agrupan esa misma experiencia por tipo de trabajo, y cada ítem dice dónde ocurrió.",
@@ -474,6 +474,18 @@
      "where_es": "Gabe Suite · antecedentes, 2025–2026"
     },
     {
+     "title_en": "Same project, three workflows",
+     "title_es": "El mismo proyecto, tres flujos de trabajo",
+     "text_en": "At the April 2026 AgentX Hackathon I started one build in three parallel repos, on GSD, Everything Claude Code and BMAD. GSD made about three planning commits per feature commit (76 to 24); the Everything Claude Code repo (13 docs commits to 29 feature commits) is the one I submitted, and I then stopped using GSD.",
+     "text_es": "En el hackathon AgentX de abril de 2026 empecé el mismo proyecto en tres repos paralelos, con GSD, Everything Claude Code y BMAD. GSD hizo unos tres commits de planificación por cada commit de funcionalidad (76 a 24); el repo con Everything Claude Code (13 commits de documentación a 29 de funcionalidad) fue el que entregué, y después dejé de usar GSD.",
+     "tech": [
+      "Claude Code",
+      "Git"
+     ],
+     "where_en": "AgentX Hackathon · SRE Triage Agent, April 2026",
+     "where_es": "Hackathon AgentX · SRE Triage Agent, abril de 2026"
+    },
+    {
      "title_en": "Two MCP servers on the standard library",
      "title_es": "Dos servidores MCP con la biblioteca estándar",
      "text_en": "gabe-map exposes a project's committed code map as 18 query tools, so agents stop grepping; gabe-kdbp exposes the workflow state as 7 read-only tools. Both are Python standard library over stdio.",
@@ -500,10 +512,10 @@
      "where_es": "Gabe Command Center · parte de Gabe Suite, en uso en dos de mis repos privados"
     },
     {
-     "title_en": "22 agents with human review",
-     "title_es": "22 agentes con revisión humana",
-     "text_en": "22 Claude Code agents (as of September 2026) for my own paperwork, research and side projects; in 15, escalation rules written as prose tell the agent to hand decisions to me.",
-     "text_es": "22 agentes de Claude Code (a septiembre de 2026) para mis propios trámites, investigación y proyectos personales; en 15, reglas de escalamiento escritas en prosa le indican al agente que me devuelva la decisión.",
+     "title_en": "23 agents with human review",
+     "title_es": "23 agentes con revisión humana",
+     "text_en": "23 Claude Code agents (as of September 2026) for my own paperwork, research and side projects; in 16, escalation rules written as prose tell the agent to hand decisions to me.",
+     "text_es": "23 agentes de Claude Code (a septiembre de 2026) para mis propios trámites, investigación y proyectos personales; en 16, reglas de escalamiento escritas en prosa le indican al agente que me devuelva la decisión.",
      "tech": [
       "Claude Code",
       "YAML",
