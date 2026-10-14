@@ -41,6 +41,7 @@ KEYWORDS = {
     "anthropic": "anthropic", "shell": "gnubash", "json-rpc": "json", "aws": "lucide:cloud", "mainframe": "lucide:server",
     "octokit": "lucide:git-branch", "celery": "celery", "graphviz": "lucide:workflow", "c": "c", "plotly": "plotly", "igraph": "lucide:share-2", "aix": "lucide:server", "jcl": "lucide:file-code",
     "pymupdf": "lucide:file-text", "mypy": "lucide:shield-check", "pip-audit": "lucide:shield-check", "db2": "lucide:database",
+    "sql": "lucide:table",
 }
 
 

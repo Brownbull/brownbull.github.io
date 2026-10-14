@@ -65,6 +65,7 @@
    "org_es": "Experian · Remoto, Chile",
    "bullets_en": [
     "Deployed and hardened credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) on mainframe, AIX/Linux and AWS: edge cases, test coverage, regulatory and audit requirements; not tuning the models or owning the score.",
+    "Compiled the models in C and ran them as user-defined functions (UDFs) inside DB2, on mainframe and AIX/Linux: SQL queries ingested and joined the latest data, and I delivered the output to downstream platforms parsed into fields or as a single string with its layout sent separately, generated the data dictionaries and tested each build on the machines it would run on.",
     "Moved and validated data across mainframe, AIX/Linux and AWS for models that processed 300M+ data points (records covering the US population).",
     "Cut the Property Attributes aggregation pipeline from 4+ hours to 15 minutes by restructuring the input for vectorized pandas/numpy group operations and moving to write-once, load-once feature loading.",
     "Fixed production issues for Experian's banking clients within 24–48 hours. Worked directly with their teams, including heads of data science, as the vendor-side engineer.",
@@ -73,6 +74,7 @@
    ],
    "bullets_es": [
     "Desplegué y robustecí modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS: casos borde, cobertura de pruebas y requisitos regulatorios y de auditoría; sin ajustar los modelos ni ser dueño del score.",
+    "Compilé los modelos en C y los ejecuté como funciones definidas por el usuario (UDF) dentro de DB2, en mainframe y AIX/Linux: consultas SQL ingerían los datos y unían las tablas para trabajar con los más recientes, y entregué la salida a otras plataformas separada en campos o como un solo string con el layout enviado aparte, generé los diccionarios de datos y probé cada compilación en las máquinas donde iba a correr.",
     "Moví y validé datos entre mainframe, AIX/Linux y AWS para modelos que procesaron más de 300 millones de puntos de datos (registros que cubren a la población de EE. UU.).",
     "Reduje el pipeline de agregación de Property Attributes de 4 horas o más a 15 minutos, reestructurando la entrada para usar operaciones de agrupación vectorizadas con pandas/numpy y pasando a una carga de features del tipo «escribir una vez, cargar una vez».",
     "Corregí problemas en producción para los clientes bancarios de Experian en un plazo de 24–48 horas. Trabajé directamente con sus equipos, incluidas sus jefaturas de ciencia de datos, como ingeniero del lado del proveedor.",
@@ -90,11 +92,13 @@
    "org_es": "Experian · Remoto, Chile",
    "bullets_en": [
     "Designed and built ETL pipelines in Shell and SQL.",
+    "Modified mainframe JCL for notification-campaign programs that ran over 300M+ data points.",
     "Administered and optimized DB2, MySQL and PostgreSQL databases.",
     "Supported critical systems 24/7 for internal and external teams, and built internal tools: MVC-structured Shell libraries, file-format converters and, from 2018, small Python CLI tools."
    ],
    "bullets_es": [
     "Diseñé y construí pipelines ETL en Shell y SQL.",
+    "Modifiqué JCL de mainframe para programas de notificaciones de campañas que corrían sobre más de 300 millones de puntos de datos.",
     "Administré y optimicé bases de datos DB2, MySQL y PostgreSQL.",
     "Di soporte 24/7 a sistemas críticos para equipos internos y externos, y construí herramientas internas: librerías de Shell con estructura MVC, conversores de formatos de archivo y, desde 2018, pequeñas herramientas CLI en Python."
    ]
@@ -320,6 +324,21 @@
    "blurb_en": "Moving data between platforms and validating that it stays consistent: credit-risk model data at Experian, and card statements in Gastify, a side project.",
    "blurb_es": "Mover datos entre plataformas y validar que lleguen consistentes: datos de modelos de riesgo crediticio en Experian, y estados de cuenta de tarjetas en Gastify, un proyecto personal.",
    "items": [
+    {
+     "title_en": "Models as functions inside DB2",
+     "title_es": "Modelos como funciones dentro de DB2",
+     "text_en": "The credit-risk models ran inside the database. SQL queries ingested the data and joined tables so each model scored the most recent records; I compiled each model in C as a binary and ran it as a user-defined function (UDF) in the DB2 engine, on mainframe and on AIX/Linux. The output went through DB2 to the other platforms, parsed into fields or as a single string with its layout sent separately, and I generated the data dictionaries that describe it. Each build was tested on the machines it would run on.",
+     "text_es": "Los modelos de riesgo crediticio corrían dentro de la base de datos. Consultas SQL ingerían los datos y unían tablas para que cada modelo evaluara los registros más recientes; compilé cada modelo en C como binario y lo ejecuté como función definida por el usuario (UDF) en el motor DB2, en mainframe y en AIX/Linux. La salida se entregaba por DB2 a las demás plataformas, separada en campos o como un solo string con su layout enviado aparte, y generé los diccionarios de datos que la describen. Cada compilación se probó en las máquinas donde iba a correr.",
+     "where_en": "Experian",
+     "where_es": "Experian",
+     "tech": [
+      "C",
+      "DB2",
+      "SQL",
+      "IBM mainframe",
+      "AIX/Linux"
+     ]
+    },
     {
      "title_en": "Output comparison across platforms",
      "title_es": "Comparación de salidas entre plataformas",
