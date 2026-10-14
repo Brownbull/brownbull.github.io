@@ -35,7 +35,7 @@ T = {
                goto="Go to screen", of="of", car="screens", foot="Backend Engineer, Python &amp; AI",
                email="Email", details="Architecture and screens →", next_proj="→"),
     "es": dict(skip="Saltar al contenido", nav="Principal", work="Trabajo", exp="Experiencia", contact="Contacto",
-               cv="CV (PDF, en inglés)", lang="Idioma", back="← Otros proyectos", kind="proyecto",
+               cv="CV (PDF)", lang="Idioma", back="← Otros proyectos", kind="proyecto",
                screens="Pantallas", built="Cómo está construido", works="Cómo funciona", stack_links="Stack y enlaces",
                stack="Stack", status="Estado", links="Enlaces", prev="Pantalla anterior", next="Pantalla siguiente",
                goto="Ir a la pantalla", of="de", car="pantallas", foot="Ingeniero Backend, Python e IA",
@@ -161,7 +161,8 @@ def page(spec: dict, lang: str, next_spec: dict | None) -> str:
     slug, name = spec["slug"], spec.get("name_" + lang, spec["name"])
     en_url, es_url = f"{SITE}/projects/{slug}.html", f"{SITE}/es/projects/{slug}.html"
     url = en_url if lang == "en" else es_url
-    up = "../" if lang == "en" else "../../"          # to the site root (assets, cv.pdf)
+    up = "../" if lang == "en" else "../../"          # to the site root (assets)
+    cv = "../cv.pdf"                                  # the CV in the page's language: /cv.pdf, /es/cv.pdf
     home = "../index.html"                            # the index in the same language
     title = f"{name} — {t['kind']} · Gabriel Cárcamo"
     desc = spec["lede_" + lang].split(". ")[0].rstrip(".") + "."
@@ -218,7 +219,7 @@ def page(spec: dict, lang: str, next_spec: dict | None) -> str:
         <a href="{home}#work">{t["work"]}</a>
         <a href="{home}#experience">{t["exp"]}</a>
         <a href="{home}#contact">{t["contact"]}</a>
-        <a href="{up}cv.pdf">{t["cv"]}</a>
+        <a href="{cv}">{t["cv"]}</a>
         <span class="lang" role="group" aria-label="{t["lang"]}">{langs}</span>
       </nav>
     </div>
