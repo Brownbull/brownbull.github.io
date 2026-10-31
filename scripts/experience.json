@@ -1,7 +1,7 @@
 {
  "hero": {
-  "lede_en": "11+ years in software, more than 10 as an engineer at Experian (2014–2025). From 2020 I developed credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) and refined them to run in production on mainframe, AIX/Linux and AWS: validating them, moving the data they ran on and producing their distribution reports, for models that processed 300M+ data points. Since late 2025 I have built LLM features on my own projects, and since April 2026 FastAPI and PostgreSQL backends with typed LLM outputs.",
-  "lede_es": "Más de 11 años en software, más de 10 de ellos como ingeniero en Experian (2014–2025). Desde 2020 desarrollé modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) y los refiné para que corrieran en producción en mainframe, AIX/Linux y AWS: los validé, moví los datos con los que corrían y generé sus reportes de distribución, para modelos que procesaron más de 300 millones de puntos de datos. Desde fines de 2025 construyo funcionalidades con LLM en proyectos personales, y desde abril de 2026, backends en FastAPI y PostgreSQL con salidas de LLM tipadas.",
+  "lede_en": "11+ years in software, more than 10 as an engineer at Experian (2014–2025). From 2018 I developed credit-risk models at Experian and refined them for its banking clients (Chase, Citi, Bank of America) to run in production on mainframe, AIX/Linux and AWS: validating them, moving the data they ran on and producing their distribution reports, for models that processed 300M+ data points. Since late 2025 I have built LLM features on my own projects, and since April 2026 FastAPI and PostgreSQL backends with typed LLM outputs.",
+  "lede_es": "Más de 11 años en software, más de 10 de ellos como ingeniero en Experian (2014–2025). Desde 2018 desarrollé modelos de riesgo crediticio en Experian y los refiné para que corrieran en producción para sus clientes bancarios (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS: los validé, moví los datos con los que corrían y generé sus reportes de distribución, para modelos que procesaron más de 300 millones de puntos de datos. Desde fines de 2025 construyo funcionalidades con LLM en proyectos personales, y desde abril de 2026, backends en FastAPI y PostgreSQL con salidas de LLM tipadas.",
   "stack_en": [
    "Python",
    "pandas",
@@ -70,6 +70,7 @@
     "Built the feature-engineering engine for Property Attributes: from the attributes a spec requests, it traces dependencies back to the raw input fields and stops if any input is missing; otherwise it loads only the functions and columns that plan needs and writes each attribute at its level (property, state, property × consumer, property × consumer × trade). With columnar pandas/NumPy operations and bitwise flags, it cut the aggregation run from 4+ hours to 15 minutes.",
     "Fixed production issues for Experian's banking clients within 24–48 hours. Worked directly with client teams, including heads of data science at banks and retailers, as the vendor-side engineer.",
     "Coordinated 4+ engineering teams on the Property Attributes project.",
+    "Designed, end to end, how data reached the models (the queries themselves) and how the models worked inside: how they assembled and concatenated the attributes to compute. I wrote all of those functions.",
     "Trained internal and client engineers on the procedures for implementing models; after the training, client teams implemented models on their own."
    ],
    "bullets_es": [
@@ -79,6 +80,7 @@
     "Construí el motor de features de Property Attributes: a partir de los atributos que pide la especificación, rastrea las dependencias hasta los campos de entrada y se detiene si falta algún insumo; si no falta nada, carga solo las funciones y columnas que ese plan necesita y escribe cada atributo en su nivel (propiedad, estado, propiedad × consumidor, propiedad × consumidor × trade). Junto con operaciones columnares en pandas/NumPy y banderas bit a bit, bajó la agregación de 4 horas o más a 15 minutos.",
     "Corregí problemas en producción para los clientes bancarios de Experian en un plazo de 24–48 horas. Trabajé directamente con los equipos de los clientes, incluidas jefaturas de ciencia de datos de bancos y casas comerciales, como ingeniero del lado del proveedor.",
     "Coordiné a 4 o más equipos de ingeniería en el proyecto Property Attributes.",
+    "Diseñé de punta a punta cómo llegaban los datos a los modelos (las consultas mismas) y cómo funcionaban por dentro: cómo ensamblaban y concatenaban los atributos a calcular. Escribí todas esas funciones.",
     "Capacité a ingenieros internos y de clientes en los procedimientos para implementar modelos; después de la capacitación, los equipos de los clientes implementaron modelos por su cuenta."
    ],
    "when_en": "2020 – Apr 2025",
@@ -91,11 +93,13 @@
    "org_en": "Experian · Remote, Chile",
    "org_es": "Experian · Remoto, Chile",
    "bullets_en": [
+    "From 2018, implemented models on the batch products team.",
     "Modified mainframe JCL for notification-campaign programs that ran over 300M+ data points.",
     "Worked with DB2, MySQL and PostgreSQL; on DB2, wrote queries, created and deployed tables and reviewed indexes.",
     "Supported critical systems 24/7 for internal and external teams, and built internal tools: MVC-structured Shell libraries, file-format converters and, from 2018, small Python CLI tools."
    ],
    "bullets_es": [
+    "Desde 2018 implementé modelos en el equipo de batch products.",
     "Modifiqué JCL de mainframe para programas de notificaciones de campañas que corrían sobre más de 300 millones de puntos de datos.",
     "Trabajé con DB2, MySQL y PostgreSQL; en DB2 escribí consultas, creé e implementé tablas y revisé índices.",
     "Di soporte 24/7 a sistemas críticos para equipos internos y externos, y construí herramientas internas: librerías de Shell con estructura MVC, conversores de formatos de archivo y, desde 2018, pequeñas herramientas CLI en Python."
