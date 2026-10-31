@@ -66,20 +66,20 @@
    "bullets_en": [
     "Deployed and hardened credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) on mainframe, AIX/Linux and AWS: edge cases, test coverage, regulatory and audit requirements; not tuning the models or owning the score.",
     "Compiled the models in C and ran them as user-defined functions (UDFs) inside DB2, on mainframe and AIX/Linux: SQL queries ingested and joined the latest data, and I delivered the output to downstream platforms parsed into fields or as a single string with its layout sent separately, generated the data dictionaries and tested each build on the machines it would run on.",
-    "Moved and validated data across mainframe, AIX/Linux and AWS for models that processed 300M+ data points (records covering the US population).",
+    "Moved and validated data across mainframe, AIX/Linux and AWS for models that processed 300M+ data points (records covering the US population): mainframe tools carried it to distributed systems, SQL loaded tables from CSV files and, on AWS, Python downloaded files and loaded them into databases.",
     "Built the feature-engineering engine for Property Attributes: from the attributes a spec requests, it traces dependencies back to the raw input fields and stops if any input is missing; otherwise it loads only the functions and columns that plan needs and writes each attribute at its level (property, state, property × consumer, property × consumer × trade). With columnar pandas/NumPy operations and bitwise flags, it cut the aggregation run from 4+ hours to 15 minutes.",
-    "Fixed production issues for Experian's banking clients within 24–48 hours. Worked directly with their teams, including heads of data science, as the vendor-side engineer.",
-    "Coordinated 4+ engineering teams on cross-platform implementations and guided architecture decisions (data passing, model integration, inference design).",
-    "Trained client and internal engineers on migration tooling and coding standards, and designed migration procedures that were still in use years later."
+    "Fixed production issues for Experian's banking clients within 24–48 hours. Worked directly with client teams, including heads of data science at banks and retailers, as the vendor-side engineer.",
+    "Coordinated 4+ engineering teams on the Property Attributes project.",
+    "Trained internal and client engineers on the procedures for implementing models; after the training, client teams implemented models on their own."
    ],
    "bullets_es": [
     "Desplegué y robustecí modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS: casos borde, cobertura de pruebas y requisitos regulatorios y de auditoría; sin ajustar los modelos ni ser dueño del score.",
     "Compilé los modelos en C y los ejecuté como funciones definidas por el usuario (UDF) dentro de DB2, en mainframe y AIX/Linux: consultas SQL ingerían los datos y unían las tablas para trabajar con los más recientes, y entregué la salida a otras plataformas separada en campos o como un solo string con el layout enviado aparte, generé los diccionarios de datos y probé cada compilación en las máquinas donde iba a correr.",
-    "Moví y validé datos entre mainframe, AIX/Linux y AWS para modelos que procesaron más de 300 millones de puntos de datos (registros que cubren a la población de EE. UU.).",
+    "Moví y validé datos entre mainframe, AIX/Linux y AWS para modelos que procesaron más de 300 millones de puntos de datos (registros que cubren a la población de EE. UU.): herramientas de mainframe los llevaban a sistemas distribuidos, con SQL cargaba tablas desde archivos CSV y, en AWS, con Python descargaba archivos y los cargaba en bases de datos.",
     "Construí el motor de features de Property Attributes: a partir de los atributos que pide la especificación, rastrea las dependencias hasta los campos de entrada y se detiene si falta algún insumo; si no falta nada, carga solo las funciones y columnas que ese plan necesita y escribe cada atributo en su nivel (propiedad, estado, propiedad × consumidor, propiedad × consumidor × trade). Junto con operaciones columnares en pandas/NumPy y banderas bit a bit, bajó la agregación de 4 horas o más a 15 minutos.",
-    "Corregí problemas en producción para los clientes bancarios de Experian en un plazo de 24–48 horas. Trabajé directamente con sus equipos, incluidas sus jefaturas de ciencia de datos, como ingeniero del lado del proveedor.",
-    "Coordiné a 4 o más equipos de ingeniería en implementaciones multiplataforma y orienté decisiones de arquitectura (paso de datos, integración de modelos, diseño de inferencia).",
-    "Capacité a ingenieros de clientes e internos en herramientas de migración y estándares de código, y diseñé procedimientos de migración que seguían en uso años después."
+    "Corregí problemas en producción para los clientes bancarios de Experian en un plazo de 24–48 horas. Trabajé directamente con los equipos de los clientes, incluidas jefaturas de ciencia de datos de bancos y casas comerciales, como ingeniero del lado del proveedor.",
+    "Coordiné a 4 o más equipos de ingeniería en el proyecto Property Attributes.",
+    "Capacité a ingenieros internos y de clientes en los procedimientos para implementar modelos; después de la capacitación, los equipos de los clientes implementaron modelos por su cuenta."
    ],
    "when_en": "2020 – Apr 2025",
    "when_es": "2020 – abr. 2025"
@@ -92,12 +92,12 @@
    "org_es": "Experian · Remoto, Chile",
    "bullets_en": [
     "Modified mainframe JCL for notification-campaign programs that ran over 300M+ data points.",
-    "Administered and optimized DB2, MySQL and PostgreSQL databases.",
+    "Worked with DB2, MySQL and PostgreSQL; on DB2, wrote queries, created and deployed tables and reviewed indexes.",
     "Supported critical systems 24/7 for internal and external teams, and built internal tools: MVC-structured Shell libraries, file-format converters and, from 2018, small Python CLI tools."
    ],
    "bullets_es": [
     "Modifiqué JCL de mainframe para programas de notificaciones de campañas que corrían sobre más de 300 millones de puntos de datos.",
-    "Administré y optimicé bases de datos DB2, MySQL y PostgreSQL.",
+    "Trabajé con DB2, MySQL y PostgreSQL; en DB2 escribí consultas, creé e implementé tablas y revisé índices.",
     "Di soporte 24/7 a sistemas críticos para equipos internos y externos, y construí herramientas internas: librerías de Shell con estructura MVC, conversores de formatos de archivo y, desde 2018, pequeñas herramientas CLI en Python."
    ]
   },
@@ -251,8 +251,8 @@
    "label_es": "Backend y APIs",
    "short_en": "Backend",
    "short_es": "Backend",
-   "blurb_en": "FastAPI and PostgreSQL services in side projects since April 2026; before that, DB2, MySQL and PostgreSQL administration at Experian (2014–2020).",
-   "blurb_es": "Servicios en FastAPI y PostgreSQL en proyectos personales desde abril de 2026; antes, administración de bases de datos DB2, MySQL y PostgreSQL en Experian (2014–2020).",
+   "blurb_en": "FastAPI and PostgreSQL services in side projects since April 2026; before that, DB2, MySQL and PostgreSQL at Experian (2014–2020).",
+   "blurb_es": "Servicios en FastAPI y PostgreSQL en proyectos personales desde abril de 2026; antes, bases de datos DB2, MySQL y PostgreSQL en Experian (2014–2020).",
    "items": [
     {
      "title_en": "Async Python APIs",
