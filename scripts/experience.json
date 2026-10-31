@@ -1,7 +1,7 @@
 {
  "hero": {
-  "lede_en": "11+ years in software, more than 10 as an engineer at Experian (2014–2025). I built ETL pipelines in Shell, SQL and later Python, and from 2020 deployed and hardened credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) on mainframe, AIX/Linux and AWS, moving and validating data for models that processed 300M+ data points. Since late 2025 I have built LLM features on my own projects, and since April 2026 FastAPI and PostgreSQL backends with typed LLM outputs.",
-  "lede_es": "Más de 11 años en software, más de 10 de ellos como ingeniero en Experian (2014–2025). Construí pipelines ETL en Shell, SQL y más tarde Python, y desde 2020 desplegué y robustecí modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS, moviendo y validando datos para modelos que procesaron más de 300 millones de puntos de datos. Desde fines de 2025 construyo funcionalidades con LLM en proyectos personales, y desde abril de 2026, backends en FastAPI y PostgreSQL con salidas de LLM tipadas.",
+  "lede_en": "11+ years in software, more than 10 as an engineer at Experian (2014–2025). From 2020 I developed credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) and refined them to run in production on mainframe, AIX/Linux and AWS: validating them, moving the data they ran on and producing their distribution reports, for models that processed 300M+ data points. Since late 2025 I have built LLM features on my own projects, and since April 2026 FastAPI and PostgreSQL backends with typed LLM outputs.",
+  "lede_es": "Más de 11 años en software, más de 10 de ellos como ingeniero en Experian (2014–2025). Desde 2020 desarrollé modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) y los refiné para que corrieran en producción en mainframe, AIX/Linux y AWS: los validé, moví los datos con los que corrían y generé sus reportes de distribución, para modelos que procesaron más de 300 millones de puntos de datos. Desde fines de 2025 construyo funcionalidades con LLM en proyectos personales, y desde abril de 2026, backends en FastAPI y PostgreSQL con salidas de LLM tipadas.",
   "stack_en": [
    "Python",
    "pandas",
@@ -91,13 +91,11 @@
    "org_en": "Experian · Remote, Chile",
    "org_es": "Experian · Remoto, Chile",
    "bullets_en": [
-    "Designed and built ETL pipelines in Shell and SQL.",
     "Modified mainframe JCL for notification-campaign programs that ran over 300M+ data points.",
     "Administered and optimized DB2, MySQL and PostgreSQL databases.",
     "Supported critical systems 24/7 for internal and external teams, and built internal tools: MVC-structured Shell libraries, file-format converters and, from 2018, small Python CLI tools."
    ],
    "bullets_es": [
-    "Diseñé y construí pipelines ETL en Shell y SQL.",
     "Modifiqué JCL de mainframe para programas de notificaciones de campañas que corrían sobre más de 300 millones de puntos de datos.",
     "Administré y optimicé bases de datos DB2, MySQL y PostgreSQL.",
     "Di soporte 24/7 a sistemas críticos para equipos internos y externos, y construí herramientas internas: librerías de Shell con estructura MVC, conversores de formatos de archivo y, desde 2018, pequeñas herramientas CLI en Python."
