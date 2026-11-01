@@ -67,21 +67,23 @@
     "Deployed and hardened credit-risk models for Experian's banking clients (Chase, Citi, Bank of America) on mainframe, AIX/Linux and AWS: edge cases, test coverage, regulatory and audit requirements; not tuning the models or owning the score.",
     "Compiled the models in C and ran them as user-defined functions (UDFs) inside DB2, on mainframe and AIX/Linux: SQL queries ingested and joined the latest data, and I delivered the output to downstream platforms parsed into fields or as a single string with its layout sent separately, generated the data dictionaries and tested each build on the machines it would run on.",
     "Moved and validated data across mainframe, AIX/Linux and AWS for models that processed 300M+ data points (records covering the US population): mainframe tools carried it to distributed systems, SQL loaded tables from CSV files and, on AWS, Python downloaded files and loaded them into databases.",
-    "Built the feature-engineering engine for Property Attributes: from the attributes a spec requests, it traces dependencies back to the raw input fields and stops if any input is missing; otherwise it loads data and functions dynamically: only the functions and columns that plan needs and writes each attribute at its level (property, state, property × consumer, property × consumer × trade). With columnar pandas/NumPy operations and bitwise flags, it cut the aggregation run from 4+ hours to 15 minutes.",
+    "As lead developer, built the feature-engineering engine for Property Attributes: from the attributes a spec requests, it traces dependencies back to the raw input fields and stops if any input is missing; otherwise it loads data and functions dynamically: only the functions and columns that plan needs and writes each attribute at its level (property, state, property × consumer, property × consumer × trade). With columnar pandas/NumPy operations and bitwise flags, it cut the aggregation run from 4+ hours to 15 minutes. Developers and data scientists used it through an internal portal to build and deploy models.",
     "Fixed production issues for Experian's banking clients within 24–48 hours. Worked directly with client teams, including heads of data science at banks and retailers, as the vendor-side engineer.",
     "Coordinated 4+ engineering teams on the Property Attributes project.",
     "Designed, end to end, how data reached the models (the queries themselves) and how the models worked inside: how they assembled and concatenated the attributes to compute. I wrote all of those functions.",
-    "Trained internal and client engineers on the procedures for implementing models; after the training, client teams implemented models on their own."
+    "Trained internal and client engineers on the procedures for implementing models; after the training, client teams implemented models on their own.",
+    "Worked in Scrum and Kanban teams and served as backup Scrum Master."
    ],
    "bullets_es": [
     "Desplegué y robustecí modelos de riesgo crediticio para los clientes bancarios de Experian (Chase, Citi, Bank of America) en mainframe, AIX/Linux y AWS: casos borde, cobertura de pruebas y requisitos regulatorios y de auditoría; sin ajustar los modelos ni ser dueño del score.",
     "Compilé los modelos en C y los ejecuté como funciones definidas por el usuario (UDF) dentro de DB2, en mainframe y AIX/Linux: consultas SQL ingerían los datos y unían las tablas para trabajar con los más recientes, y entregué la salida a otras plataformas separada en campos o como un solo string con el layout enviado aparte, generé los diccionarios de datos y probé cada compilación en las máquinas donde iba a correr.",
     "Moví y validé datos entre mainframe, AIX/Linux y AWS para modelos que procesaron más de 300 millones de puntos de datos (registros que cubren a la población de EE. UU.): herramientas de mainframe los llevaban a sistemas distribuidos, con SQL cargaba tablas desde archivos CSV y, en AWS, con Python descargaba archivos y los cargaba en bases de datos.",
-    "Construí el motor de features de Property Attributes: a partir de los atributos que pide la especificación, rastrea las dependencias hasta los campos de entrada y se detiene si falta algún insumo; si no falta nada, carga datos y funciones de forma dinámica: solo las funciones y columnas que ese plan necesita y escribe cada atributo en su nivel (propiedad, estado, propiedad × consumidor, propiedad × consumidor × trade). Junto con operaciones columnares en pandas/NumPy y banderas bit a bit, bajó la agregación de 4 horas o más a 15 minutos.",
+    "Como desarrollador principal, construí el motor de features de Property Attributes: a partir de los atributos que pide la especificación, rastrea las dependencias hasta los campos de entrada y se detiene si falta algún insumo; si no falta nada, carga datos y funciones de forma dinámica: solo las funciones y columnas que ese plan necesita y escribe cada atributo en su nivel (propiedad, estado, propiedad × consumidor, propiedad × consumidor × trade). Junto con operaciones columnares en pandas/NumPy y banderas bit a bit, bajó la agregación de 4 horas o más a 15 minutos. Desarrolladores y científicos de datos lo usaban a través de un portal interno para construir y desplegar modelos.",
     "Corregí problemas en producción para los clientes bancarios de Experian en un plazo de 24–48 horas. Trabajé directamente con los equipos de los clientes, incluidas jefaturas de ciencia de datos de bancos y casas comerciales, como ingeniero del lado del proveedor.",
     "Coordiné a 4 o más equipos de ingeniería en el proyecto Property Attributes.",
     "Diseñé de punta a punta cómo llegaban los datos a los modelos (las consultas mismas) y cómo funcionaban por dentro: cómo ensamblaban y concatenaban los atributos a calcular. Escribí todas esas funciones.",
-    "Capacité a ingenieros internos y de clientes en los procedimientos para implementar modelos; después de la capacitación, los equipos de los clientes implementaron modelos por su cuenta."
+    "Capacité a ingenieros internos y de clientes en los procedimientos para implementar modelos; después de la capacitación, los equipos de los clientes implementaron modelos por su cuenta.",
+    "Trabajé en equipos Scrum y Kanban y fui Scrum Master de respaldo."
    ],
    "when_en": "2020 – Apr 2025",
    "when_es": "2020 – abr. 2025"
@@ -94,20 +96,33 @@
    "org_es": "Experian · Remoto, Chile",
    "bullets_en": [
     "First from the credit-dispute unit to move into software development; others followed.",
-        "High Potentials program: completed with honors (2016); co-led its redesign in 2017, which Experian Chile kept for at least two more years.",
-        "From 2018, implemented models on the batch products team.",
+    "High Potentials program: completed with honors (2016); co-led its redesign in 2017, which Experian Chile kept for at least two more years.",
+    "From 2018, implemented models on the batch products team.",
     "Modified mainframe JCL for notification-campaign programs that ran over 300M+ data points.",
     "Worked with DB2, MySQL and PostgreSQL; on DB2, wrote queries, created and deployed tables and reviewed indexes.",
     "Supported critical systems 24/7 for internal and external teams, and built internal tools: MVC-structured Shell libraries, file-format converters and, from 2018, small Python CLI tools."
    ],
    "bullets_es": [
     "Fui el primero de la unidad de disputas de crédito en pasar a desarrollo de software; después otros siguieron ese camino.",
-        "Programa High Potentials: lo completé con distinción (2016) y en 2017 co-lideré su rediseño, que Experian Chile mantuvo al menos dos años más.",
-        "Desde 2018 implementé modelos en el equipo de batch products.",
+    "Programa High Potentials: lo completé con distinción (2016) y en 2017 co-lideré su rediseño, que Experian Chile mantuvo al menos dos años más.",
+    "Desde 2018 implementé modelos en el equipo de batch products.",
     "Modifiqué JCL de mainframe para programas de notificaciones de campañas que corrían sobre más de 300 millones de puntos de datos.",
     "Trabajé con DB2, MySQL y PostgreSQL; en DB2 escribí consultas, creé e implementé tablas y revisé índices.",
     "Di soporte 24/7 a sistemas críticos para equipos internos y externos, y construí herramientas internas: librerías de Shell con estructura MVC, conversores de formatos de archivo y, desde 2018, pequeñas herramientas CLI en Python."
    ]
+  },
+  {
+    "when": "2013 – 2014",
+    "title_en": "Consumer Services Associate",
+    "title_es": "Consumer Services Associate",
+    "org_en": "Experian · Chile",
+    "org_es": "Experian · Chile",
+    "bullets_en": [
+      "Processed and validated credit-report disputes; moved into software development in 2014."
+    ],
+    "bullets_es": [
+      "Procesé y validé disputas de reportes de crédito; en 2014 pasé a desarrollo de software."
+    ]
   },
   {
    "when": "2016 – 2020",
@@ -189,8 +204,8 @@
     {
      "title_en": "Property attributes at four levels",
      "title_es": "Atributos de propiedades en cuatro niveles",
-     "text_en": "The first way of coding four attribute sets from property data (by property, by state, by property × consumer, and by property × consumer × trade) grouped rows by consumer and ran if-else functions over them, and it was very slow. I built a feature framework in Python that the team switched to: features are defined in files, loaded into memory and computed on the fly at each aggregation level, with columnar pandas/NumPy operations instead of row groups and flags as bitwise operations on data encoded as numbers instead of string checks. That rework is where the aggregation speed-up in Work history came from. I implemented and deployed it, coordinated with the AWS data team on loading property records across North America to validate it, and worked with data science on the model inputs and with marketing on specs and data dictionaries.",
-     "text_es": "La primera forma de programar cuatro conjuntos de atributos a partir de datos de propiedades (por propiedad, por estado, por propiedad × consumidor y por propiedad × consumidor × trade) agrupaba filas por consumidor y les aplicaba funciones con if-else, y era muy lenta. Construí en Python un framework de features que el equipo adoptó: cada feature se define en un archivo, se carga en memoria y se calcula al vuelo en cada nivel de agregación, con operaciones columnares en pandas/NumPy en vez de grupos de filas, y las banderas como operaciones bit a bit sobre datos codificados como números en vez de comparar strings. De ese cambio salió la mejora de velocidad de la agregación que aparece en la Trayectoria. Lo implementé y desplegué, coordiné con el equipo de datos en AWS la carga de los registros de propiedades de Norteamérica para validarlo, y trabajé con ciencia de datos en las entradas del modelo y con marketing en las especificaciones y los diccionarios de datos.",
+     "text_en": "The first way of coding four attribute sets from property data (by property, by state, by property × consumer, and by property × consumer × trade) grouped rows by consumer and ran if-else functions over them, and it was very slow. As lead developer, I built a feature framework in Python that the team switched to: features are defined in files, loaded into memory and computed on the fly at each aggregation level, with columnar pandas/NumPy operations instead of row groups and flags as bitwise operations on data encoded as numbers instead of string checks. Developers and data scientists used it through an internal portal to build and deploy models. That rework is where the aggregation speed-up in Work history came from. I implemented and deployed it, coordinated with the AWS data team on loading property records across North America to validate it, and worked with data science on the model inputs and with marketing on specs and data dictionaries.",
+     "text_es": "La primera forma de programar cuatro conjuntos de atributos a partir de datos de propiedades (por propiedad, por estado, por propiedad × consumidor y por propiedad × consumidor × trade) agrupaba filas por consumidor y les aplicaba funciones con if-else, y era muy lenta. Como desarrollador principal, construí en Python un framework de features que el equipo adoptó: cada feature se define en un archivo, se carga en memoria y se calcula al vuelo en cada nivel de agregación, con operaciones columnares en pandas/NumPy en vez de grupos de filas, y las banderas como operaciones bit a bit sobre datos codificados como números en vez de comparar strings. Desarrolladores y científicos de datos lo usaban a través de un portal interno para construir y desplegar modelos. De ese cambio salió la mejora de velocidad de la agregación que aparece en la Trayectoria. Lo implementé y desplegué, coordiné con el equipo de datos en AWS la carga de los registros de propiedades de Norteamérica para validarlo, y trabajé con ciencia de datos en las entradas del modelo y con marketing en las especificaciones y los diccionarios de datos.",
      "where_en": "Experian, 2023 · no code to show",
      "where_es": "Experian, 2023 · sin código para mostrar",
      "tech": [
